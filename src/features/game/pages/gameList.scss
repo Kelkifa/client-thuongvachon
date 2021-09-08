@@ -1,0 +1,14 @@
+.game-list {
+	background-color: orange;
+
+	&__title {
+		text-align: center;
+	}
+
+	&__body {
+		&__img {
+			max-height: 100%;
+			max-width: 100%;
+		}
+	}
+}

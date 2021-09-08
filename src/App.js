@@ -2,10 +2,19 @@ import './App.css';
 import 'assets/scss/components/gridLibrary.scss';
 import 'assets/scss/base.scss';
 
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch
+} from "react-router-dom";
+import { Suspense, useEffect } from 'react';
+
+import Game from 'features/game/Game';
+import MainLayout from 'layouts/MainLayout';
+import NotFound from 'components/NotFound';
 import { gameClientGet } from 'features/game/gameSlice';
 // import logo from './logo.svg';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 
 // import 'assets/scss/base.scss';
 
@@ -28,8 +37,25 @@ function App() {
 
   // Render
   return (
-    <div className="App">
-      <h1>Thuong va chon hello world</h1>
+    <div className="custom-scroll">
+      <Suspense fallback={<div>Loading ... </div>}>
+        <Router>
+          <Switch>
+
+            <Route>
+              <MainLayout>
+                <Switch>
+                  <Route path='/playTogether' component={Game} />
+                  <Route component={NotFound} />
+                </Switch>
+              </MainLayout>
+            </Route>
+
+            <Route component={NotFound} />
+
+          </Switch>
+        </Router>
+      </Suspense>
     </div>
   );
 }

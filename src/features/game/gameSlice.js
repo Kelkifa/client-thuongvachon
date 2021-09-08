@@ -3,9 +3,7 @@ import { gameApi } from "api/gameApi";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 export const gameClientGet = createAsyncThunk('game/gameClientGet', async () => {
-    const response = await gameApi.clientGet();
-    console.log('[RESPONSE]', response);
-    return response;
+    return await gameApi.clientGet();
 });
 
 
