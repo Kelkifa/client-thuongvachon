@@ -3,7 +3,8 @@ import { gameApi } from "api/gameApi";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 export const gameClientGet = createAsyncThunk('game/gameClientGet', async () => {
-    return await gameApi.clientGet();
+    const response = await gameApi.clientGet();
+    return response;
 });
 
 
@@ -20,6 +21,7 @@ const game = createSlice({
     extraReducers: {
         [gameClientGet.pending]: (state, action) => {
             state.user.loading = true;
+            return state;
         },
         [gameClientGet.rejected]: (state, action) => {
             state.user.loading = false;

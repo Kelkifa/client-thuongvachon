@@ -1,8 +1,55 @@
+$color-border-btn: rgb(138, 162, 182);
+
 .game-list {
 	background-color: orange;
+	background-image: url("https://thuongvachon.web.app/gameBackground.jpg");
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-size: 100% auto;
+
+	height: 100vh;
 
 	&__title {
 		text-align: center;
+		color: white;
+	}
+
+	&__type-select {
+		padding: 20px;
+
+		&__btn {
+			border: none;
+			border-left: 2px solid $color-border-btn;
+			border-bottom: 2px solid $color-border-btn;
+
+			padding: 5px;
+
+			// background-color: #efefef;
+
+			// text-align: center;
+			// text-decoration: none;
+
+			cursor: pointer;
+			color: black;
+
+			&__image {
+				grid-column-end: 7;
+				border-radius: 3px 0 0 3px;
+			}
+
+			&__video {
+				border-radius: 0px 3px 3px 0px;
+				grid-column-start: 7;
+			}
+
+			&--active {
+				// box-shadow: 3px 3px 5px rgb(51, 44, 44);
+				border: 3px solid rgb(113, 128, 136);
+				background-color: rgb(112, 131, 141);
+				color: rgb(226, 221, 221);
+			}
+		}
 	}
 
 	&__body {

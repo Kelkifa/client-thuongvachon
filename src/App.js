@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import { Suspense, useEffect } from 'react';
 
+import Admin from 'features/admin/Admin';
+import AdminLayout from 'layouts/AdminLayout';
 import Game from 'features/game/Game';
 import MainLayout from 'layouts/MainLayout';
 import NotFound from 'components/NotFound';
@@ -26,7 +28,6 @@ function App() {
     const firstFetchData = async () => {
       try {
         const response = await dispatch(gameClientGet());
-        console.log(response);
       } catch (err) {
         console.log(err);
       }
@@ -37,12 +38,17 @@ function App() {
 
   // Render
   return (
-    <div className="custom-scroll">
+    <div>
       <Suspense fallback={<div>Loading ... </div>}>
         <Router>
           <Switch>
+            <Route path='/admin'>
+              <AdminLayout>
+                <Admin />
+              </AdminLayout>
+            </Route>
 
-            <Route>
+            <Route path='/'>
               <MainLayout>
                 <Switch>
                   <Route path='/playTogether' component={Game} />

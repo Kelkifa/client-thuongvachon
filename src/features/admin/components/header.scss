@@ -1,0 +1,50 @@
+$color-header: #00001580;
+$width-fluid: 90%;
+$padding-header: 15px;
+
+.admin-header-container {
+  width: 100%;
+
+  background-color: white;
+
+  .admin-header {
+    width: 95%;
+
+    font-size: 15px;
+    color: $color-header;
+
+    &__top,
+    &__bottom {
+      padding: $padding-header 0;
+    }
+
+    &__top {
+      &__left,
+      &__right {
+        align-items: center;
+
+        & > * {
+          cursor: pointer;
+        }
+      }
+
+      &__right {
+        font-size: 20px;
+        color: #0000155e;
+
+        *:first-child {
+          grid-column-end: 11;
+        }
+      }
+    }
+
+    &__botton {
+      padding: $padding-header 0;
+      border-top: 1px solid rgba(92, 90, 90, 0.342);
+
+      &__link {
+        color: #0d6efd;
+      }
+    }
+  }
+}

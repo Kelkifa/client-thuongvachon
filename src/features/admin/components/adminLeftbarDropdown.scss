@@ -1,0 +1,53 @@
+$dropdown-pd: 14px;
+$item-hover-color: #321fdb;
+$dropdown-active-color: #465672;
+
+.AdminLeftbarDropdown {
+  font-size: 14px;
+  &__show {
+    cursor: pointer;
+    padding: $dropdown-pd 0;
+
+    &__icon {
+      display: flex;
+      align-items: center;
+
+      align-self: center;
+      justify-self: center;
+
+      font-size: 100%;
+
+      transition-duration: 0.3s;
+    }
+    & > * {
+      align-self: center;
+    }
+
+    &:hover {
+      background-color: #5b6b86;
+    }
+
+    &--active {
+      background-color: $dropdown-active-color;
+    }
+  }
+  &__hide {
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+
+    &__item {
+      padding: $dropdown-pd 0;
+
+      color: white;
+      &__text {
+        grid-column: 3 / column-end;
+      }
+
+      &:hover {
+        background-color: $item-hover-color;
+      }
+    }
+  }
+}

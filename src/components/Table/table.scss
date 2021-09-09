@@ -1,0 +1,40 @@
+.component-table {
+	border-collapse: collapse;
+	tr {
+		// display: flex;
+	}
+	th,
+	td {
+		padding: 8px;
+		input[type="checkbox"] {
+			margin: 4px 0 0 0;
+			display: block;
+		}
+		vertical-align: top;
+		text-align: left;
+	}
+	td {
+	}
+
+	th {
+		font-size: 14px;
+	}
+
+	tbody {
+		tr {
+			border-top: 1.5px solid rgba(83, 82, 82, 0.267);
+
+			&:hover {
+				border-top: 1.5px solid rgba(100, 139, 175, 0.603);
+				background-color: rgba(175, 205, 236, 0.603);
+			}
+		}
+		tr.component-table--empty {
+			background-color: white;
+			border-top: 1.5px solid rgba(83, 82, 82, 0.267);
+		}
+	}
+	tr:nth-child(even) {
+		background-color: #f2f2f2;
+	}
+}
