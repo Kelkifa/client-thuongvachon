@@ -6,7 +6,7 @@ const productURL = 'https://thuongvachon.herokuapp.com/api';
 const devURL = 'http://localhost:8080/api';
 
 const axiosClient = axios.create({
-    baseURL: 'https://thuongvachon.herokuapp.com/api',
+    baseURL: devURL,
     headers: {
         'content-type': 'application/json'
     },

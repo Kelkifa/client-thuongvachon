@@ -1,0 +1,12 @@
+.my-tooltip {
+	position: fixed;
+	z-index: 8;
+
+	border-radius: 5px;
+	font-size: 12px;
+
+	padding: 3px 15px;
+
+	background-color: rgba(241, 238, 179, 0.836);
+	transition: 0.1s linear;
+}

@@ -1,6 +1,5 @@
 import AdminNotifice from "./AdminNotifice";
 import {Formik} from "formik";
-import LoadNotifice from "components/Dialog/LoadNotifice";
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "components/Table/Table";

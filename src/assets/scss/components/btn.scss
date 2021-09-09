@@ -1,0 +1,36 @@
+.custom-btn__buy {
+	background-color: #fa7d19;
+	border: 2px solid #fa7d19;
+	outline: none;
+	border-radius: 3px;
+
+	font-size: 14px;
+	font-weight: bold;
+	color: white;
+
+	cursor: pointer;
+}
+.custom-btn__add-cart {
+	background-color: transparent;
+	border: 2px solid #fa7d19;
+	outline: none;
+
+	font-size: 14px;
+	font-weight: bold;
+	color: #fa7d19;
+}
+
+.btn-auth {
+	padding: 8px 14px;
+
+	background-color: #0078ff;
+
+	outline: none;
+	border: none;
+	border-radius: 3px;
+
+	color: white;
+
+	cursor: pointer;
+	margin: 0;
+}
