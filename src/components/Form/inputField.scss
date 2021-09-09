@@ -1,0 +1,39 @@
+.input-field {
+	color: #212529de;
+
+	label {
+	}
+	input {
+		height: 38px;
+	}
+	&__input {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		display: block;
+
+		width: 100%;
+		padding: 6px 12px;
+		margin-top: 8px;
+
+		outline: rgba(23, 146, 218, 0.411);
+		border: 1px solid #ced4da;
+		border-radius: 4px;
+
+		font-size: 16px;
+		color: #18191ac9;
+		line-height: 1.5;
+
+		box-shadow: 1px 1px 4px rgba(99, 120, 165, 0.5);
+
+		&--error {
+			border: 1px solid rgba(245, 47, 47, 0.801);
+			box-shadow: 1px 1px 4px rgba(218, 68, 68, 0.5);
+		}
+		&:hover {
+			border-color: #2684ff;
+		}
+	}
+
+	&__error {
+		margin-top: 5px;
+	}
+}

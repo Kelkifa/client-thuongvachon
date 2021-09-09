@@ -10,10 +10,28 @@ export const gameClientGet = createAsyncThunk('game/gameClientGet', async () => 
 export const gameAdminGet = createAsyncThunk('game/gameAdminGet', async () => {
     const response = await gameApi.adminGet();
     return response;
-})
+});
+
 export const gameDelete = createAsyncThunk('game/gameDelete', async (data) => {
-    return;
+    const response = await gameApi.softDelete(data);
+    return response;
+});
+
+export const gameForceDelete = createAsyncThunk('game/gameForceDelete', async (data) => {
+    const response = await gameApi.forceDelete(data);
+    return response;
 })
+
+export const gameRestore = createAsyncThunk('game/gameRestore', async (data) => {
+    const response = await gameApi.restore(data);
+    return response;
+})
+
+export const gameCreate = createAsyncThunk('game/gameCreate', async (data) => {
+    const response = await gameApi.create(data);
+    return response
+})
+
 
 
 const game = createSlice({
@@ -73,6 +91,55 @@ const game = createSlice({
             state.admin.trash.error = false;
             state.admin.list.data = action.payload.listResponse;
             state.admin.trash.data = action.payload.trashResponse;
+        },
+
+        // Admin Sort Delete
+        [gameDelete.fulfilled]: (state, action) => {
+            if (action.payload.success) {
+                state.admin.list.data = state.admin.list.data.filter(value => {
+                    if (action.payload.response.includes(value._id)) {
+                        state.admin.trash.data.unshift(value);
+                        // console.log(value);
+                        return false;
+                    }
+                    return true;
+                })
+
+                return state;
+            }
+        },
+
+        // Admin Force Delete
+        [gameForceDelete.fulfilled]: (state, action) => {
+            if (action.payload.success) {
+                state.admin.trash.data = state.admin.trash.data.filter(value => !action.payload.response.includes(value._id));
+                return state;
+            }
+        },
+
+
+        // Admin Restore
+        [gameRestore.fulfilled]: (state, action) => {
+            if (action.payload.success) {
+                state.admin.trash.data = state.admin.trash.data.filter(value => {
+                    if (action.payload.response.includes(value._id)) {
+                        state.admin.list.data.unshift(value);
+                        return false;
+                    }
+                    return true;
+                })
+
+                return state;
+            }
+        },
+
+        // Admin Create
+        [gameCreate.fulfilled]: (state, action) => {
+            if (!action.payload.success) {
+                return state;
+            }
+            state.admin.list.data = action.payload.response.concat(state.admin.list.data);
+            return state;
         },
 
     }

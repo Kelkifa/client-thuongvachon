@@ -97,7 +97,7 @@ function Leftbar(props) {
 									iconComponennt={<FaGamepad />}
 									showText="Games"
 									hideTextList={[
-										{to: "/admin/games/table", text: "Table"},
+										{to: "/admin/games/list", text: "Table"},
 										{to: "/admin/games/create", text: "Create"},
 										{to: "/admin/games/trash", text: "Trash"},
 									]}

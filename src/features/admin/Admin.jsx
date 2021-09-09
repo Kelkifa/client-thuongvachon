@@ -1,7 +1,9 @@
 import {Redirect, Route, Switch, useRouteMatch} from "react-router";
 
 import AdminGameList from "features/game/pages/AdminGameList";
+import AdminGameTrash from "features/game/pages/AdminGameTrash";
 import Databoard from "./pages/Databoard";
+import GameCreate from "features/game/pages/GameCreate";
 import NotFound from "components/NotFound";
 import React from "react";
 import {gameAdminGet} from "features/game/gameSlice";
@@ -26,6 +28,8 @@ function Admin(props) {
 	}, []);
 	return (
 		<Switch>
+			<Route path={`${match.url}/games/create`} component={GameCreate} />
+			<Route path={`${match.url}/games/trash`} component={AdminGameTrash} />
 			<Route path={`${match.url}/games/list`} component={AdminGameList} />
 			<Route path={`${match.url}/databoard`} component={Databoard}></Route>
 			<Route path={match.url}>

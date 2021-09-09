@@ -3,7 +3,6 @@ import {Formik} from "formik";
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "components/Table/Table";
-import {useDispatch} from "react-redux";
 
 AdminTable.propTypes = {
 	tableHeaders: PropTypes.array,
@@ -159,7 +158,8 @@ function AdminTable(props) {
 													setFieldValue("selectedInputs", []);
 												}}
 												checked={
-													values.selectedInputs.length === idList.length ||
+													(values.selectedInputs.length === idList.length &&
+														idList.length !== 0) ||
 													values.selectAllInput[0] == "1"
 														? true
 														: false
