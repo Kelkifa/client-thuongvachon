@@ -1,10 +1,11 @@
 .main-layout {
-	background-color: white;
+	background-image: url("https://thuongvachon.web.app/gameBackground.jpg");
+	object-fit: cover;
+	background-repeat: no-repeat;
+	background-size: 100% calc(100vw / 1.741574);
 	height: 100vh;
 
-	background-image: url("https://thuongvachon.web.app/gameBackground.jpg");
-	// background-position: ;
-	background-repeat: no-repeat;
-	background-attachment: scroll;
-	background-size: contain;
+	&__content {
+		margin-top: 70px;
+	}
 }

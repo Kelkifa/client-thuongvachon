@@ -24,7 +24,7 @@ function GameList(props) {
 	};
 	// RENDER
 	return (
-		<div className="game-list custom-scroll">
+		<div className="game-list">
 			<div
 				className="grid wide"
 				// style={{

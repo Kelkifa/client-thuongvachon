@@ -12,8 +12,10 @@ import { Suspense, useEffect } from 'react';
 import Admin from 'features/admin/Admin';
 import AdminLayout from 'layouts/AdminLayout';
 import Game from 'features/game/Game';
+import HomePage from 'components/Home/HomePage';
 import MainLayout from 'layouts/MainLayout';
 import NotFound from 'components/NotFound';
+import ToDo from 'features/ToDo/ToDo';
 import { gameClientGet } from 'features/game/gameSlice';
 // import logo from './logo.svg';
 import { useDispatch } from 'react-redux';
@@ -51,7 +53,9 @@ function App() {
             <Route path='/'>
               <MainLayout>
                 <Switch>
+                  <Route path='/todo' component={ToDo} />
                   <Route path='/playTogether' component={Game} />
+                  <Route path='/' component={HomePage} />
                   <Route component={NotFound} />
                 </Switch>
               </MainLayout>

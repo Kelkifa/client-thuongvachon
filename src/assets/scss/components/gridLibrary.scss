@@ -8,6 +8,7 @@
 	display: grid;
 	width: 100%;
 	margin: 0 auto;
+
 	.row-c10 {
 		display: grid;
 		grid-template-columns: repeat(10, 1fr);
@@ -118,7 +119,12 @@
 	.cg-20 {
 		column-gap: 20px;
 	}
-
+	.rg-5 {
+		row-gap: 5px;
+	}
+	.rg-10 {
+		row-gap: 10px;
+	}
 	.rg-20 {
 		row-gap: 20px;
 	}
