@@ -48,9 +48,27 @@ function ToDoCalendarRow(props) {
 			</ul>
 			<div className="todo-calendar-row__note">
 				{notesInRow.map(value => {
+					// console.log(arr);
+					const startCol =
+						value.from - dateList[0] > 0
+							? (value.from - dateList[0]) / (1000 * 3600 * 24) + 1
+							: 1;
+					const endCol = 8;
+					console.log(`[start]`, {startCol, endCol});
 					return (
-						<div className="todo-calendar-row__note__row">
-							<div className="note__row--c5">Đồ con ghẹ !</div>
+						<div
+							key={value.to.getDate() + value.from.getDate()}
+							className="todo-calendar-row__note__row"
+						>
+							<div
+								// className="note__row--c5"
+								style={{
+									backgroundColor: "rgba(255, 0, 0, 0.4404)",
+									gridColumn: `${startCol} / ${endCol}`,
+								}}
+							>
+								{value.content}
+							</div>
 						</div>
 					);
 				})}
