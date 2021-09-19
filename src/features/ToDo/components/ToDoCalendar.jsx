@@ -24,12 +24,12 @@ const dating = [
 	{
 		content: "ngay gi 2",
 		from: new Date(2021, 8, 1),
-		to: new Date(2021, 8, 25),
+		to: new Date(2021, 8, 27),
 	},
 	{
 		content: "ngay gi 3",
 		from: new Date(2021, 8, 5),
-		to: new Date(2021, 8, 7),
+		to: new Date(2021, 8, 8),
 	},
 	{
 		content: "ngay gi 4",
@@ -40,6 +40,11 @@ const dating = [
 		content: "ngay gi 5",
 		from: new Date(2021, 8, 9),
 		to: new Date(2021, 8, 15),
+	},
+	{
+		content: "ngay gi 6",
+		from: new Date(2021, 8, 11),
+		to: new Date(2021, 8, 11),
 	},
 ];
 
@@ -52,7 +57,7 @@ function ToDoCalendar(props) {
 			value.to >= showDateList[0]
 	);
 	const noteWithLayer = getLayerNote(notesInMonth);
-	console.log("[noteWithLayer]", noteWithLayer);
+	// console.log("[noteWithLayer]", noteWithLayer);
 
 	const curMonth = showDateList[7] && showDateList[7].getMonth(); // To compare to blur showed days
 

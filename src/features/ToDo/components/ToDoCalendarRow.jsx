@@ -20,15 +20,30 @@ const notesToElement = notes => {
 	return notes;
 };
 function ToDoCalendarRow(props) {
-	// Props
+	// PROPS
 	const {className, dateList, notes} = props;
 
-	// Render
+	// RENDER
 	if (dateList.length !== 7) return;
-
 	const notesInRow = notes.filter(
-		note => note.from < dateList[6] && note.to > dateList[0]
+		note => note.from <= dateList[6] && note.to >= dateList[0]
 	);
+	console.log("///////////////////////////");
+	console.log(`[notes]`, notes);
+	notesInRow.sort((a, b) => a.layer - b.layer);
+	console.log("[notesInRow]", notesInRow);
+	// console.log("[notesInRow]", notesInRow);
+
+	const maxLayer = notesInRow[notesInRow.length - 1].layer;
+	const noteElement = [];
+
+	// console.log(`[maxlayer]`, maxLayer);
+	for (let i = 0; i <= maxLayer; i++) {
+		const currLayer = notesInRow.filter(value => value.layer === i);
+		noteElement.push(currLayer);
+	}
+	console.log(`[maxLayer]`, maxLayer);
+	console.log(`[noteElement]`, noteElement);
 
 	return (
 		<div className="todo-calendar-row">
@@ -47,31 +62,34 @@ function ToDoCalendarRow(props) {
 				))}
 			</ul>
 			<div className="todo-calendar-row__note">
-				{notesInRow.map(value => {
-					// console.log(arr);
-					const startCol =
-						value.from - dateList[0] > 0
-							? (value.from - dateList[0]) / (1000 * 3600 * 24) + 1
-							: 1;
-					const endCol = 8;
-					console.log(`[start]`, {startCol, endCol});
-					return (
-						<div
-							key={value.to.getDate() + value.from.getDate()}
-							className="todo-calendar-row__note__row"
-						>
-							<div
-								// className="note__row--c5"
-								style={{
-									backgroundColor: "rgba(255, 0, 0, 0.4404)",
-									gridColumn: `${startCol} / ${endCol}`,
-								}}
-							>
-								{value.content}
-							</div>
-						</div>
-					);
-				})}
+				{noteElement.map((value, index) => (
+					<div key={index} className="todo-calendar-row__note__row">
+						{value.map(val => {
+							const startCol =
+								val.from - dateList[0] > 0
+									? (val.from - dateList[0]) / (1000 * 3600 * 24) + 1
+									: 1;
+							const endCol =
+								dateList[6] - val.to > 0
+									? 8 - (dateList[6] - val.to) / (1000 * 3600 * 24)
+									: 8;
+							// console.log({startCol, endCol});
+
+							return (
+								<div
+									// className="note__row--c5"
+									key={val.to.getDate() + val.from.getDate()}
+									style={{
+										backgroundColor: "rgba(255, 0, 0, 0.4404)",
+										gridColumn: `${startCol} / ${endCol}`,
+									}}
+								>
+									{val.content}
+								</div>
+							);
+						})}
+					</div>
+				))}
 			</div>
 		</div>
 	);
