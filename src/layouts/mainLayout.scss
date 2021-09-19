@@ -1,11 +1,16 @@
-.main-layout {
-	background-image: url("https://thuongvachon.web.app/gameBackground.jpg");
-	object-fit: cover;
-	background-repeat: no-repeat;
-	background-size: 100% calc(100vw / 1.741574);
-	height: 100vh;
+.main-layout__container {
+	background-image: linear-gradient(to right, #c464fd, #c6519e, #ff61b8);
 
-	&__content {
-		margin-top: 70px;
+	height: 100vh;
+	.main-layout {
+		background-image: url("https://thuongvachon.web.app/gameBackground.jpg");
+		object-fit: cover;
+		background-repeat: no-repeat;
+		background-size: 100% calc(100vw / 1.741574);
+		height: 100vh;
+
+		&__content {
+			margin-top: 70px;
+		}
 	}
 }

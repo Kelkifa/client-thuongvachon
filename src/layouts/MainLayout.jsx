@@ -9,9 +9,11 @@ function MainLayout(props) {
 
 	// RENDER
 	return (
-		<div className="main-layout">
-			<Header />
-			<div className="main-layout__content">{children}</div>
+		<div className="main-layout__container custom-scroll">
+			<div className="main-layout">
+				<Header />
+				<div className="main-layout__content">{children}</div>
+			</div>
 		</div>
 	);
 }

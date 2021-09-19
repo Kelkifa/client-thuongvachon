@@ -67,6 +67,12 @@
 	.c-12 {
 		grid-column: span 12;
 	}
+	.c-13 {
+		grid-column: span 13;
+	}
+	.c-14 {
+		grid-column: span 14;
+	}
 	//COLUMN GAP
 	.cg-0 {
 		column-gap: 0px;
@@ -180,6 +186,12 @@
 		.l-12 {
 			grid-column: span 12;
 		}
+		.l-13 {
+			grid-column: span 13;
+		}
+		.l-14 {
+			grid-column: span 14;
+		}
 	}
 }
 @media screen and (max-width: 740px) {
@@ -232,6 +244,12 @@
 		.t-12 {
 			grid-column: span 12;
 		}
+		.t-13 {
+			grid-column: span 13;
+		}
+		.t-14 {
+			grid-column: span 14;
+		}
 	}
 }
 // MOBILE
@@ -278,6 +296,12 @@
 		}
 		.m-12 {
 			grid-column: span 12;
+		}
+		.m-13 {
+			grid-column: span 13;
+		}
+		.m-14 {
+			grid-column: span 14;
 		}
 	}
 }

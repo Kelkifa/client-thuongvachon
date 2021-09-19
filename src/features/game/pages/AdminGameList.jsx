@@ -13,7 +13,7 @@ import {gameDelete} from "../gameSlice";
 function AdminGameList(props) {
 	const dispatch = useDispatch();
 	const gameInfo = useSelector(state => state.games.admin.list);
-	const tableHeaders = ["indedx", "Id", "Image", "CreatedAt", "Options"];
+	const tableHeaders = ["index", "Id", "Image", "CreatedAt", "Options"];
 	const gameIds = gameInfo.data.map(value => value._id);
 
 	const [notifice, setNotifice] = useState({

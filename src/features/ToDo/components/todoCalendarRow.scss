@@ -1,0 +1,83 @@
+.todo-calendar-row {
+	&__date {
+		display: grid;
+		grid-template-columns: repeat(14, 1fr);
+		grid-template-rows: auto;
+
+		margin: 0;
+		padding: 0;
+
+		list-style: none;
+
+		li {
+			grid-column: span 2;
+
+			text-align: center;
+		}
+		&__blur {
+			color: rgb(182, 171, 171);
+		}
+	}
+
+	&__note {
+		&__row {
+			display: grid;
+			grid-template-columns: repeat(7, 1fr);
+			grid-template-rows: auto;
+
+			.note__row--c7 {
+				background-color: rgba(255, 0, 0, 0.404);
+				grid-column: span 7;
+			}
+			.note__row--c6 {
+				background-color: rgba(255, 0, 0, 0.404);
+				grid-column: span 6;
+			}
+			.note__row--c5 {
+				background-color: rgba(255, 0, 0, 0.404);
+				grid-column: 3 / span 4;
+			}
+			.note__row--c4 {
+				background-color: rgba(255, 0, 0, 0.4404);
+				grid-column: span 4;
+			}
+			.note__row--c3 {
+				background-color: rgba(255, 0, 0, 0.404);
+				grid-column: span 3;
+			}
+			.note__row--c2 {
+				background-color: rgba(255, 0, 0, 0.404);
+				grid-column: span 2;
+			}
+			.note__row--c1 {
+				background-color: rgba(255, 0, 0, 0.404);
+				grid-column: span 1;
+			}
+			.note__row--c0 {
+				display: none;
+			}
+
+			.note__row--start6 {
+				grid-column-start: 6;
+			}
+			.note__row--start5 {
+				grid-column-start: 5;
+			}
+			.note__row--start4 {
+				grid-column-start: 4;
+			}
+			.note__row--start3 {
+				grid-column-start: 3;
+			}
+			.note__row--start2 {
+				grid-column-start: 2;
+			}
+			.note__row--start1 {
+				grid-column-start: 1;
+			}
+			.note__row--start0 {
+				display: none;
+			}
+		}
+	}
+}
