@@ -3,7 +3,9 @@
 	display: grid;
 	grid-template-columns: repeat(14, 1fr);
 	grid-template-rows: auto;
-	row-gap: 5px;
+	row-gap: 10px;
+
+	border-radius: 3px;
 
 	background-color: rgba(0, 0, 0, 0.596);
 

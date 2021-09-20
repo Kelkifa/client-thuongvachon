@@ -1,8 +1,10 @@
 import "./todoCalendarRow.scss";
 
+import CalendarNote from "./CalendarNote";
 import PropTypes from "prop-types";
 import React from "react";
-import ToDoCalendarNode from "./ToDoCalendarNode";
+import ToDoCalendarLayer from "./ToDoCalendarLayer";
+import {useState} from "react";
 
 ToDoCalendarRow.propTypes = {
 	dateList: PropTypes.array,
@@ -13,28 +15,22 @@ ToDoCalendarRow.defaultProps = {
 	dateList: [],
 	notes: [],
 };
-const notesToElement = notes => {
-	if (!notes.length) return [];
-
-	const noteEleArr = notes.map(value => {});
-	return notes;
-};
 function ToDoCalendarRow(props) {
 	// PROPS
 	const {className, dateList, notes} = props;
+	// STATES
+	const [isActive, setIsActive] = useState(false);
 
 	// RENDER
 	if (dateList.length !== 7) return;
 	const notesInRow = notes.filter(
 		note => note.from <= dateList[6] && note.to >= dateList[0]
 	);
-	console.log("///////////////////////////");
-	console.log(`[notes]`, notes);
 	notesInRow.sort((a, b) => a.layer - b.layer);
-	console.log("[notesInRow]", notesInRow);
-	// console.log("[notesInRow]", notesInRow);
 
-	const maxLayer = notesInRow[notesInRow.length - 1].layer;
+	const maxLayer = notesInRow[notesInRow.length - 1]
+		? notesInRow[notesInRow.length - 1].layer
+		: -1;
 	const noteElement = [];
 
 	// console.log(`[maxlayer]`, maxLayer);
@@ -42,8 +38,11 @@ function ToDoCalendarRow(props) {
 		const currLayer = notesInRow.filter(value => value.layer === i);
 		noteElement.push(currLayer);
 	}
-	console.log(`[maxLayer]`, maxLayer);
-	console.log(`[noteElement]`, noteElement);
+
+	// const handleNoteOver = e => {
+	// 	e.target.style.height = "100px";
+	// 	console.log(e.target.style);
+	// };
 
 	return (
 		<div className="todo-calendar-row">
@@ -61,34 +60,19 @@ function ToDoCalendarRow(props) {
 					</li>
 				))}
 			</ul>
-			<div className="todo-calendar-row__note">
+			<div
+				className="todo-calendar-row__note"
+				onClick={() => {
+					setIsActive(!isActive);
+				}}
+			>
 				{noteElement.map((value, index) => (
-					<div key={index} className="todo-calendar-row__note__row">
-						{value.map(val => {
-							const startCol =
-								val.from - dateList[0] > 0
-									? (val.from - dateList[0]) / (1000 * 3600 * 24) + 1
-									: 1;
-							const endCol =
-								dateList[6] - val.to > 0
-									? 8 - (dateList[6] - val.to) / (1000 * 3600 * 24)
-									: 8;
-							// console.log({startCol, endCol});
-
-							return (
-								<div
-									// className="note__row--c5"
-									key={val.to.getDate() + val.from.getDate()}
-									style={{
-										backgroundColor: "rgba(255, 0, 0, 0.4404)",
-										gridColumn: `${startCol} / ${endCol}`,
-									}}
-								>
-									{val.content}
-								</div>
-							);
-						})}
-					</div>
+					<ToDoCalendarLayer
+						key={index}
+						startDate={dateList[0]}
+						endDate={dateList[6]}
+						noteList={value}
+					/>
 				))}
 			</div>
 		</div>

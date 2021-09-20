@@ -1,0 +1,16 @@
+.calendar-note {
+	display: inline-block;
+	padding: 0 5px;
+	height: 15px;
+	text-overflow: ellipsis;
+
+	white-space: nowrap;
+	overflow: hidden;
+	&:hover {
+		filter: brightness(130%);
+	}
+	&--active {
+		white-space: initial;
+		height: auto;
+	}
+}

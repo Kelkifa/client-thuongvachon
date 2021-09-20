@@ -1,0 +1,22 @@
+.calendar-layer {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	column-gap: 3px;
+	grid-template-rows: auto;
+	grid-auto-flow: row;
+
+	min-height: 15px;
+	// overflow: hidden;
+
+	font-size: 11px;
+
+	cursor: pointer;
+	&:hover {
+		min-height: 15px;
+		height: auto;
+	}
+	&--active {
+		// min-height: 15px;
+		// height: auto;
+	}
+}

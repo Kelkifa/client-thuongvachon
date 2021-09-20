@@ -1,4 +1,5 @@
 import { date } from "yup";
+import randomColor from "randomcolor";
 
 /** Get First day or last day with data:currTime, type:first || last || 0 || 1 
  *  Output 
@@ -82,6 +83,27 @@ export const getDateList = (date) => {
     // return afterTimeArr;
     // return timeArr;
 }
+/** Random a color (rbg type)
+ *  Input: 
+ *  isHex: (rbg or hex type) (type: boolean [true: hex, false:rbg])
+ *  nonRepeatArr: (type: Array, List color will not repeat)
+ *  Output: new Color
+ */
+const randomNoteColor = (isHex = false, nonRepeatArr, luminosity = 'dark', opacity = 0.5) => {
+    let newColor = randomColor({
+        luminosity,
+        format: "rgba",
+        alpha: opacity, // e.g. 'rgba(9, 1, 107, 0.5)',
+    });
+    do {
+        newColor = randomColor({
+            luminosity,
+            format: "rgba",
+            alpha: opacity, // e.g. 'rgba(9, 1, 107, 0.5)',
+        });
+    } while (nonRepeatArr.includes(newColor))
+    return newColor;
+}
 
 /** Input:
  * notes: list of note (type: Object, schema: {content:String, from: Date, to: Date }])
@@ -91,24 +113,24 @@ export const getDateList = (date) => {
  */
 export const getLayerNote = (notes) => {
     notes.sort((a, b) => a.from - b.from);
-    // const notes = notes.filter(value => value.from <= dates[dates.length - 1] && value.to >= dates[0]);
-    // console.log(`[notes]`, notes);
 
     const layerTime = [];
-    const noteLayer = notes.map(value => {
+    const radomedColor = [];
+
+    const luminosityList = ['bright', 'light', 'dark'];
+    const noteLayer = notes.map((value, index) => {
         const geaterNoteIndex = layerTime.findIndex(val => value.from > val);
-        // console.log(`[geaterNoteIndex]`, geaterNoteIndex);
+        const color = randomNoteColor(false, radomedColor, luminosityList[index % 3], 0.5);
+        radomedColor.push(color);
+
         if (geaterNoteIndex === -1) {
             layerTime.push(value.to);
-            return { ...value, layer: layerTime.length - 1 };
+            return { ...value, layer: layerTime.length - 1, color };
         }
 
         layerTime[geaterNoteIndex] = value.to;
-        return { ...value, layer: geaterNoteIndex };
-    })
-    // let noteLayer = [];
-    // for (let index in notes) {
+        return { ...value, layer: geaterNoteIndex, color };
+    });
 
-    // }
     return noteLayer;
 }
