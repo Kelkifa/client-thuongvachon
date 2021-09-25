@@ -6,9 +6,6 @@
 
 	white-space: nowrap;
 	overflow: hidden;
-	&:hover {
-		filter: brightness(130%);
-	}
 	&--active {
 		white-space: initial;
 		height: auto;

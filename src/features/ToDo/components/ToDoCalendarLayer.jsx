@@ -22,25 +22,18 @@ function ToDoCalendarLayer(props) {
 	const {startDate, endDate, noteList} = props;
 	// STATES
 	const [isActive, setIsActive] = useState(false);
-	const [isOver, setIsOver] = useState(false);
 
 	if (!startDate || !endDate || !noteList.length) return null;
 
-	const handleClick = () => {
-		setIsActive(!isActive);
-		console.log(1);
-	};
+	// const handleClick = () => {
+	// 	setIsActive(!isActive);
+	// 	console.log(1);
+	// };
 	return (
 		<div
 			className={`calendar-layer ${isActive ? "calendar-layer--active" : ""}`}
 			onClick={() => {
 				setIsActive(!isActive);
-			}}
-			onMouseOver={() => {
-				setIsActive(true);
-			}}
-			onMouseOut={() => {
-				setIsActive(false);
 			}}
 		>
 			{noteList.map(note => (

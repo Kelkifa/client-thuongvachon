@@ -1,10 +1,16 @@
 import "./header.scss";
 
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+
 import React from "react";
 import {linkStyle} from "assets/styles/styles";
 
+// import {useRouteMatch} from "react-router";
+
 function Header(props) {
+	const location = useLocation();
+	const url = location.pathname.split("/")[1];
+
 	return (
 		<div className="header grid wide">
 			<div className="c-10 header__list">
@@ -15,13 +21,28 @@ function Header(props) {
 					>
 						Icon
 					</Link>
-					<Link to="/" className="header__list__group__item">
+					<Link
+						to="/home"
+						className={`header__list__group__item ${
+							url === "home" ? "header__list__group__item--active" : ""
+						}`}
+					>
 						Home
 					</Link>
-					<Link className="header__list__group__item" to="/playTogether">
+					<Link
+						className={`header__list__group__item ${
+							url === "playTogether" ? "header__list__group__item--active" : ""
+						}`}
+						to="/playTogether"
+					>
 						Game
 					</Link>
-					<Link className="header__list__group__item" to="/todo">
+					<Link
+						className={`header__list__group__item ${
+							url === "todo" ? "header__list__group__item--active" : ""
+						}`}
+						to="/todo"
+					>
 						To Do
 					</Link>
 				</div>

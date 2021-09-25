@@ -10,9 +10,15 @@
 		list-style: none;
 
 		li {
+			padding: 2px 0;
 			grid-column: span 2;
 
 			text-align: center;
+
+			cursor: pointer;
+		}
+		li:hover {
+			background-color: rgba(136, 9, 104, 0.387);
 		}
 		&__blur {
 			color: rgb(182, 171, 171);

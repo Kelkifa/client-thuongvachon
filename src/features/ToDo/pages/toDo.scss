@@ -1,0 +1,25 @@
+$bg-color: rgba(0, 0, 0, 0.596);
+$pd: 10px;
+.todo {
+	padding-bottom: 100px;
+	row-gap: 30px;
+
+	&__list {
+		background-color: $bg-color;
+		grid-row: span 2;
+		padding: $pd;
+
+		&__component {
+		}
+	}
+
+	&__calendar {
+		background-color: $bg-color;
+	}
+
+	&__form {
+		background-color: $bg-color;
+
+		padding: $pd;
+	}
+}

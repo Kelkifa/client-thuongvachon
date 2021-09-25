@@ -43,7 +43,7 @@ const game = createSlice({
             trash: { loading: true, error: null, data: [] }
         }
     },
-    reducer: {},
+    reducers: {},
     extraReducers: {
         // Client Get
         [gameClientGet.pending]: (state, action) => {

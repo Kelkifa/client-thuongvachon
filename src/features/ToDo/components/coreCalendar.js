@@ -89,15 +89,18 @@ export const getDateList = (date) => {
  *  nonRepeatArr: (type: Array, List color will not repeat)
  *  Output: new Color
  */
-const randomNoteColor = (isHex = false, nonRepeatArr, luminosity = 'dark', opacity = 0.5) => {
+export const randomNoteColor = (isHex = false, nonRepeatArr = [], luminosity = null, opacity = 0.5) => {
+    const luminosityOptions = ['bright', 'light', 'dark'];
+    const selectedLuminosity = luminosity ? luminosity : luminosityOptions[Math.floor(Math.random() * luminosityOptions.length)];
+
     let newColor = randomColor({
-        luminosity,
+        luminosity: selectedLuminosity,
         format: "rgba",
         alpha: opacity, // e.g. 'rgba(9, 1, 107, 0.5)',
     });
     do {
         newColor = randomColor({
-            luminosity,
+            luminosity: selectedLuminosity,
             format: "rgba",
             alpha: opacity, // e.g. 'rgba(9, 1, 107, 0.5)',
         });
@@ -107,7 +110,6 @@ const randomNoteColor = (isHex = false, nonRepeatArr, luminosity = 'dark', opaci
 
 /** Input:
  * notes: list of note (type: Object, schema: {content:String, from: Date, to: Date }])
- * dates: list of date in the month (type: Array, [Date])
  *  Output:
  * Layer is of notes, sort by notes
  */
@@ -115,22 +117,34 @@ export const getLayerNote = (notes) => {
     notes.sort((a, b) => a.from - b.from);
 
     const layerTime = [];
-    const radomedColor = [];
 
-    const luminosityList = ['bright', 'light', 'dark'];
+
     const noteLayer = notes.map((value, index) => {
         const geaterNoteIndex = layerTime.findIndex(val => value.from > val);
-        const color = randomNoteColor(false, radomedColor, luminosityList[index % 3], 0.5);
-        radomedColor.push(color);
 
         if (geaterNoteIndex === -1) {
             layerTime.push(value.to);
-            return { ...value, layer: layerTime.length - 1, color };
+            return { ...value, layer: layerTime.length - 1 };
         }
 
         layerTime[geaterNoteIndex] = value.to;
-        return { ...value, layer: geaterNoteIndex, color };
+        return { ...value, layer: geaterNoteIndex };
     });
 
     return noteLayer;
+}
+
+export const roundedDown = (number) => {
+    /**
+     * Rounded donw for 10
+     * e.g: 
+     * input: 2021
+     * output: 2020
+     */
+    if (!number) return 0;
+    const processedNumber = parseInt(number, 10);
+    if (isNaN(processedNumber)) return 0;
+
+    const subNumber = processedNumber % 10 === 0 ? 10 : processedNumber % 10;
+    return processedNumber - subNumber;
 }

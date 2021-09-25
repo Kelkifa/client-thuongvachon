@@ -9,15 +9,17 @@ import {useState} from "react";
 ToDoCalendarRow.propTypes = {
 	dateList: PropTypes.array,
 	notes: PropTypes.array,
+	currMonth: PropTypes.number,
 };
 
 ToDoCalendarRow.defaultProps = {
 	dateList: [],
 	notes: [],
+	currMonth: 0,
 };
 function ToDoCalendarRow(props) {
 	// PROPS
-	const {className, dateList, notes} = props;
+	const {className, dateList, notes, currMonth} = props;
 	// STATES
 	const [isActive, setIsActive] = useState(false);
 
@@ -39,19 +41,23 @@ function ToDoCalendarRow(props) {
 		noteElement.push(currLayer);
 	}
 
-	// const handleNoteOver = e => {
-	// 	e.target.style.height = "100px";
-	// 	console.log(e.target.style);
-	// };
+	const currDate = new Date();
 
 	return (
 		<div className="todo-calendar-row">
 			<ul className="todo-calendar-row__date">
 				{dateList.map(value => (
 					<li
+						style={
+							currDate.getMonth() == value.getMonth() &&
+							currDate.getDate() == value.getDate() &&
+							currDate.getFullYear() == value.getFullYear()
+								? {backgroundColor: "rgba(0, 0, 0, 0.387)"}
+								: {}
+						}
 						key={value.getDate()}
 						className={
-							dateList[6].getMonth() !== value.getMonth()
+							currMonth !== value.getMonth()
 								? "todo-calendar-row__date__blur"
 								: ""
 						}
