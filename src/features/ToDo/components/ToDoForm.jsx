@@ -33,7 +33,8 @@ function ToDoForm(props) {
 	};
 	const {noteList, className} = props;
 	// STATES
-	const [dateToGetColor, setDateToGetColor] = useState([0, 0, 0]);
+	// const [dateToGetColor, setDateToGetColor] = useState([0, 0, 0]);
+
 	// HANDLE FUNCTIONS
 	const handleSubmit = values => {
 		const [startDay, startMonth, startYear] = values.from.split("/");

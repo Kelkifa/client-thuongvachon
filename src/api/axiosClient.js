@@ -8,7 +8,7 @@ const devURL = 'http://localhost:8080/api';
 const axiosClient = axios.create({
     baseURL: productURL,
     headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
     },
     paramsSerializer: params => queryString.stringify(params)
 });

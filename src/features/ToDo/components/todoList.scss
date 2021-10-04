@@ -1,8 +1,17 @@
 .todo-list {
+	height: 100%;
+	width: 100%;
+	padding: 10px;
+
 	&__title {
 		margin: 0;
 
 		color: rgba(255, 0, 0, 0.705);
 		text-align: center;
+	}
+
+	&__content {
+		list-style: none;
+		padding: 0;
 	}
 }

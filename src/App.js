@@ -11,6 +11,8 @@ import { Suspense, useEffect } from 'react';
 
 import Admin from 'features/admin/Admin';
 import AdminLayout from 'layouts/AdminLayout';
+import Develop from 'features/develop/Develop';
+import DocMain from 'features/doc/DocMain';
 import Game from 'features/game/Game';
 import HomePage from 'components/Home/HomePage';
 import MainLayout from 'layouts/MainLayout';
@@ -18,11 +20,7 @@ import NotFound from 'components/NotFound';
 import ToDoMain from 'features/ToDo/ToDoMain';
 import { gameClientGet } from 'features/game/gameSlice';
 import { todoGet } from 'features/ToDo/todoSlice';
-// import logo from './logo.svg';
 import { useDispatch } from 'react-redux';
-
-// import 'assets/scss/base.scss';
-
 
 function App() {
   const dispatch = useDispatch();
@@ -59,10 +57,12 @@ function App() {
             <Route path='/'>
               <MainLayout>
                 <Switch>
+                  <Route path='/docs' component={DocMain} />
                   <Route path='/todo' component={ToDoMain} />
                   <Route path='/playTogether' component={Game} />
                   <Route path='/home' component={HomePage} />
-                  <Route path='/' component={HomePage} />
+                  <Route path='/develop' component={Develop} />
+                  <Route exact path='/' component={HomePage} />
                   <Route component={NotFound} />
                 </Switch>
               </MainLayout>

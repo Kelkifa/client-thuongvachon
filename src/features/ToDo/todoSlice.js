@@ -11,6 +11,11 @@ export const todoCreate = createAsyncThunk('todo/todoCreate', async (data) => {
     const response = await todoApi.add(data);
     return response;
 })
+export const todoDelete = createAsyncThunk('todo/todoDelete', async (data) => {
+    // console.log(`[slice data]`, data);
+    const response = await todoApi.delete(data);
+    return response;
+})
 
 const todoSlice = createSlice({
     name: 'todos',
@@ -61,6 +66,21 @@ const todoSlice = createSlice({
             state.user.data.push(action.payload.response);
             return state;
         },
+
+        // DELETE
+        [todoDelete.pending]: (state, action) => {
+
+        },
+        [todoDelete.rejected]: (state, action) => {
+
+        },
+        [todoDelete.fulfilled]: (state, action) => {
+            if (!action.payload.success)
+                return state;
+
+            state.user.data = state.user.data.filter(value => value._id !== action.payload.response);
+            return state;
+        }
     }
 })
 

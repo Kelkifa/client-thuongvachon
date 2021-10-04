@@ -45,6 +45,14 @@ function Header(props) {
 					>
 						To Do
 					</Link>
+					<Link
+						className={`header__list__group__item ${
+							url === "docs" ? "header__list__group__item--active" : ""
+						}`}
+						to="/docs"
+					>
+						Docs
+					</Link>
 				</div>
 				<div className="header__list__group header__list__group--right">
 					<Link

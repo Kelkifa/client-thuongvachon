@@ -30,7 +30,10 @@ function ToDo(props) {
 					></ToDoCalendar>
 				</div>
 				<div className="c-6 m-12 todo__list">
-					<TodoList className="todo__list__component" noteList={noteList} />
+					<TodoList
+						className="todo__list__component custom-scroll"
+						noteList={noteList}
+					/>
 				</div>
 				<div className="c-6 m-12">
 					<ToDoForm noteList={noteList} className="todo__form" />

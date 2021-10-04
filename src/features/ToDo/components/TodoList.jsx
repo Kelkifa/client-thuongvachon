@@ -2,6 +2,7 @@ import "./todoList.scss";
 
 import PropTypes from "prop-types";
 import React from "react";
+import TodoListNote from "./TodoListNote";
 
 TodoList.propTypes = {
 	noteList: PropTypes.array,
@@ -21,19 +22,7 @@ function TodoList(props) {
 			<div className="todo-list__control">__control</div>
 			<ul className="todo-list__content">
 				{noteList.map(value => (
-					<li style={{backgroundColor: value.color}}>
-						<span>
-							{`[${value.startTime.join(
-								":"
-							)}] [${value.from.getDate()}/${value.from.getMonth()}/${value.from.getFullYear()}]`}
-							<br />
-							{`[${value.endTime.join(
-								":"
-							)}] [${value.to.getDate()}/${value.to.getMonth()}/${value.to.getFullYear()}]`}
-						</span>
-						{"  "}
-						<span>{value.content}</span>
-					</li>
+					<TodoListNote key={value._id} note={value} />
 				))}
 			</ul>
 		</div>
