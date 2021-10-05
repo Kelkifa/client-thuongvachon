@@ -16,15 +16,10 @@ function AdminLayout(props) {
 	// STATES
 	const [isShowLeftbar, setIsShowLeftbar] = useState(true);
 
-	const [currUrl, setCurrUrl] = useState("/");
-
 	// HANDLE FUNCTIONS
 	// Show/hide leftbar
 	const handleShowHideLeftbar = () => {
 		setIsShowLeftbar(!isShowLeftbar);
-	};
-	const handleHeaderChange = value => {
-		setCurrUrl(value);
 	};
 
 	return (

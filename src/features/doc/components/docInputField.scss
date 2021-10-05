@@ -1,0 +1,27 @@
+$bd-color: rgba(34, 33, 33, 0.699);
+.doc-input-field {
+	&__input {
+		margin-top: 5px;
+		background-color: rgba(112, 9, 73, 0.582);
+
+		outline: none;
+		border: none;
+		border-left: 2px solid $bd-color;
+		border-bottom: 2px solid $bd-color;
+		border-radius: 5px;
+
+		width: 100%;
+		padding: 5px;
+		max-width: 100%;
+
+		color: white;
+		font-size: 18px;
+		font-family: "Times New Roman", Times, serif;
+
+		resize: vertical;
+	}
+
+	& ~ & {
+		margin-top: 20px;
+	}
+}

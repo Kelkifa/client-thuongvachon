@@ -1,15 +1,16 @@
-import DocHeader from "../components/DocHeader";
-import DocRightBar from "../components/DocRightBar";
-import PropTypes from "prop-types";
-import React from "react";
-import styleDocPage from "./styleDocPage";
+import "./docPage.scss";
 
-DocPage.propTypes = {};
+import DocContent from "../components/DocContent";
+import DocHeader from "../components/DocHeader";
+import React from "react";
 
 function DocPage(props) {
 	return (
-		<div className="grid wide" style={styleDocPage.container}>
+		<div className="doc-page grid wide">
 			<DocHeader />
+			<div className="doc-page__content">
+				<DocContent />
+			</div>
 		</div>
 	);
 }

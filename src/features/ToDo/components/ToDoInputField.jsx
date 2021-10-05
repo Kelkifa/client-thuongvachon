@@ -87,25 +87,6 @@ function ToDoInputField(props) {
 					form.setFieldValue
 				);
 			}
-			// if (noteList !== null && !form.errors[field.name]) {
-			// 	const firstDate = getFirstLastDay(
-			// 		new Date(year, month - 1, 1),
-			// 		"first"
-			// 	);
-			// 	const lastDate = getFirstLastDay(new Date(year, month - 1, 1), "last");
-			// 	const notesInMonth = noteList.filter(
-			// 		value => value.from <= lastDate && value.to >= firstDate
-			// 	);
-			// 	const newColor = randomNoteColor(
-			// 		false,
-			// 		notesInMonth.map(value => value.color),
-			// 		null,
-			// 		0.5
-			// 	);
-			// 	console.log(`[newColor]`, newColor);
-
-			// 	form.setFieldValue("color", newColor);
-			// }
 			field.onChange({
 				target: {
 					name: field.name,

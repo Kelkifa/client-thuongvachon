@@ -1,0 +1,46 @@
+.doc-form {
+	&__form {
+		&__title {
+			text-align: center;
+		}
+
+		&__field {
+			&__input {
+				background-color: rgba(112, 9, 73, 0.582);
+
+				outline: none;
+
+				width: 100%;
+				max-width: 100%;
+
+				color: white;
+				font-size: 18px;
+				font-family: "Times New Roman", Times, serif;
+
+				resize: vertical;
+			}
+
+			& ~ & {
+				margin-top: 20px;
+			}
+		}
+		&__btn {
+			margin-top: 5px;
+			button {
+				border: none;
+				outline: none;
+				border-radius: 3px;
+				float: right;
+				padding: 5px 12px;
+
+				color: white;
+				background-color: rgba(173, 17, 113, 0.548);
+
+				cursor: pointer;
+				&:hover {
+					background-color: rgba(194, 34, 132, 0.644);
+				}
+			}
+		}
+	}
+}

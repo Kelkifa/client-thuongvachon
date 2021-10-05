@@ -1,0 +1,32 @@
+$bg: rgba(0, 0, 0, 0.596);
+$text-color: rgba(255, 255, 255, 0.815);
+.doc-header {
+	&__list {
+		list-style: none;
+
+		padding: 0;
+		margin: 0;
+
+		&__item {
+			width: 100%;
+			padding: 6px 0;
+
+			text-decoration: none;
+			text-align: center;
+
+			color: $text-color;
+
+			cursor: pointer;
+			&:not(:last-child):hover {
+				background-color: rgba(163, 23, 81, 0.418);
+				color: white;
+			}
+		}
+		&__right-bar-btn {
+			grid-column: 11 / span 2;
+			@media screen and (max-width: 415px) {
+				grid-column: 9 / span 4;
+			}
+		}
+	}
+}
