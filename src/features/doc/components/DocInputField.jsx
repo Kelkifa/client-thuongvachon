@@ -10,16 +10,18 @@ DocInputField.propTypes = {
 	label: PropTypes.string,
 	placeholder: PropTypes.string,
 	inputType: PropTypes.string,
+	disabled: PropTypes.bool,
 };
 
 DocInputField.defaultProps = {
 	label: "",
 	placeholder: "",
 	inputType: "input",
+	disabled: false,
 };
 
 function DocInputField(props) {
-	const {form, field, label, placeholder, inputType} = props;
+	const {form, field, label, placeholder, inputType, disabled} = props;
 
 	return (
 		<div className="doc-input-field">
@@ -44,7 +46,11 @@ function DocInputField(props) {
 					placeholder={placeholder}
 					onChange={field.onChange}
 					onBlur={field.onBlur}
+					disabled={disabled}
 				/>
+			)}
+			{form.errors[field.name] && form.touched[field.name] && (
+				<div className="doc-input-field__error">{form.errors[field.name]}</div>
 			)}
 		</div>
 	);

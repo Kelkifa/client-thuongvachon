@@ -1,7 +1,6 @@
 import "./mainLayout.scss";
 
 import Header from "components/Header/Header";
-import PropTypes from "prop-types";
 import React from "react";
 
 function MainLayout(props) {

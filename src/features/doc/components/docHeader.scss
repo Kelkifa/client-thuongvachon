@@ -3,8 +3,7 @@ $text-color: rgba(255, 255, 255, 0.815);
 .doc-header {
 	&__list {
 		list-style: none;
-
-		padding: 0;
+		padding: 0px;
 		margin: 0;
 
 		&__item {
@@ -18,6 +17,10 @@ $text-color: rgba(255, 255, 255, 0.815);
 
 			cursor: pointer;
 			&:not(:last-child):hover {
+				background-color: rgba(163, 23, 81, 0.418);
+				color: white;
+			}
+			&--active {
 				background-color: rgba(163, 23, 81, 0.418);
 				color: white;
 			}

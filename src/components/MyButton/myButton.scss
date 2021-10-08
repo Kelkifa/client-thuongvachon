@@ -1,0 +1,33 @@
+$bd-color-dark: rgba(34, 33, 33, 0.521);
+$bd-color-light: rgba(207, 205, 205, 0.24);
+
+.my-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border: none;
+	border-radius: 0.4em;
+	outline: none;
+
+	padding: 0.5em;
+
+	color: white;
+	background-color: rgba(173, 17, 113, 0.548);
+	// background-color: rgba(83, 8, 54, 0.322);
+	// color: rgba(168, 165, 165, 0.685);
+
+	cursor: pointer;
+
+	&__text {
+		margin-right: 0.3em;
+	}
+	&:not(&--disable):hover {
+		background-color: rgba(194, 34, 132, 0.644);
+	}
+
+	&--disable {
+		background-color: rgba(83, 8, 54, 0.322);
+		color: rgba(168, 165, 165, 0.685);
+	}
+}

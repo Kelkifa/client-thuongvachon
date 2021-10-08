@@ -37,6 +37,10 @@
 		}
 
 		&__button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
 			border: none;
 			outline: none;
 
@@ -44,10 +48,21 @@
 
 			color: white;
 			background-color: rgba(173, 17, 113, 0.548);
+			// background-color: rgba(83, 8, 54, 0.322);
+			// color: rgba(168, 165, 165, 0.685);
 
 			cursor: pointer;
-			&:hover {
+
+			&__text {
+				margin-right: 0.3em;
+			}
+			&:not(&--disable):hover {
 				background-color: rgba(194, 34, 132, 0.644);
+			}
+
+			&--disable {
+				background-color: rgba(83, 8, 54, 0.322);
+				color: rgba(168, 165, 165, 0.685);
 			}
 		}
 	}

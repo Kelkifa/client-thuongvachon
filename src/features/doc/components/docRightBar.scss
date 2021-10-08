@@ -25,10 +25,18 @@ $bg-color-hover: rgba(20, 20, 20, 0.664);
 		margin: 0;
 
 		cursor: pointer;
+
+		&__item {
+			text-decoration: none;
+			color: inherit;
+			&--active {
+				background-color: $bg-color-hover;
+			}
+		}
 		li {
 			padding: 6px 10px;
 			&:hover {
-				background-color: rgba(20, 20, 20, 0.664);
+				background-color: $bg-color-hover;
 			}
 		}
 	}

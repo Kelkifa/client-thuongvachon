@@ -4,10 +4,19 @@
 	padding: 10px;
 
 	&__title {
+		display: flex;
 		margin: 0;
 
 		color: rgba(255, 0, 0, 0.705);
-		text-align: center;
+		align-items: center;
+		justify-content: center;
+
+		&__text {
+			margin-right: 0.2em;
+		}
+		&__icon {
+			color: rgba(255, 255, 255, 0.685);
+		}
 	}
 
 	&__content {

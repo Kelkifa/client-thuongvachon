@@ -3,6 +3,8 @@ import "./todoForm.scss";
 import {FastField, Formik} from "formik";
 import {getFirstLastDay, randomNoteColor} from "./coreCalendar";
 
+import LoadIcon from "components/LoadIcon";
+import MyButton from "components/MyButton/MyButton";
 import PropTypes from "prop-types";
 import React from "react";
 import {RiContactsBookUploadFill} from "react-icons/ri";
@@ -32,11 +34,16 @@ function ToDoForm(props) {
 		color: "transparent",
 	};
 	const {noteList, className} = props;
+
 	// STATES
-	// const [dateToGetColor, setDateToGetColor] = useState([0, 0, 0]);
+	const [notifice, setNotifice] = useState({
+		isProcessing: false,
+		message: "",
+		error: false,
+	});
 
 	// HANDLE FUNCTIONS
-	const handleSubmit = values => {
+	const handleSubmit = async values => {
 		const [startDay, startMonth, startYear] = values.from.split("/");
 
 		const [endDay, endMonth, endYear] = values.to.split("/");
@@ -57,8 +64,14 @@ function ToDoForm(props) {
 			content: values.content,
 			color: values.color,
 		};
-		dispatch(todoCreate({data}));
-		console.log(`[submited]`, values);
+		try {
+			setNotifice({...notifice, isProcessing: true});
+			await dispatch(todoCreate({data}));
+			setNotifice({...notifice, isProcessing: false});
+			console.log(`[submited]`, values);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	const validateDate = value => {
@@ -117,7 +130,6 @@ function ToDoForm(props) {
 			null,
 			0.5
 		);
-		// console.log(`[newColor]`, newColor);
 
 		setFieldValue("color", newColor);
 	};
@@ -237,9 +249,7 @@ function ToDoForm(props) {
 								</div>
 							</div>
 
-							<button className="todo-form__form__button" type="submit">
-								submit
-							</button>
+							<MyButton disabled={notifice.isProcessing} type="submit" />
 						</form>
 					);
 				}}
