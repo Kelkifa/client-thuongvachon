@@ -32,6 +32,7 @@ function DocForm(props) {
 	// PROPS
 	const {type} = props;
 	console.log(`[type]`, type);
+
 	// STATES
 	const [notifice, setNotifice] = useState({
 		isProcessing: false,
@@ -41,19 +42,19 @@ function DocForm(props) {
 
 	const initialValues = {
 		title: "",
-		type: type ? type.type : "",
+		type: "",
 		content: "",
 	};
 
 	const handleSubmit = async values => {
-		// console.log(`[values]`, values);
+		console.log(`[submit]`, values);
 		try {
 			setNotifice({...notifice, isProcessing: true});
 			const response = await dispatch(
 				docCreate({data: {...values, type: type ? type.type : values.type}})
 			);
 			setNotifice({...notifice, isProcessing: false});
-			// console.log(response);
+			console.log(response);
 		} catch (err) {
 			console.log(err);
 		}
@@ -66,8 +67,9 @@ function DocForm(props) {
 				onSubmit={handleSubmit}
 			>
 				{formikProps => {
-					const {values, handleSubmit, setFieldValue} = formikProps;
-					// console.log(`[values]`, values);
+					const {handleSubmit, values, errors, handleClick} = formikProps;
+
+					console.log(`[errors]`, errors);
 					return (
 						<form className="doc-form__form" onSubmit={handleSubmit}>
 							<h3 className="doc-form__form__title">
@@ -96,7 +98,13 @@ function DocForm(props) {
 								component={DocInputField}
 							/>
 							<div className="doc-form__form__btn">
-								<MyButton />
+								<MyButton
+									type="submit"
+									name="type"
+									value="React Native"
+									handleClick={handleClick}
+									disabled={notifice.isProcessing}
+								/>
 							</div>
 						</form>
 					);

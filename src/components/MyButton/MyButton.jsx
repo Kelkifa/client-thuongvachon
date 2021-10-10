@@ -36,8 +36,8 @@ function MyButton(props) {
 			mame={name}
 			value={value}
 			type={type}
-			onClick={handleClick}
 			disabled={disabled}
+			onClick={handleClick}
 		>
 			<span className="my-button__text">{text}</span>
 			{disabled && <LoadIcon />}

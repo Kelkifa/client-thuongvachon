@@ -1,8 +1,6 @@
-import {
-	layoutString,
-	processDownLine,
-} from "features/doc/components/docContentCore";
+import {layoutString, processDownLine} from "./docContentCore";
 
+import PropTypes from "prop-types";
 import React from "react";
 
 function createEleFromStr(elementObj = null, index = 0) {
@@ -23,17 +21,28 @@ function createEleFromStr(elementObj = null, index = 0) {
 	}
 }
 
-const inputData =
-	"asdkasjldj<b>Title code example </b>Noi dung dung của test <code>const test = 123;\n const a = (value)=>{ return value; }\n </code>";
+DocCompileContent.propTypes = {
+	content: PropTypes.object,
+};
 
-function Develop(props) {
+DocCompileContent.defaultProps = {
+	content: {},
+};
+
+function DocCompileContent(props) {
+	const {content} = props;
 	const compileElement = ["<b>", "<code>", "<img>"];
-	const layoutArr = layoutString(inputData, compileElement);
+	const layoutArr = content.content
+		? layoutString(content.content, compileElement)
+		: [];
 	return (
 		<div className="grid wide develop">
-			{layoutArr.map((value, index) => createEleFromStr(value, index))}
+			<h2 className="doc-content__title">{content.title}</h2>
+			<div className="doc-content__content">
+				{layoutArr.map((value, index) => createEleFromStr(value, index))}
+			</div>
 		</div>
 	);
 }
 
-export default Develop;
+export default DocCompileContent;

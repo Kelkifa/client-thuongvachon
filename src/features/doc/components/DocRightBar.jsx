@@ -21,7 +21,7 @@ function DocRightBar(props) {
 	// PROPS
 	const {titles, activedType, activedTitle} = props;
 
-	console.log(`[activedTitle]`, activedTitle);
+	// console.log(`[activedTitle]`, activedTitle);
 	// STATES
 	const [show, setShow] = useState(false);
 

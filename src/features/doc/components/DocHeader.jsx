@@ -15,7 +15,7 @@ DocHeader.propTypes = {
 };
 
 DocHeader.defaultProps = {
-	titles: null,
+	titles: [],
 	docTypes: [],
 
 	activedType: {},

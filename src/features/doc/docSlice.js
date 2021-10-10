@@ -65,18 +65,23 @@ const docSlice = createSlice({
             if (!action.payload.success) return state;
 
             const response = action.payload.response;
-            const contentIndex = state.contents.findIndex(value => value.typeId === response.typeId);
+            const contentIndex = state.contents.findIndex(value => {
+                console.log(`[findCntent]`, value.typeId);
+                return value.typeId === response.typeId._id;
+            });
+
+            console.log(`[contentIndex]`, contentIndex);
 
             // Chưa có type trong state.contents
             if (contentIndex === -1) {
-                state.contents.push({ typeId: response.typeId, loading: false, error: false, data: response });
-                state.types.data.push({ _id: response.typeId, type: action.payload.type });
+                state.contents.push({ typeId: response.typeId._id, loading: false, error: false, data: [response] });
+                state.types.data.push({ _id: response.typeId._id, type: action.payload.type });
                 return state;
             }
 
             // Có type trong state.contents
             state.contents[contentIndex].data.push(response);
-            state.types.data.push({ _id: response.typeId, type: action.payload.type });
+            // state.types.data.push({ _id: response.typeId, type: action.payload.type });
             return state;
         }
 

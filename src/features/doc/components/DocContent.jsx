@@ -1,5 +1,6 @@
 import "./docContent.scss";
 
+import DocCompileContent from "./DocCompileContent";
 import DocForm from "./DocForm";
 import PropTypes from "prop-types";
 import React from "react";
@@ -25,10 +26,7 @@ function DocContent(props) {
 			{!content ? (
 				<DocForm type={activedType} />
 			) : (
-				<>
-					<h2>{content.title}</h2>
-					<div>{content.content}</div>
-				</>
+				<DocCompileContent content={content} />
 			)}
 		</div>
 	);

@@ -28,7 +28,9 @@ function DocPage(props) {
 		currContents && titleQuery
 			? currContents.data.find(value => value._id === titleQuery)
 			: null;
-	// console.log(`[doc Curr content]`, currContents);
+	console.log(`[doContenets]`, docContents);
+	console.log(`[currContents]`, currContents);
+	console.log(`[currContent]`, currContent);
 
 	const selectedType = docInfo.types.data.find(
 		value => value._id === typeQuery
