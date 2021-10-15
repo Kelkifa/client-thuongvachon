@@ -1,6 +1,14 @@
 .doc-content {
-	padding: 0.8em 0.8em 2em 0.8em;
+	&__rightbar {
+		grid-column: 11 / span 2;
+		@media screen and (max-width: 415px) {
+			grid-column: 9 / span 4;
+		}
+	}
 
+	&__content {
+		// padding: 0 0.8em 2em 0.8em;
+	}
 	&__title {
 		text-align: center;
 		padding-top: 5px;

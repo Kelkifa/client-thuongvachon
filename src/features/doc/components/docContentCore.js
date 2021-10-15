@@ -9,7 +9,7 @@ function getRegExpFromElementList(elementList = []) {
 
         if (value === null || value === "") return '';
 
-        return `<${value}>(.*|\n*)(.|\n)*<\/${value}>`;
+        return `<${value}>(.*|\n*)(.|\n)*</${value}>`;
     });
 
     return `(${startElementRegArr.join("|")})`;
@@ -115,21 +115,21 @@ function getCloseEle(openEle) {
     return `${openEle[0]}/${openEle.substring(1)}`;
 }
 
-function toElement(elemStr, content) {
-    if (!content) return null;
-    switch (elemStr) {
-        case 'text':
-            // const createdEle = <div>{content}</div>
-            // console.log(`[createdEle]`, createdEle);
-            return <div>{content}</div>;
-        case '<b>':
-            return <b>{content}</b>
-        case '<code>':
-            return <code>{content}</code>
-        case '<img>':
-            return <img alt='err' src={content} />;
+// function toElement(elemStr, content) {
+//     if (!content) return null;
+//     switch (elemStr) {
+//         case 'text':
+//             // const createdEle = <div>{content}</div>
+//             // console.log(`[createdEle]`, createdEle);
+//             return <div>{content}</div>;
+//         case '<b>':
+//             return <b>{content}</b>
+//         case '<code>':
+//             return <code>{content}</code>
+//         case '<img>':
+//             return <img alt='err' src={content} />;
 
-        default:
-            return <div>{content}</div>;
-    }
-}
+//         default:
+//             return <div>{content}</div>;
+//     }
+// }

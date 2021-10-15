@@ -28,6 +28,7 @@ function App() {
 
   useEffect(() => {
     const firstFetchData = async () => {
+      if (!dispatch) return;
       try {
         // const response = await dispatch(gameClientGet());
 
@@ -42,7 +43,7 @@ function App() {
     }
 
     firstFetchData();
-  }, [])
+  }, [dispatch])
 
   // Render
   return (

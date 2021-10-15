@@ -1,7 +1,7 @@
 import "./adminGameList.scss";
 
 import React, {useState} from "react";
-import {gameDelete, gameForceDelete, gameRestore} from "../gameSlice";
+import {gameForceDelete, gameRestore} from "../gameSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 import AdminTable from "features/admin/components/AdminTable";

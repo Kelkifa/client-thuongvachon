@@ -25,7 +25,7 @@ function Admin(props) {
 		};
 
 		fetchApiAdmin();
-	}, []);
+	}, [dispatch]);
 	return (
 		<Switch>
 			<Route path={`${match.url}/games/create`} component={GameCreate} />

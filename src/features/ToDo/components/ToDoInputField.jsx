@@ -1,9 +1,12 @@
 import "./todoInputField.scss";
 
-import {getFirstLastDay, randomNoteColor} from "./coreCalendar";
-
 import PropTypes from "prop-types";
 import React from "react";
+
+// import {getFirstLastDay, randomNoteColor} from "./coreCalendar";
+
+
+
 
 ToDoInputField.propTypes = {
 	form: PropTypes.object.isRequired,

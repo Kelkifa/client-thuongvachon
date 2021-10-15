@@ -1,0 +1,11 @@
+.doc-content-page {
+	&__rightbar {
+		display: flex;
+		justify-content: flex-end;
+
+		&__item {
+			min-width: 150px;
+			background-color: rgba(0, 0, 0, 0.247);
+		}
+	}
+}

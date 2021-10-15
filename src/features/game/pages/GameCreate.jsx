@@ -13,9 +13,6 @@ import {useDispatch} from "react-redux";
 
 // import LoadNotifice from "components/Dialog/LoadNotifice";
 
-
-
-
 const schema = yup.object().shape({
 	data: yup.string().required("This field is required"),
 	type: yup.string().oneOf(["image", "video"]).required(""),
@@ -57,7 +54,7 @@ function GameCreate(props) {
 				loading: false,
 				error: false,
 				message: `${
-					values.type == "image"
+					values.type === "image"
 						? "Thêm hình ảnh thành công"
 						: "Thêm video thành công"
 				}`,
@@ -88,16 +85,7 @@ function GameCreate(props) {
 					onSubmit={handleSubmit}
 				>
 					{formikProps => {
-						const {
-							values,
-							errors,
-							touched,
-							handleChange,
-							handleBlur,
-							handleSubmit,
-							isSubmitting,
-							setFieldValue,
-						} = formikProps;
+						const {handleSubmit} = formikProps;
 
 						return (
 							<form

@@ -1,10 +1,6 @@
 import "./gameList.scss";
 
-import {Link, useRouteMatch} from "react-router-dom";
-
-import PropTypes from "prop-types";
 import React from "react";
-import {gameApi} from "api/gameApi";
 import {useSelector} from "react-redux";
 import {useState} from "react";
 
@@ -68,6 +64,8 @@ function GameList(props) {
 											/>
 										</div>
 									);
+
+								return undefined;
 							})}
 						</div>
 					)}
@@ -94,6 +92,7 @@ function GameList(props) {
 											></iframe>
 										</div>
 									);
+								return undefined;
 							})}
 						</div>
 					)}

@@ -4,7 +4,6 @@ import {AiTwotoneDelete} from "react-icons/ai";
 import {MdSystemUpdateAlt} from "react-icons/md";
 import PropTypes from "prop-types";
 import React from "react";
-import {todoApi} from "api/todoApi";
 import {todoDelete} from "features/ToDo/todoSlice";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
@@ -38,6 +37,7 @@ function TodoListNote(props) {
 		if (!note._id) return;
 
 		const data = note._id;
+		console.log(`[data]`, data);
 		try {
 			const response = await dispatch(todoDelete({data}));
 			console.log(`[response]`, response);

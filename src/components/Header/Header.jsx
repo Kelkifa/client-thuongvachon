@@ -3,7 +3,8 @@ import "./header.scss";
 import {Link, useLocation} from "react-router-dom";
 
 import React from "react";
-import {linkStyle} from "assets/styles/styles";
+
+// import {linkStyle} from "assets/styles/styles";
 
 // import {useRouteMatch} from "react-router";
 

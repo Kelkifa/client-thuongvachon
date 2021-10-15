@@ -1,0 +1,13 @@
+$bg-color: rgba(173, 17, 113, 0.548);
+$pd: 0.5em;
+$bd-radius: 0.4em;
+$font-size: 13.333px;
+
+.div-button {
+	background-color: $bg-color;
+	padding: $pd;
+	border-radius: $bd-radius;
+	color: white;
+	font-size: $font-size;
+	cursor: pointer;
+}

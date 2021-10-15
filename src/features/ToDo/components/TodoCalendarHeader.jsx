@@ -25,7 +25,6 @@ TodoCalendarHeader.propTypes = {
 };
 
 TodoCalendarHeader.defaultProps = {
-	showDate: "",
 	className: "",
 
 	viewType: 0,
@@ -98,7 +97,7 @@ function TodoCalendarHeader(props) {
 				date
 			);
 			setShowDate(newDate);
-			if (newDate.getFullYear() != currYearSelect)
+			if (newDate.getFullYear() !== currYearSelect)
 				setCurrYearSelect(newDate.getFullYear());
 			return;
 		}

@@ -2,24 +2,27 @@ import "./docRightBar.scss";
 
 import {AiFillCaretDown} from "react-icons/ai";
 import {Link} from "react-router-dom";
+import LoadIcon from "components/LoadIcon";
 import PropTypes from "prop-types";
 import React from "react";
 import {useState} from "react";
 
 DocRightBar.propTypes = {
+	isLoading: PropTypes.bool,
 	activedType: PropTypes.object,
 	activedTitle: PropTypes.string,
 	titles: PropTypes.array,
 };
 
 DocRightBar.defaultProps = {
+	isLoading: true,
 	activedType: null,
 	activedTitle: null,
-	titles: [], // [{_id: String, }]
+	titles: [], // [{_id: String, title: String}]
 };
 function DocRightBar(props) {
 	// PROPS
-	const {titles, activedType, activedTitle} = props;
+	const {isLoading, titles, activedTitle} = props;
 
 	// console.log(`[activedTitle]`, activedTitle);
 	// STATES
@@ -40,12 +43,15 @@ function DocRightBar(props) {
 			</div>
 			{show && (
 				<ul className="doc-rightbar__list">
+					{isLoading && (
+						<li className="doc-rightbar__list__item doc-rightbar__list__item--loading">
+							Loading <LoadIcon />
+						</li>
+					)}
 					{titles.map(value => (
 						<Link
+							to={`?title=${value._id}`}
 							key={value._id}
-							to={`?type=${activedType._id ? activedType._id : ""}&title=${
-								value._id
-							}`}
 							className="doc-rightbar__list__item"
 						>
 							<li

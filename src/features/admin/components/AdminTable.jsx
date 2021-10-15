@@ -102,12 +102,12 @@ function AdminTable(props) {
 					{formikProps => {
 						const {
 							values,
-							errors,
-							touched,
+							// errors,
+							// touched,
 							handleChange,
-							handleBlur,
+							// handleBlur,
 							handleSubmit,
-							isSubmitting,
+							// isSubmitting,
 							setFieldValue,
 						} = formikProps;
 
@@ -160,7 +160,7 @@ function AdminTable(props) {
 												checked={
 													(values.selectedInputs.length === idList.length &&
 														idList.length !== 0) ||
-													values.selectAllInput[0] == "1"
+													values.selectAllInput[0] === "1"
 														? true
 														: false
 												}

@@ -6,15 +6,33 @@ export const docGetTypes = createAsyncThunk('doc/docGetTypes', async () => {
     const response = await docApi.getTypeList();
     return response;
 })
+
+/** Data is typeId {data:String} */
 export const docGetContent = createAsyncThunk('doc/docGetContent', async (data) => {
     const response = await docApi.getContent(data);
     response.typeId = data.data;
     return response;
 })
-export const docCreate = createAsyncThunk('doc/docCreate', async (data) => {
-    const response = await docApi.create(data);
-    response.type = data.data.type;
-    console.log(`[response]`, response);
+export const docCreateContent = createAsyncThunk('doc/docCreateContent', async (data) => {
+    const response = await docApi.createContent({ data });
+    response.typeId = data.type;
+    return response;
+})
+export const docCreateDoc = createAsyncThunk('doc/docCreateDoc', async (data) => {
+    const response = await docApi.createDoc({ data });
+    return response;
+})
+
+export const docDeleteDoc = createAsyncThunk('doc/docDelete', async (typeId) => {
+
+    const response = await docApi.deleteDoc({ data: typeId });
+    response.typeId = typeId;
+    return response;
+})
+export const docDeleteContent = createAsyncThunk('doc/docDeleteContent', async ({ typeId, docContentId }) => {
+    const response = await docApi.deleteContent({ data: docContentId });
+    response.docContentId = docContentId;
+    response.typeId = typeId;
     return response;
 })
 
@@ -22,7 +40,7 @@ const docSlice = createSlice({
     name: 'docs',
     initialState: {
         types: { loading: true, error: null, data: [] },
-        contents: [], // contents:[{typeId: String, loading: Boolen, error: String, data: Array}]
+        contents: [], // [{typeId: String, loading: Boolen, error: String, data: Array}]
     },
     extraReducers: {
         [docGetTypes.pending]: (state, action) => {
@@ -55,35 +73,79 @@ const docSlice = createSlice({
         },
 
         // CREATE
-        [docCreate.pending]: (state, action) => {
+        [docCreateContent.pending]: (state, action) => {
 
         },
-        [docCreate.rejected]: (state, action) => {
+        [docCreateContent.rejected]: (state, action) => {
 
         },
-        [docCreate.fulfilled]: (state, action) => {
+        [docCreateContent.fulfilled]: (state, action) => {
+            if (!action.payload.success) return state;
+
+            const { typeId, response } = action.payload;
+            if (!typeId || !response) return state;
+
+            const foundContentIndex = state.contents.findIndex(content => content.typeId === typeId);
+            console.log(`[foundContent]`, foundContentIndex);
+            if (!foundContentIndex === -1) return state;
+
+            state.contents[foundContentIndex].data.push(response);
+            return state;
+
+        },
+
+        [docCreateDoc.pending]: (state, action) => {
+
+        },
+        [docCreateDoc.rejected]: (state, action) => {
+
+        },
+        [docCreateDoc.fulfilled]: (state, action) => {
             if (!action.payload.success) return state;
 
             const response = action.payload.response;
-            const contentIndex = state.contents.findIndex(value => {
-                console.log(`[findCntent]`, value.typeId);
-                return value.typeId === response.typeId._id;
-            });
+            if (!response) return state;
+            state.types.data.push(response);
 
-            console.log(`[contentIndex]`, contentIndex);
-
-            // Chưa có type trong state.contents
-            if (contentIndex === -1) {
-                state.contents.push({ typeId: response.typeId._id, loading: false, error: false, data: [response] });
-                state.types.data.push({ _id: response.typeId._id, type: action.payload.type });
-                return state;
-            }
-
-            // Có type trong state.contents
-            state.contents[contentIndex].data.push(response);
-            // state.types.data.push({ _id: response.typeId, type: action.payload.type });
             return state;
-        }
+
+        },
+
+        // DELETE
+        [docDeleteDoc.pending]: (state, action) => {
+
+        },
+        [docDeleteDoc.rejected]: (state, action) => {
+
+        },
+        [docDeleteDoc.fulfilled]: (state, action) => {
+            if (!action.payload.success) return state;
+
+            const typeId = action.payload.typeId;
+
+            state.types.data = state.types.data.filter(type => type._id !== typeId);
+            state.contents = state.contents.filter(content => content.typeId !== typeId);
+            return state;
+        },
+
+        [docDeleteContent.pending]: (state, action) => {
+
+        },
+        [docDeleteContent.rejected]: (state, action) => {
+
+        },
+        [docDeleteContent.fulfilled]: (state, action) => {
+            if (!action.payload.success) return state;
+
+            const { docContentId, typeId } = action.payload;
+            if (!docContentId || !typeId) return state;
+
+            const foundContentIndex = state.contents.findIndex(content => content.typeId === typeId);
+            if (foundContentIndex === -1) return;
+
+            state.contents[foundContentIndex].data = state.contents[foundContentIndex].data.filter(value => value._id !== docContentId);
+            return state;
+        },
 
     }
 });

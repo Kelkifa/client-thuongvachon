@@ -1,6 +1,5 @@
-$bd-color-dark: rgba(34, 33, 33, 0.521);
-$bd-color-light: rgba(207, 205, 205, 0.24);
-
+$pd: 0.5em;
+$bd-radius: 0.4em;
 .my-button {
 	display: flex;
 	align-items: center;
@@ -10,7 +9,7 @@ $bd-color-light: rgba(207, 205, 205, 0.24);
 	border-radius: 0.4em;
 	outline: none;
 
-	padding: 0.5em;
+	padding: $pd;
 
 	color: white;
 	background-color: rgba(173, 17, 113, 0.548);
@@ -28,6 +27,21 @@ $bd-color-light: rgba(207, 205, 205, 0.24);
 
 	&--disable {
 		background-color: rgba(83, 8, 54, 0.322);
+		color: rgba(168, 165, 165, 0.685);
+	}
+}
+
+.my-button-link {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	gap: 0.1em;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&--disable {
 		color: rgba(168, 165, 165, 0.685);
 	}
 }

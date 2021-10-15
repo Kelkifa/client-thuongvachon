@@ -1,56 +1,58 @@
 import "./docHeader.scss";
 
+import {Link, useLocation} from "react-router-dom";
+
 import {AiOutlinePlusSquare} from "react-icons/ai";
-import DocRightBar from "./DocRightBar";
-import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
+import LoadIcon from "components/LoadIcon";
 import React from "react";
+import {useSelector} from "react-redux";
 
-DocHeader.propTypes = {
-	titles: PropTypes.array,
-	docTypes: PropTypes.array,
+// import PropTypes from "prop-types";
 
-	activedType: PropTypes.object,
-	activedTitle: PropTypes.string,
-};
+// DocHeader.propTypes = {
+// 	docTypeInfo: PropTypes.object,
+// };
 
-DocHeader.defaultProps = {
-	titles: [],
-	docTypes: [],
-
-	activedType: {},
-	activedTitle: null,
-};
+// DocHeader.defaultProps = {
+// 	docTypeInfo: null,
+// };
 
 function DocHeader(props) {
-	const {titles, docTypes, activedTitle, activedType} = props;
+	const docTypeInfo = useSelector(state => state.docs.types);
+	const location = useLocation();
 
 	return (
 		<div className="doc-header grid">
 			<div className="row cg-0 doc-header__list">
-				{docTypes.map((value, index) => (
-					<Link
-						key={value._id}
-						to={`?type=${value._id}`}
-						className={`c-2 m-4 doc-header__list__item${
-							activedType._id === value._id
-								? " doc-header__list__item--active"
-								: ""
-						}`}
-					>
-						{value.type}
-					</Link>
-				))}
-				<Link to="?" className="m-2 doc-header__list__item">
+				{docTypeInfo.loading ? (
+					<div className="c-10 m-8 doc-header__list__item--load">
+						Loading <LoadIcon />
+					</div>
+				) : (
+					docTypeInfo.data.map((value, index) => (
+						<Link
+							key={value._id}
+							to={`/docs/${value._id}`}
+							className={`c-2 m-4 doc-header__list__item${
+								location.pathname.includes(`/docs/${value._id}`)
+									? " doc-header__list__item--active"
+									: ""
+							}`}
+						>
+							{value.type}
+						</Link>
+					))
+				)}
+				<Link to="/docs" className="c-2 m-4 doc-header__list__item">
 					<AiOutlinePlusSquare />
 				</Link>
-				<li className="doc-header__list__right-bar-btn">
+				{/* <li className="doc-header__list__right-bar-btn">
 					<DocRightBar
 						activedType={activedType}
 						activedTitle={activedTitle}
 						titles={titles}
 					/>
-				</li>
+				</li> */}
 			</div>
 		</div>
 	);

@@ -3,37 +3,33 @@ import "./docForm.scss";
 import * as yup from "yup";
 
 import {FastField, Formik} from "formik";
+import {docCreateContent, docCreateDoc} from "../docSlice";
 
+import DivButton from "components/MyButton/DivButton";
 import DocInputField from "./DocInputField";
+import LoadIcon from "components/LoadIcon";
 import MyButton from "components/MyButton/MyButton";
 import PropTypes from "prop-types";
 import React from "react";
-import {docCreate} from "../docSlice";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
 
 DocForm.propTypes = {
+	isDataLoading: PropTypes.bool,
 	type: PropTypes.object,
+	handleCancel: PropTypes.func,
 };
 
 DocForm.defaultProps = {
+	isDataLoading: false,
 	type: null,
+	handleCancel: () => {},
 };
 
-const schema = yup.object().shape({
-	title: yup.string().required("This field is required"),
-	type: yup.string().required("This field is required"),
-	content: yup.string().required("This field is required"),
-});
-
-function DocForm(props) {
+function DocForm({type, isDataLoading, handleCancel}) {
 	const dispatch = useDispatch();
 
-	// PROPS
-	const {type} = props;
-	console.log(`[type]`, type);
-
-	// STATES
+	// useState
 	const [notifice, setNotifice] = useState({
 		isProcessing: false,
 		message: null,
@@ -46,19 +42,39 @@ function DocForm(props) {
 		content: "",
 	};
 
+	const schema = yup.object().shape({
+		title: yup.string().required("This field is required"),
+		type: type ? yup.string() : yup.string().required("This field is required"),
+		content: yup.string().required("This field is required"),
+	});
+
+	// HANDLE FUNCTIONS
+	// Submit
 	const handleSubmit = async values => {
 		console.log(`[submit]`, values);
 		try {
 			setNotifice({...notifice, isProcessing: true});
-			const response = await dispatch(
-				docCreate({data: {...values, type: type ? type.type : values.type}})
-			);
+
+			// Create new doc
+			if (type === null) {
+				// const response = await
+				const response = await dispatch(docCreateDoc({...values}));
+				console.log(response);
+			}
+			// Create new Content of doc
+			else {
+				const response = await dispatch(
+					docCreateContent({...values, type: type._id})
+				);
+				console.log(response);
+			}
+
 			setNotifice({...notifice, isProcessing: false});
-			console.log(response);
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
 	return (
 		<div className="doc-form">
 			<Formik
@@ -67,13 +83,25 @@ function DocForm(props) {
 				onSubmit={handleSubmit}
 			>
 				{formikProps => {
-					const {handleSubmit, values, errors, handleClick} = formikProps;
+					const {handleSubmit, handleClick} = formikProps;
 
-					console.log(`[errors]`, errors);
+					// console.log(`[values]`, values);
+					// console.log(`[errors]`, errors);
+
+					// console.log(`[errors]`, errors);
 					return (
 						<form className="doc-form__form" onSubmit={handleSubmit}>
 							<h3 className="doc-form__form__title">
-								{type ? `Tạo nội dung cho ${type.type}` : "Tạo tài liệu"}
+								{type ? `Tạo nội dung cho ${type.type}` : "Tạo tài liệu"}{" "}
+								{isDataLoading && (
+									<div className="doc-form__form__title__notifice">
+										(
+										<span className="doc-form__form__title__notifice__text">
+											Đang tải dữ liệu{" "}
+										</span>{" "}
+										<LoadIcon />)
+									</div>
+								)}
 							</h3>
 
 							{!type && (
@@ -98,12 +126,13 @@ function DocForm(props) {
 								component={DocInputField}
 							/>
 							<div className="doc-form__form__btn">
+								<DivButton text="Cancel" onClick={handleCancel} />
 								<MyButton
 									type="submit"
 									name="type"
 									value="React Native"
 									handleClick={handleClick}
-									disabled={notifice.isProcessing}
+									disabled={notifice.isProcessing || isDataLoading}
 								/>
 							</div>
 						</form>

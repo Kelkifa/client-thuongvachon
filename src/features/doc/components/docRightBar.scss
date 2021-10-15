@@ -4,6 +4,7 @@ $bg-color-hover: rgba(20, 20, 20, 0.664);
 	position: relative;
 	&__icon {
 		padding: 6px 0;
+		border-radius: 0.2em 0 0 0;
 		text-align: center;
 
 		cursor: pointer;
@@ -31,6 +32,11 @@ $bg-color-hover: rgba(20, 20, 20, 0.664);
 			color: inherit;
 			&--active {
 				background-color: $bg-color-hover;
+			}
+			&--loading {
+				display: flex;
+				align-items: center;
+				gap: 0.2em;
 			}
 		}
 		li {

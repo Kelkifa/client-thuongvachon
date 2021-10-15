@@ -1,3 +1,5 @@
+import "./docCompileContent.scss";
+
 import {layoutString, processDownLine} from "./docContentCore";
 
 import PropTypes from "prop-types";
@@ -11,13 +13,13 @@ function createEleFromStr(elementObj = null, index = 0) {
 	const content = processDownLine(value);
 	switch (type) {
 		case "<b>":
-			return <b key={index}>{content}</b>;
+			return <b>{content}</b>;
 		case "<code>":
-			return <code key={index}>{content}</code>;
+			return <code>{content}</code>;
 		case "<img>":
-			return <img key={index} src={content} alt="err" />;
+			return <img src={content} alt="err" />;
 		default:
-			return <div key={index}>{content}</div>;
+			return <div>{content}</div>;
 	}
 }
 
@@ -36,10 +38,14 @@ function DocCompileContent(props) {
 		? layoutString(content.content, compileElement)
 		: [];
 	return (
-		<div className="grid wide develop">
-			<h2 className="doc-content__title">{content.title}</h2>
-			<div className="doc-content__content">
-				{layoutArr.map((value, index) => createEleFromStr(value, index))}
+		<div className="grid wide doc-compile-content">
+			<h2 className="doc-compile-content__title">{content.title}</h2>
+			<div className="doc-compile-content__content">
+				{layoutArr.map((value, index) => (
+					<div className="doc-compile-content__content__item">
+						{createEleFromStr(value, index)}
+					</div>
+				))}
 			</div>
 		</div>
 	);

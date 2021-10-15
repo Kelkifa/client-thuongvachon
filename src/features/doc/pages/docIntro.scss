@@ -1,0 +1,16 @@
+$text-color: rgba(238, 234, 234, 0.877);
+
+.doc-intro {
+	padding: 0.7em;
+
+	color: $text-color;
+	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.3em;
+
+		padding-bottom: 1em;
+		color: white;
+	}
+}

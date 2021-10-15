@@ -1,4 +1,5 @@
 $bg: rgba(0, 0, 0, 0.596);
+$bg-active: rgba(163, 23, 81, 0.418);
 $text-color: rgba(216, 211, 211, 0.644);
 .doc-header {
 	&__list {
@@ -17,12 +18,20 @@ $text-color: rgba(216, 211, 211, 0.644);
 
 			cursor: pointer;
 			&:not(:last-child):hover {
-				background-color: rgba(163, 23, 81, 0.418);
+				background-color: $bg-active;
 				color: white;
 			}
 			&--active {
-				background-color: rgba(163, 23, 81, 0.418);
+				background-color: $bg-active;
 				color: white;
+			}
+			&--load {
+				display: flex;
+				align-items: center;
+				gap: 0.3em;
+				justify-self: start;
+				padding: 6px 6px;
+				color: $text-color;
 			}
 		}
 		&__right-bar-btn {

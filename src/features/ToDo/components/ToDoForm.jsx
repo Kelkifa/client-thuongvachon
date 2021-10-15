@@ -3,15 +3,17 @@ import "./todoForm.scss";
 import {FastField, Formik} from "formik";
 import {getFirstLastDay, randomNoteColor} from "./coreCalendar";
 
-import LoadIcon from "components/LoadIcon";
 import MyButton from "components/MyButton/MyButton";
 import PropTypes from "prop-types";
 import React from "react";
-import {RiContactsBookUploadFill} from "react-icons/ri";
 import ToDoInputField from "./ToDoInputField";
 import {todoCreate} from "../todoSlice";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
+
+// import LoadIcon from "components/LoadIcon";
+
+// import {RiContactsBookUploadFill} from "react-icons/ri";
 
 ToDoForm.propTypes = {
 	noteList: PropTypes.array,
@@ -145,7 +147,7 @@ function ToDoForm(props) {
 						touched,
 						values,
 						setFieldValue,
-						setFieldError,
+						// setFieldError,
 					} = formikProps;
 
 					return (

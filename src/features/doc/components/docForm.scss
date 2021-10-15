@@ -1,13 +1,28 @@
 .doc-form {
+	padding: 0.7em;
 	&__form {
 		&__title {
-			text-align: center;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+
+			gap: 0.5em;
+
+			&__notifice {
+				display: flex;
+				align-items: center;
+
+				&__text {
+					margin-right: 0.2em;
+				}
+			}
 		}
 
 		&__btn {
 			margin-top: 5px;
 			display: flex;
-			justify-content: end;
+			gap: 0.4em;
+			justify-content: flex-end;
 		}
 	}
 }

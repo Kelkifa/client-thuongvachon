@@ -1,0 +1,12 @@
+.doc-compile-content {
+	&__title {
+		text-align: center;
+	}
+	&__content {
+		padding: 0.8em;
+
+		&__item ~ &__item {
+			margin-top: 0.7em;
+		}
+	}
+}

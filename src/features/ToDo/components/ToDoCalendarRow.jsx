@@ -1,10 +1,15 @@
 import "./todoCalendarRow.scss";
 
-import CalendarNote from "./CalendarNote";
 import PropTypes from "prop-types";
 import React from "react";
 import ToDoCalendarLayer from "./ToDoCalendarLayer";
 import {useState} from "react";
+
+// import CalendarNote from "./CalendarNote";
+
+
+
+
 
 ToDoCalendarRow.propTypes = {
 	dateList: PropTypes.array,
@@ -19,7 +24,7 @@ ToDoCalendarRow.defaultProps = {
 };
 function ToDoCalendarRow(props) {
 	// PROPS
-	const {className, dateList, notes, currMonth} = props;
+	const {dateList, notes, currMonth} = props;
 	// STATES
 	const [isActive, setIsActive] = useState(false);
 
@@ -49,9 +54,9 @@ function ToDoCalendarRow(props) {
 				{dateList.map(value => (
 					<li
 						style={
-							currDate.getMonth() == value.getMonth() &&
-							currDate.getDate() == value.getDate() &&
-							currDate.getFullYear() == value.getFullYear()
+							currDate.getMonth() === value.getMonth() &&
+							currDate.getDate() === value.getDate() &&
+							currDate.getFullYear() === value.getFullYear()
 								? {backgroundColor: "rgba(0, 0, 0, 0.387)"}
 								: {}
 						}

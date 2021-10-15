@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import {TodoCalendarContext} from "./ToDoCalendar";
 import {useContext} from "react";
-import {useState} from "react";
+
+// import {useState} from "react";
 
 CalendarNote.propTypes = {
 	startDate: PropTypes.object,
@@ -28,7 +29,7 @@ function CalendarNote(props) {
 	const {currDate, activedNote, setActivedNote} =
 		useContext(TodoCalendarContext);
 	// PROPS
-	const {startDate, endDate, note, isActive, isOver} = props;
+	const {startDate, endDate, note, isActive} = props;
 
 	// RENDER
 	if (!startDate || !endDate || !note) return null;
