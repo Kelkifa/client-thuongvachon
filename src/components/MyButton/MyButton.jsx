@@ -20,7 +20,7 @@ MyButton.defaultProps = {
 	className: "",
 
 	disabled: false,
-	text: "submit",
+	text: "Submit",
 	name: "submit",
 	type: "submit",
 	value: "",

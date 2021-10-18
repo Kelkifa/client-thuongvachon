@@ -17,6 +17,10 @@ const docApi = {
         const url = '/docs/getContent';
         return axiosClient.post(url, data);
     },
+    updateContent: (data) => {
+        const url = '/docs/updateContent';
+        return axiosClient.put(url, { data });
+    },
     deleteDoc: (data) => {
         const url = '/docs/deleteDoc';
         return axiosClient.delete(url, { data });

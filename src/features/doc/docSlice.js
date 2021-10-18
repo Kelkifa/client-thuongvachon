@@ -23,6 +23,12 @@ export const docCreateDoc = createAsyncThunk('doc/docCreateDoc', async (data) =>
     return response;
 })
 
+/** content schema:  {title: String, typeId: String, content: String} */
+export const docUpdateContent = createAsyncThunk('doc/docUpdateContent', async (content) => {
+    const response = await docApi.updateContent(content)
+    return response;
+})
+
 export const docDeleteDoc = createAsyncThunk('doc/docDelete', async (typeId) => {
 
     const response = await docApi.deleteDoc({ data: typeId });
@@ -110,6 +116,28 @@ const docSlice = createSlice({
             return state;
 
         },
+        // UPDATE
+        [docUpdateContent.pending]: (state, action) => {
+
+        },
+        [docUpdateContent.rejected]: (state, action) => {
+
+        },
+        [docUpdateContent.fulfilled]: (state, action) => {
+            if (!action.payload.success) return state;
+
+            const { _id: contentId, typeId } = action.payload.response;
+
+            const foundTypeIndex = state.contents.findIndex(content => content.typeId === typeId);
+            if (foundTypeIndex === -1) return state;
+
+            const foundContentIndex = state.contents[foundTypeIndex].data.findIndex(value => value._id === contentId);
+            if (foundContentIndex === -1) return state;
+
+            state.contents[foundTypeIndex].data[foundContentIndex] = action.payload.response;
+            return state;
+        },
+
 
         // DELETE
         [docDeleteDoc.pending]: (state, action) => {

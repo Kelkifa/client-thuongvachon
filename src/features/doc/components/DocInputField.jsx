@@ -2,6 +2,7 @@ import "./docInputField.scss";
 
 import PropTypes from "prop-types";
 import React from "react";
+import TextEditor from "components/TextEditor/TextEditor";
 
 DocInputField.propTypes = {
 	form: PropTypes.object.isRequired,
@@ -25,17 +26,19 @@ function DocInputField(props) {
 
 	return (
 		<div className="doc-input-field">
-			{label && <label>{label}</label>}
+			{label && <label className="doc-input-field__label">{label}</label>}
 			{inputType === "textarea" ? (
-				<textarea
-					className="doc-input-field__input"
-					name={field.name}
-					value={field.value}
-					type="text"
-					placeholder={placeholder}
-					onChange={field.onChange}
-					onBlur={field.onBlur}
-					rows="6"
+				<TextEditor
+					setContents={field.value}
+					onChange={value => {
+						const data = {
+							target: {
+								name: field.name,
+								value,
+							},
+						};
+						field.onChange(data);
+					}}
 				/>
 			) : (
 				<input

@@ -1,12 +1,19 @@
+$bg: rgba(0, 0, 0, 0.356);
 .doc-compile-content {
-	&__title {
-		text-align: center;
-	}
-	&__content {
-		padding: 0.8em;
+	box-sizing: border-box;
+	// margin: 0 2em;
+	&__container {
+		background-color: $bg;
+		margin-top: 2em;
+		&__title {
+			text-align: center;
+		}
+		&__content {
+			padding: 0.8em;
 
-		&__item ~ &__item {
-			margin-top: 0.7em;
+			&__item ~ &__item {
+				margin-top: 0.7em;
+			}
 		}
 	}
 }

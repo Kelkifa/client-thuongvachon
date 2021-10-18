@@ -16,9 +16,10 @@ $bg-color-hover: rgba(20, 20, 20, 0.664);
 		}
 	}
 	&__list {
-		background-color: rgba(20, 20, 20, 0.418);
+		background-color: rgba(20, 20, 20, 0.705);
 		width: 100%;
 		position: absolute;
+		z-index: 10;
 
 		list-style: none;
 

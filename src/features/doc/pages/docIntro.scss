@@ -13,4 +13,13 @@ $text-color: rgba(238, 234, 234, 0.877);
 		padding-bottom: 1em;
 		color: white;
 	}
+
+	&__link {
+		color: unset;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }

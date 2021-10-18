@@ -1,0 +1,14 @@
+.doc-update-page {
+	&__title {
+		text-align: center;
+
+		padding-top: 1.6em;
+
+		&__load-notifice {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.25em;
+		}
+	}
+}

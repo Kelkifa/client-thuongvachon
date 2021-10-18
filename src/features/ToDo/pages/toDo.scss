@@ -7,6 +7,7 @@ $pd: 10px;
 	&__list {
 		background-color: $bg-color;
 		grid-row: span 2;
+		max-height: 730px;
 		// padding: $pd;
 
 		&__component {

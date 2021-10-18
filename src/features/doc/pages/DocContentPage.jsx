@@ -7,9 +7,14 @@ import {useLocation, useParams} from "react-router";
 import DocContentPageIntro from "./DocContentPageIntro";
 import DocRightBar from "../components/DocRightBar";
 import React from "react";
+import TextEditor from "components/TextEditor/TextEditor";
 import {docGetContent} from "../docSlice";
 import {useEffect} from "react";
 import {useState} from "react";
+
+// import TextEditor from "feature/components/TextEditor/TextEditor";
+
+// import DocCompileContent from "features/doc/components/DocCompileContent";
 
 // import DocCompileContent from "../components/DocCompileContent";
 
@@ -44,6 +49,7 @@ function DocContentPage(props) {
 		return state.docs.contents.find(value => value.typeId === params.id);
 	});
 
+	console.log(`[currContent]`, currContent);
 	// useState
 	const [isLoading, setIsLoading] = useState(
 		currContent === undefined ? true : false
@@ -85,11 +91,23 @@ function DocContentPage(props) {
 			</div>
 
 			<div className="doc-content-page__content">
-				{title === null && (
+				{title === null || currContent === undefined ? (
 					<DocContentPageIntro
 						type={currType}
 						dataInfo={currContent}
 						isLoading={isLoading}
+					/>
+				) : (
+					// <DocCompileContent
+					// 	content={currContent.data.find(value => value._id === title)}
+					// />
+					<TextEditor
+						setContents={
+							currContent.data.find(value => value._id === title) &&
+							currContent.data.find(value => value._id === title).content
+						}
+						hideToolbar={true}
+						disable={true}
 					/>
 				)}
 			</div>

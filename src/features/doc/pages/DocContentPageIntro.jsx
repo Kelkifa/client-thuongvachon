@@ -1,13 +1,15 @@
 import "./docIntro.scss";
 
-import DocForm from "../components/DocForm";
+import DocFormCreate from "../components/DocFormCreate";
 import {IoAddCircleOutline} from "react-icons/io5";
+import {Link} from "react-router-dom";
 import MyButton from "components/MyButton/MyButton";
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "components/Table/Table";
 import {docDeleteContent} from "../docSlice";
 import {useDispatch} from "react-redux";
+import {useHistory} from "react-router";
 import {useState} from "react";
 
 DocContentPageIntro.propTypes = {
@@ -23,6 +25,7 @@ DocContentPageIntro.defaultProps = {
 };
 
 function DocContentPageIntro(props) {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	// useProps
 	const {dataInfo, isLoading, type} = props;
@@ -43,12 +46,15 @@ function DocContentPageIntro(props) {
 			console.log(`[Doc Delete Content ERR]`, err);
 		}
 	};
-	const handleUpdate = async titleId => {};
+
+	const handleRowClick = docId => {
+		history.push(`?title=${docId}`);
+	};
 
 	return (
 		<div className="doc-intro">
 			{isShowForm ? (
-				<DocForm
+				<DocFormCreate
 					type={type}
 					isDataLoading={isLoading}
 					handleCancel={() => {
@@ -58,7 +64,7 @@ function DocContentPageIntro(props) {
 			) : (
 				<>
 					<h2 className="doc-intro__title">
-						Danh sách các mục
+						{type && type.type}
 						<IoAddCircleOutline
 							onClick={() => {
 								setIsShowForm(true);
@@ -89,10 +95,23 @@ function DocContentPageIntro(props) {
 											index % 2 !== 0
 												? "rgba(163, 23, 81, 0.218)"
 												: "transparent",
+										cursor: "pointer",
 									}}
 								>
-									<td>{index + 1}</td>
-									<td>{value.title}</td>
+									<td
+										onClick={() => {
+											handleRowClick(value._id);
+										}}
+									>
+										{index + 1}
+									</td>
+									<td
+										onClick={() => {
+											handleRowClick(value._id);
+										}}
+									>
+										{value.title}
+									</td>
 									<td>
 										<MyButton
 											type="a"
@@ -101,7 +120,15 @@ function DocContentPageIntro(props) {
 												handleDelete(value._id);
 											}}
 										/>
-										<MyButton type="a" text="Update" onClick={handleUpdate} />
+										{/* <MyButton type="a" text="Update" onClick={handleUpdate} /> */}
+
+										<Link
+											to={`/docs/${type._id}/update/${value._id}`}
+											style={{color: "unset"}}
+											className="doc-intro__link"
+										>
+											Update
+										</Link>
 									</td>
 								</tr>
 							))

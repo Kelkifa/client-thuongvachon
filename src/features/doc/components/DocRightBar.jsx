@@ -26,7 +26,7 @@ function DocRightBar(props) {
 
 	// console.log(`[activedTitle]`, activedTitle);
 	// STATES
-	const [show, setShow] = useState(false);
+	const [show, setShow] = useState(true);
 
 	const handleClick = () => {
 		setShow(!show);

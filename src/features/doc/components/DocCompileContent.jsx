@@ -38,14 +38,18 @@ function DocCompileContent(props) {
 		? layoutString(content.content, compileElement)
 		: [];
 	return (
-		<div className="grid wide doc-compile-content">
-			<h2 className="doc-compile-content__title">{content.title}</h2>
-			<div className="doc-compile-content__content">
-				{layoutArr.map((value, index) => (
-					<div className="doc-compile-content__content__item">
-						{createEleFromStr(value, index)}
-					</div>
-				))}
+		<div className="doc-compile-content">
+			<div className="grid wide-p97 doc-compile-content__container">
+				<h2 className="doc-compile-content__container__title">
+					{content.title}
+				</h2>
+				<div className="doc-compile-content__container__content">
+					{layoutArr.map((value, index) => (
+						<div className="doc-compile-content__container__content__item">
+							{createEleFromStr(value, index)}
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	);

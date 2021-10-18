@@ -29,7 +29,7 @@ function ToDo(props) {
 						noteList={noteList}
 					></ToDoCalendar>
 				</div>
-				<div className="c-6 m-12 todo__list">
+				<div className="c-6 m-12 todo__list custom-scroll">
 					<TodoList
 						className="todo__list__component custom-scroll"
 						isLoading={todoInfo.loading}

@@ -14,19 +14,19 @@ import React from "react";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
 
-DocForm.propTypes = {
+DocFormCreate.propTypes = {
 	isDataLoading: PropTypes.bool,
 	type: PropTypes.object,
 	handleCancel: PropTypes.func,
 };
 
-DocForm.defaultProps = {
+DocFormCreate.defaultProps = {
 	isDataLoading: false,
 	type: null,
 	handleCancel: () => {},
 };
 
-function DocForm({type, isDataLoading, handleCancel}) {
+function DocFormCreate({type, isDataLoading, handleCancel}) {
 	const dispatch = useDispatch();
 
 	// useState
@@ -143,4 +143,4 @@ function DocForm({type, isDataLoading, handleCancel}) {
 	);
 }
 
-export default DocForm;
+export default DocFormCreate;

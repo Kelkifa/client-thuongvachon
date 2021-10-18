@@ -1,9 +1,16 @@
-import ButtonTest from "./components/ButtonTest";
+// import ButtonTest from "./components/ButtonTest";
+
+import "./develop.scss";
+
 import React from "react";
+import TextEditor from "components/TextEditor/TextEditor";
 
 function Develop(props) {
-	console.log("develop pre-render");
-	return <ButtonTest />;
+	return (
+		<div className="grid wide develop">
+			<TextEditor />
+		</div>
+	);
 }
 
 export default Develop;
