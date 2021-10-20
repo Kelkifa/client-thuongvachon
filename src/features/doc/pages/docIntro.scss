@@ -1,9 +1,11 @@
 $text-color: rgba(238, 234, 234, 0.877);
+$pd: 0.7em;
 
 .doc-intro {
-	padding: 0.7em;
-
 	color: $text-color;
+
+	padding: $pd;
+
 	&__title {
 		display: flex;
 		align-items: center;

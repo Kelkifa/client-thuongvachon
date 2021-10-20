@@ -1,9 +1,9 @@
 import "./docIntro.scss";
 
+import DivButton from "components/MyButton/DivButton";
 import DocFormCreate from "../components/DocFormCreate";
 import {IoAddCircleOutline} from "react-icons/io5";
 import {Link} from "react-router-dom";
-import MyButton from "components/MyButton/MyButton";
 import PropTypes from "prop-types";
 import React from "react";
 import Table from "components/Table/Table";
@@ -11,6 +11,8 @@ import {docDeleteContent} from "../docSlice";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
 import {useState} from "react";
+
+// import MyButton from "components/MyButton/MyButton";
 
 DocContentPageIntro.propTypes = {
 	dataInfo: PropTypes.object,
@@ -24,26 +26,29 @@ DocContentPageIntro.defaultProps = {
 	type: null,
 };
 
+const HEADER_LIST = ["Stt", "Mục", "Options"];
+
 function DocContentPageIntro(props) {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	// useProps
 	const {dataInfo, isLoading, type} = props;
-
 	// useState
 	const [isShowForm, setIsShowForm] = useState(false);
 
-	// Handle functions
+	// Handle Functions
 	const handleDelete = async titleId => {
-		console.log(1);
-		if (!titleId || type === null) return;
+		if (!titleId || type === undefined) return false;
+		console.log("vo duoc day");
 		try {
 			const response = await dispatch(
 				docDeleteContent({typeId: type._id, docContentId: titleId})
 			);
-			console.log(`[DOC DELETE CONTENT RESPONSE]`, response);
+			console.log(`[DOC DELETE RESPONSE]`, response);
+			return response.payload.success;
 		} catch (err) {
-			console.log(`[Doc Delete Content ERR]`, err);
+			console.log(`[DOC TITLE DELETE]`, err);
+			return false;
 		}
 	};
 
@@ -73,17 +78,23 @@ function DocContentPageIntro(props) {
 						/>
 					</h2>
 
-					<Table headerList={["Stt", "Mục", "Options"]}>
+					<Table headerList={HEADER_LIST}>
 						{isLoading ? (
 							<tr>
-								<td colSpan="3" style={{textAlign: "center"}}>
+								<td colSpan={HEADER_LIST.length} style={{textAlign: "center"}}>
 									Loading...
 								</td>
 							</tr>
 						) : dataInfo === undefined ? (
 							<tr>
-								<td colSpan="3" style={{textAlign: "center"}}>
+								<td colSpan={HEADER_LIST.length} style={{textAlign: "center"}}>
 									Lỗi
+								</td>
+							</tr>
+						) : dataInfo.data.length === 0 ? (
+							<tr>
+								<td colSpan={HEADER_LIST.length} style={{textAlign: "center"}}>
+									Chưa có nội dung
 								</td>
 							</tr>
 						) : (
@@ -113,17 +124,15 @@ function DocContentPageIntro(props) {
 										{value.title}
 									</td>
 									<td>
-										<MyButton
-											type="a"
-											text="delete"
+										<DivButton
+											text="Delete"
 											onClick={() => {
 												handleDelete(value._id);
 											}}
 										/>
-										{/* <MyButton type="a" text="Update" onClick={handleUpdate} /> */}
 
 										<Link
-											to={`/docs/${type._id}/update/${value._id}`}
+											to={`/docs/${type && type._id}/update/${value._id}`}
 											style={{color: "unset"}}
 											className="doc-intro__link"
 										>

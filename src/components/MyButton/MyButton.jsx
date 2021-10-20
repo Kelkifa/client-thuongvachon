@@ -3,7 +3,8 @@ import "./myButton.scss";
 import LoadIcon from "components/LoadIcon";
 import PropTypes from "prop-types";
 import React from "react";
-import {useState} from "react";
+
+// import {useState} from "react";
 
 MyButton.propTypes = {
 	className: PropTypes.string,
@@ -12,7 +13,7 @@ MyButton.propTypes = {
 	text: PropTypes.string,
 	name: PropTypes.string,
 	value: PropTypes.string,
-	type: PropTypes.string,
+	type: PropTypes.string, // type of button {type: String, $in:["submit", "cancel"]}
 	onClick: PropTypes.func,
 };
 
@@ -24,20 +25,14 @@ MyButton.defaultProps = {
 	name: "submit",
 	type: "submit",
 	value: "",
-	onClick: null,
+	onClick: () => {},
 };
 
 function MyButton(props) {
 	const {text, className, name, type, disabled, value, onClick} = props;
 
-	const [isLoading, setIsLoading] = useState(false);
+	// const [isLoading, setIsLoading] = useState(false);
 
-	const btnClickHandler = async () => {
-		if (onClick === null) return;
-		setIsLoading(true);
-		await onClick();
-		setIsLoading(false);
-	};
 	return (
 		<>
 			{type === "submit" ? (
@@ -56,13 +51,13 @@ function MyButton(props) {
 				</button>
 			) : (
 				<div
-					className={`my-button-link ${className}${
-						disabled || isLoading ? " my-button-link--disable" : ""
+					className={`my-button ${className}${
+						disabled ? " my-button--disable" : ""
 					}`}
-					onClick={btnClickHandler}
+					onClick={onClick}
 				>
-					{text}
-					{(disabled || isLoading) && <LoadIcon />}
+					<span>{text}</span>
+					{disabled && <LoadIcon />}
 				</div>
 			)}
 		</>

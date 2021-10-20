@@ -18,7 +18,6 @@ import HomePage from 'components/Home/HomePage';
 import MainLayout from 'layouts/MainLayout';
 import NotFound from 'components/NotFound';
 import ToDoMain from 'features/ToDo/ToDoMain';
-import { docGetTypes } from 'features/doc/docSlice';
 import { gameClientGet } from 'features/game/gameSlice';
 import { todoGet } from 'features/ToDo/todoSlice';
 import { useDispatch } from 'react-redux';
@@ -35,7 +34,6 @@ function App() {
         await Promise.all([
           dispatch(gameClientGet()),
           dispatch(todoGet()),
-          dispatch(docGetTypes())
         ])
       } catch (err) {
         console.log(err);

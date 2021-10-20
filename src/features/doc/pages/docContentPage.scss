@@ -1,5 +1,7 @@
+$pd: 0.7em;
 .doc-content-page {
 	// box-sizing: border-box;
+	// padding: $pd;
 	&__rightbar {
 		display: flex;
 		justify-content: flex-end;
@@ -7,6 +9,12 @@
 		&__item {
 			min-width: 150px;
 			background-color: rgba(0, 0, 0, 0.247);
+		}
+	}
+
+	&__content {
+		&__title {
+			text-align: center;
 		}
 	}
 }

@@ -17,12 +17,15 @@ import {useState} from "react";
 DocFormUpdate.propTypes = {
 	content: PropTypes.object,
 	isDataLoading: PropTypes.bool,
+	gotoElement: PropTypes.object,
 
 	setNotifice:
 		PropTypes.func /** inputSchema: {isProcessed: boolean, type: {$in: ["success", "err message"] } } */,
 };
 DocFormUpdate.defaultProps = {
 	content: undefined,
+
+	gotoElement: null,
 
 	setNotifice: undefined,
 };
@@ -33,7 +36,8 @@ const schema = yup.object().shape({
 	content: yup.string().required("This field is required"),
 });
 
-function DocFormUpdate({content, setNotifice}) {
+function DocFormUpdate({content, setNotifice, gotoElement}) {
+	console.log(`[gotoElement]`, gotoElement);
 	// useState
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -51,8 +55,13 @@ function DocFormUpdate({content, setNotifice}) {
 		setIsLoading(true);
 		try {
 			const response = await dispatch(docUpdateContent(values));
+
+			gotoElement.current.scrollIntoView();
+
 			setIsLoading(false);
+
 			if (!setNotifice) return;
+
 			if (!response.payload.success) {
 				setNotifice({isProcessed: true, type: response.payload.message});
 				return;
@@ -62,6 +71,7 @@ function DocFormUpdate({content, setNotifice}) {
 		} catch (err) {
 			console.log(`[UPDATE DOC CONTENT ERR]`, err);
 			setIsLoading(false);
+			gotoElement.current.scrollIntoView();
 
 			if (!setNotifice) return;
 
@@ -90,7 +100,7 @@ function DocFormUpdate({content, setNotifice}) {
 
 							<FastField
 								name="content"
-								inputType="textarea"
+								inputType="texteditor"
 								label="Nội dung"
 								component={DocInputField}
 							/>

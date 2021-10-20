@@ -9,6 +9,7 @@ import React from "react";
 import {docGetContent} from "../docSlice";
 import {useEffect} from "react";
 import {useParams} from "react-router";
+import {useRef} from "react";
 import {useState} from "react";
 
 // import PropTypes from 'prop-types';
@@ -18,8 +19,13 @@ import {useState} from "react";
 // };
 
 function DocUpdatePage(props) {
+	// useRef
+	const titleEle = useRef();
+
+	// useDispatch
 	const dispatch = useDispatch();
 
+	// useParams
 	const params = useParams();
 	const {typeId, contentId} = params;
 
@@ -28,6 +34,7 @@ function DocUpdatePage(props) {
 		return state.docs.types.data.find(type => type._id === typeId);
 	});
 
+	// useSelector
 	const content = useSelector(state => {
 		const doc = state.docs.contents.find(content => content.typeId === typeId);
 		if (!doc) return undefined;
@@ -81,7 +88,7 @@ function DocUpdatePage(props) {
 	return (
 		<div className="doc-update-page">
 			<h2 className="doc-update-page__title">
-				<div>Update {type && type.type}</div>
+				<div ref={titleEle}>Update {type && type.type}</div>
 				{isLoading && (
 					<div className="doc-update-page__title__load-notifice">
 						{"( Đang tải tài liệu "}
@@ -102,6 +109,7 @@ function DocUpdatePage(props) {
 					content={content}
 					type={type}
 					setNotifice={setNotifice}
+					gotoElement={titleEle}
 				/>
 			)}
 			{errFlag && <DocNotifice.Fail text="Không tìm thấy nội dung" />}

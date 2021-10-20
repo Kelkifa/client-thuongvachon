@@ -1,7 +1,7 @@
 import "./header.scss";
 
-import {Link, useLocation} from "react-router-dom";
-
+import HeaderPageList from "./HeaderPageList";
+import {Link} from "react-router-dom";
 import React from "react";
 
 // import {linkStyle} from "assets/styles/styles";
@@ -9,57 +9,36 @@ import React from "react";
 // import {useRouteMatch} from "react-router";
 
 function Header(props) {
-	const location = useLocation();
-	const url = location.pathname.split("/")[1];
-
+	// Render
 	return (
 		<div className="header grid wide">
 			<div className="c-10 header__list">
-				<div className="header__list__group">
-					<Link
-						to="?ab=1"
-						className="header__list__group__item header__list__group__item--icon"
-					>
-						Icon
-					</Link>
-					<Link
-						to="/home"
-						className={`header__list__group__item ${
-							url === "home" ? "header__list__group__item--active" : ""
-						}`}
-					>
-						Home
-					</Link>
-					<Link
-						className={`header__list__group__item ${
-							url === "playTogether" ? "header__list__group__item--active" : ""
-						}`}
-						to="/playTogether"
-					>
-						Game
-					</Link>
-					<Link
-						className={`header__list__group__item ${
-							url === "todo" ? "header__list__group__item--active" : ""
-						}`}
-						to="/todo"
-					>
-						To Do
-					</Link>
-					<Link
-						className={`header__list__group__item ${
-							url === "docs" ? "header__list__group__item--active" : ""
-						}`}
-						to="/docs"
-					>
-						Docs
-					</Link>
-				</div>
-				<div className="header__list__group header__list__group--right">
-					<Link
-						className="header__list__group__item header__list__group__item--auth"
-						to="/auth/login"
-					>
+				<HeaderPageList
+					pageList={[
+						{
+							text: "Icon",
+							to: "/",
+						},
+						{
+							text: "Home",
+							to: "/home",
+						},
+						{
+							text: "Game",
+							to: "/playTogether",
+						},
+						{
+							text: "ToDo",
+							to: "/todo",
+						},
+						{
+							text: "Docs",
+							to: "/docs",
+						},
+					]}
+				/>
+				<div className="header__list__right">
+					<Link to="/auth/login" style={{color: "unset"}}>
 						Login | Register
 					</Link>
 				</div>

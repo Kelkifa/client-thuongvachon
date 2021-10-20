@@ -17,7 +17,7 @@ DocInputField.propTypes = {
 DocInputField.defaultProps = {
 	label: "",
 	placeholder: "",
-	inputType: "input",
+	inputType: "input", // $in: ['input', texteditor]
 	disabled: false,
 };
 
@@ -27,18 +27,12 @@ function DocInputField(props) {
 	return (
 		<div className="doc-input-field">
 			{label && <label className="doc-input-field__label">{label}</label>}
-			{inputType === "textarea" ? (
+			{inputType === "texteditor" ? (
 				<TextEditor
+					name={field.name}
 					setContents={field.value}
-					onChange={value => {
-						const data = {
-							target: {
-								name: field.name,
-								value,
-							},
-						};
-						field.onChange(data);
-					}}
+					onChange={field.onChange}
+					onBlur={field.onBlur}
 				/>
 			) : (
 				<input

@@ -107,11 +107,6 @@ function DocContent(props) {
 					/>
 				)}
 			</div>
-			{/* {!content ? (
-				<DocForm type={activedType} />
-			) : (
-				<DocCompileContent content={content} />
-			)} */}
 		</div>
 	);
 }

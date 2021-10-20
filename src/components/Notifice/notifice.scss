@@ -1,0 +1,23 @@
+.notifice {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	padding: 2em;
+
+	&__icon {
+		font-size: 22px;
+	}
+}
+
+.notifice__danger {
+	&__icon {
+		color: #dc3545;
+	}
+	background-color: rgba(175, 28, 28, 0.452);
+}
+.notifice__success {
+	&__icon {
+		color: #09c250;
+	}
+	background-color: #09a02f6e;
+}

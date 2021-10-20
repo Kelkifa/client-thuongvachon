@@ -2,14 +2,22 @@ import "./docIntro.scss";
 
 import {useDispatch, useSelector} from "react-redux";
 
+import DivButton from "components/MyButton/DivButton";
 import DocFormCreate from "../components/DocFormCreate";
 import {IoAddCircleOutline} from "react-icons/io5";
-import MyButton from "components/MyButton/MyButton";
+import {Link} from "react-router-dom";
 import React from "react";
 import Table from "components/Table/Table";
 import {docDeleteDoc} from "../docSlice";
 import {useHistory} from "react-router";
 import {useState} from "react";
+
+// import MyButton from "components/MyButton/MyButton";
+
+
+
+
+
 
 // import PropTypes from "prop-types";
 
@@ -30,9 +38,9 @@ function DocIntro(props) {
 
 	// Handle Functions
 	const handleDelete = async typeId => {
-		// console.log(`[typeId]`, typeId);
+		console.log(`[typeId]`, typeId);
 		try {
-			const response = await dispatch(docDeleteDoc(typeId));
+			const response = dispatch(docDeleteDoc(typeId));
 			console.log(`[response]`, response);
 		} catch (err) {
 			console.log(`[doc delete]`, err);
@@ -84,19 +92,34 @@ function DocIntro(props) {
 												: "transparent",
 										cursor: "pointer",
 									}}
-									onClick={() => {
-										handleRowClick(value._id);
-									}}
 								>
-									<td>{index}</td>
-									<td>{value.type}</td>
 									<td
-										className="doc-intro__table__btn"
 										onClick={() => {
-											handleDelete(value._id);
+											handleRowClick(value._id);
 										}}
 									>
-										<MyButton type="a" text="Delete" onClick={handleDelete} />
+										{index}
+									</td>
+									<td
+										onClick={() => {
+											handleRowClick(value._id);
+										}}
+									>
+										{value.type}
+									</td>
+									<td className="doc-intro__table__btn">
+										<DivButton
+											text="Delete"
+											onClick={() => {
+												handleDelete(value._id);
+											}}
+										/>
+										<Link
+											to={`/docs/update/${value._id}`}
+											className="doc-intro__link"
+										>
+											Update
+										</Link>
 									</td>
 								</tr>
 							))

@@ -5,12 +5,17 @@ $font-family: Arial, Helvetica, sans-serif;
 $font-size: 13.333px;
 
 .div-button {
-	background-color: $bg-color;
-	padding: $pd;
-	border-radius: $bd-radius;
-	color: white;
-	font-size: $font-size;
-	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 0.2em;
+	&:hover {
+		text-decoration: underline;
+	}
+	&--disabled {
+		color: rgba(165, 160, 160, 0.719);
 
-	font-family: $font-family;
+		&:hover {
+			text-decoration: none;
+		}
+	}
 }

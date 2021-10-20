@@ -12,20 +12,6 @@ import {docGetContent} from "../docSlice";
 import {useEffect} from "react";
 import {useState} from "react";
 
-// import TextEditor from "feature/components/TextEditor/TextEditor";
-
-// import DocCompileContent from "features/doc/components/DocCompileContent";
-
-// import DocCompileContent from "../components/DocCompileContent";
-
-// import DocForm from "../components/DocForm";
-
-// import PropTypes from 'prop-types';
-
-// DocContentPage.propTypes = {
-
-// };
-
 const useQuery = () => {
 	return new URLSearchParams(useLocation().search);
 };
@@ -49,7 +35,10 @@ function DocContentPage(props) {
 		return state.docs.contents.find(value => value.typeId === params.id);
 	});
 
-	console.log(`[currContent]`, currContent);
+	const content = currContent
+		? currContent.data.find(value => value._id === title)
+		: undefined;
+
 	// useState
 	const [isLoading, setIsLoading] = useState(
 		currContent === undefined ? true : false
@@ -98,17 +87,17 @@ function DocContentPage(props) {
 						isLoading={isLoading}
 					/>
 				) : (
-					// <DocCompileContent
-					// 	content={currContent.data.find(value => value._id === title)}
-					// />
-					<TextEditor
-						setContents={
-							currContent.data.find(value => value._id === title) &&
-							currContent.data.find(value => value._id === title).content
-						}
-						hideToolbar={true}
-						disable={true}
-					/>
+					<>
+						<h2 className="doc-content-page__content__title">
+							{" "}
+							{content && content.title}
+						</h2>
+						<TextEditor
+							setContents={content && content.content}
+							hideToolbar={true}
+							disable={true}
+						/>
+					</>
 				)}
 			</div>
 		</div>

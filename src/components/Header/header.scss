@@ -1,3 +1,5 @@
+$pd: 16px;
+$h: 53px;
 .header {
 	background-color: transparent;
 	color: white;
@@ -5,55 +7,11 @@
 	&__list {
 		display: flex;
 		justify-content: space-between;
-		flex-wrap: wrap;
+		align-items: top;
 
-		padding: 0;
-		margin: 0;
-		list-style: none;
-
-		&__group {
-			display: flex;
-			&__item {
-				flex-shrink: 0;
-
-				padding: 16px;
-
-				border-radius: 3px;
-
-				cursor: pointer;
-
-				color: white;
-				text-decoration: none;
-
-				&:hover {
-					background-color: rgba(43, 41, 41, 0.466);
-
-					color: red;
-				}
-				&--icon {
-					padding-left: 0;
-
-					&:hover {
-						background-color: transparent;
-
-						color: white;
-					}
-				}
-				&--auth {
-					padding-right: 0;
-
-					&:hover {
-						background-color: transparent;
-						color: red;
-						text-decoration: underline;
-					}
-				}
-				&--active {
-					background-color: rgba(43, 41, 41, 0.466);
-
-					color: red;
-				}
-			}
+		&__right {
+			padding: $pd;
+			height: 53px;
 		}
 	}
 }

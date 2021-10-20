@@ -5,14 +5,18 @@ import * as yup from "yup";
 import {FastField, Formik} from "formik";
 import {docCreateContent, docCreateDoc} from "../docSlice";
 
-import DivButton from "components/MyButton/DivButton";
 import DocInputField from "./DocInputField";
+import DocShowNotifice from "./DocShowNotifice";
 import LoadIcon from "components/LoadIcon";
 import MyButton from "components/MyButton/MyButton";
 import PropTypes from "prop-types";
 import React from "react";
+import {changeNotifice} from "assets/core/core";
 import {useDispatch} from "react-redux";
+import {useRef} from "react";
 import {useState} from "react";
+
+// import DivButton from "components/MyButton/DivButton";
 
 DocFormCreate.propTypes = {
 	isDataLoading: PropTypes.bool,
@@ -27,13 +31,16 @@ DocFormCreate.defaultProps = {
 };
 
 function DocFormCreate({type, isDataLoading, handleCancel}) {
+	// useRef
+	const titleRef = useRef();
+
+	// useDispatch
 	const dispatch = useDispatch();
 
 	// useState
 	const [notifice, setNotifice] = useState({
 		isProcessing: false,
-		message: null,
-		error: false,
+		error: undefined,
 	});
 
 	const initialValues = {
@@ -51,27 +58,31 @@ function DocFormCreate({type, isDataLoading, handleCancel}) {
 	// HANDLE FUNCTIONS
 	// Submit
 	const handleSubmit = async values => {
-		console.log(`[submit]`, values);
 		try {
 			setNotifice({...notifice, isProcessing: true});
 
+			let response = null;
 			// Create new doc
 			if (type === null) {
 				// const response = await
-				const response = await dispatch(docCreateDoc({...values}));
-				console.log(response);
+				response = await dispatch(docCreateDoc({...values}));
 			}
 			// Create new Content of doc
 			else {
-				const response = await dispatch(
+				response = await dispatch(
 					docCreateContent({...values, type: type._id})
 				);
-				console.log(response);
 			}
 
-			setNotifice({...notifice, isProcessing: false});
+			if (!response.payload.success) {
+				setNotifice(changeNotifice.setError(response.payload.message));
+				return;
+			}
+			titleRef.current.scrollIntoView();
+			setNotifice(changeNotifice.setSuccess());
 		} catch (err) {
-			console.log(err);
+			titleRef.current.scrollIntoView();
+			setNotifice(changeNotifice.setError(err.message));
 		}
 	};
 
@@ -83,15 +94,11 @@ function DocFormCreate({type, isDataLoading, handleCancel}) {
 				onSubmit={handleSubmit}
 			>
 				{formikProps => {
-					const {handleSubmit, handleClick} = formikProps;
+					const {handleSubmit} = formikProps;
 
-					// console.log(`[values]`, values);
-					// console.log(`[errors]`, errors);
-
-					// console.log(`[errors]`, errors);
 					return (
 						<form className="doc-form__form" onSubmit={handleSubmit}>
-							<h3 className="doc-form__form__title">
+							<h3 className="doc-form__form__title" ref={titleRef}>
 								{type ? `Tạo nội dung cho ${type.type}` : "Tạo tài liệu"}{" "}
 								{isDataLoading && (
 									<div className="doc-form__form__title__notifice">
@@ -103,6 +110,13 @@ function DocFormCreate({type, isDataLoading, handleCancel}) {
 									</div>
 								)}
 							</h3>
+
+							<DocShowNotifice
+								notifice={notifice}
+								successText={`Tạo ${
+									type === null ? "tài liệu" : "nội dung"
+								} thành công`}
+							/>
 
 							{!type && (
 								<FastField
@@ -121,17 +135,16 @@ function DocFormCreate({type, isDataLoading, handleCancel}) {
 
 							<FastField
 								name="content"
-								inputType="textarea"
+								inputType="texteditor"
 								label="Nội dung"
 								component={DocInputField}
 							/>
 							<div className="doc-form__form__btn">
-								<DivButton text="Cancel" onClick={handleCancel} />
+								<MyButton text="Cancel" onClick={handleCancel} />
 								<MyButton
 									type="submit"
 									name="type"
 									value="React Native"
-									handleClick={handleClick}
 									disabled={notifice.isProcessing || isDataLoading}
 								/>
 							</div>

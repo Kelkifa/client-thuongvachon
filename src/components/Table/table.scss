@@ -1,11 +1,14 @@
 .component-table {
+	// --rowHighlight
+	// --rowHover
 	border-collapse: collapse;
+	width: 100%;
 	tr {
 		// display: flex;
 	}
 	th,
 	td {
-		padding: 8px;
+		padding: 8px 0;
 		input[type="checkbox"] {
 			margin: 4px 0 0 0;
 			display: block;
@@ -13,7 +16,17 @@
 		vertical-align: top;
 		text-align: left;
 	}
-	td {
+	th:first-child {
+		padding-left: 0.3em;
+	}
+	td:first-child {
+		padding-left: 0.3em;
+	}
+	td ~ td {
+		padding-left: 16px;
+	}
+	th ~ th {
+		padding-left: 16px;
 	}
 
 	th {
@@ -26,7 +39,7 @@
 
 			&:hover {
 				// border-top: 1.5px solid rgba(100, 139, 175, 0.603);
-				background-color: rgba(175, 205, 236, 0.603);
+				background-color: var(--rowHover);
 			}
 		}
 		tr.component-table--empty {
@@ -35,7 +48,6 @@
 		}
 	}
 	tr:nth-child(even) {
-		background-color: #f2f2f2;
-		// background: rgba(185, 40, 100, 0.336);
+		background-color: var(--rowHighlight);
 	}
 }

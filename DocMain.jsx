@@ -6,11 +6,9 @@ import DocContentPage from "./pages/DocContentPage";
 import DocHeader from "./components/DocHeader";
 import DocTypePage from "./pages/DocTypePage";
 import DocUpdatePage from "./pages/DocUpdatePage";
+import DocUpdateTypePage from "./pages/DocUpdateTypePage";
 import NotFound from "components/NotFound";
 import React from "react";
-import {docGetTypes} from "./docSlice";
-import {useDispatch} from "react-redux";
-import {useEffect} from "react";
 
 // import DocContent from "./components/DocContent";
 
@@ -22,24 +20,15 @@ import {useEffect} from "react";
 
 function DocMain(props) {
 	const match = useRouteMatch();
-
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		const fetchDocType = async () => {
-			try {
-				const response = await dispatch(docGetTypes());
-				console.log(`[DOC GET TYPE RESPONSE]`, response);
-			} catch (err) {
-				console.log(`[DOC GET TYPE ERR]`, err);
-			}
-		};
-		fetchDocType();
-	}, [dispatch]);
 	return (
 		<div className="doc-page grid wide">
 			<DocHeader />
 			<Switch>
+				<Route
+					exact
+					path={`${match.url}/update/:id`}
+					component={DocUpdateTypePage}
+				/>
 				<Route
 					exact
 					path={`${match.url}/:typeId/update/:contentId`}
