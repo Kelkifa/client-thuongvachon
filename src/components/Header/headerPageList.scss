@@ -65,11 +65,13 @@ $mobileMaxSize: 500px;
 	.header-page-list {
 		&__list {
 			flex-direction: column;
+			background-color: $bc;
+
 			position: fixed;
 			z-index: 20;
-			background-color: $bc;
 			top: 0;
 			left: 0;
+
 			width: 100vw;
 			height: 100vh;
 

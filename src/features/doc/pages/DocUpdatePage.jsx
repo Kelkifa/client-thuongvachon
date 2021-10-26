@@ -60,7 +60,7 @@ function DocUpdatePage(props) {
 			try {
 				const response = await dispatch(docGetContent({data: typeId}));
 				setIsLoading(false);
-				console.log(`[FETCH UPDATE CONTENT]`, response);
+				// console.log(`[FETCH UPDATE CONTENT]`, response);
 				if (
 					response.payload.success === false ||
 					typeof response.payload.response !== "object"

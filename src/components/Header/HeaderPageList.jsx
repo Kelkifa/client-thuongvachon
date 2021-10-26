@@ -5,32 +5,30 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import React from "react";
 import {VscChromeClose} from "react-icons/vsc";
-import {useLocation} from "react-router-dom";
 import {useState} from "react";
 
 HeaderPageList.propTypes = {
 	pageList: PropTypes.array, // schema: {text: String, to: String}
+	url: PropTypes.string,
 };
 
 HeaderPageList.defaultProps = {
 	pageList: [],
+	url: null,
 };
 
 const MOBILE_SIZE = 500;
-function HeaderPageList({pageList}) {
+function HeaderPageList({pageList, url}) {
 	// useState
 	const [isShow, setIsShow] = useState(
 		window.innerWidth < MOBILE_SIZE ? false : true
 	);
 
-	// useLocation
-	const location = useLocation();
-	const url = location.pathname.split("/")[1];
 	return (
 		<div
 			className="header-page-list"
 			// Number item in header + close  --itemNumber is a css variable
-			style={{"--itemNumber": pageList.length + 1}}
+			style={{"--itemNumber": pageList.length + 2}}
 		>
 			{isShow ? (
 				<div className="header-page-list__list">

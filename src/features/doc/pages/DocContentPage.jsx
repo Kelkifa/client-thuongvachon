@@ -94,6 +94,7 @@ function DocContentPage(props) {
 						</h2>
 						<TextEditor
 							setContents={content && content.content}
+							// setOptions={{buttonList: [["fullScreen"]]}}
 							hideToolbar={true}
 							disable={true}
 						/>

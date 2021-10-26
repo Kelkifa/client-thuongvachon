@@ -57,7 +57,7 @@ function DocContentPageIntro(props) {
 	};
 
 	return (
-		<div className="doc-intro">
+		<div className="doc-intro custom-scroll">
 			{isShowForm ? (
 				<DocFormCreate
 					type={type}

@@ -2,11 +2,11 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 // require('dotenv').config();
-const productURL = 'https://thuongvachon.herokuapp.com/api';
-// const devURL = 'http://localhost:8080/api';
+// const productURL = 'https://thuongvachon.herokuapp.com/api';
+const devURL = 'http://localhost:8080/api';
 
 const axiosClient = axios.create({
-    baseURL: productURL,
+    baseURL: devURL,
     headers: {
         'content-type': 'application/json',
     },
@@ -25,6 +25,12 @@ axiosClient.interceptors.request.use(async config => {
     // }
 
     // return config;
+
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+
     return config;
 })
 

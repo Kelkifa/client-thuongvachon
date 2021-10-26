@@ -37,7 +37,7 @@ const schema = yup.object().shape({
 });
 
 function DocFormUpdate({content, setNotifice, gotoElement}) {
-	console.log(`[gotoElement]`, gotoElement);
+	// console.log(`[gotoElement]`, gotoElement);
 	// useState
 	const [isLoading, setIsLoading] = useState(false);
 

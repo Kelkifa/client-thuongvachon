@@ -31,8 +31,6 @@ MyButton.defaultProps = {
 function MyButton(props) {
 	const {text, className, name, type, disabled, value, onClick} = props;
 
-	// const [isLoading, setIsLoading] = useState(false);
-
 	return (
 		<>
 			{type === "submit" ? (

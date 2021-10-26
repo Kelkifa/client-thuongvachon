@@ -12,21 +12,6 @@ import {docDeleteDoc} from "../docSlice";
 import {useHistory} from "react-router";
 import {useState} from "react";
 
-// import MyButton from "components/MyButton/MyButton";
-
-
-
-
-
-
-// import PropTypes from "prop-types";
-
-// DocIntro.propTypes = {
-// };
-
-// DocIntro.defaultProps = {
-// };
-
 function DocIntro(props) {
 	const history = useHistory();
 	const docTypeInfo = useSelector(state => state.docs.types);
@@ -38,7 +23,6 @@ function DocIntro(props) {
 
 	// Handle Functions
 	const handleDelete = async typeId => {
-		console.log(`[typeId]`, typeId);
 		try {
 			const response = dispatch(docDeleteDoc(typeId));
 			console.log(`[response]`, response);
@@ -53,7 +37,7 @@ function DocIntro(props) {
 	};
 
 	return (
-		<div className="doc-intro">
+		<div className="doc-intro custom-scroll">
 			{isShowForm ? (
 				<DocFormCreate
 					isDataLoading={docTypeInfo.loading}

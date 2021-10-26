@@ -2,11 +2,9 @@ import "./todoInputField.scss";
 
 import PropTypes from "prop-types";
 import React from "react";
+import ReactTooltip from "react-tooltip";
 
 // import {getFirstLastDay, randomNoteColor} from "./coreCalendar";
-
-
-
 
 ToDoInputField.propTypes = {
 	form: PropTypes.object.isRequired,
@@ -16,7 +14,13 @@ ToDoInputField.propTypes = {
 	label: PropTypes.string,
 	placeHolder: PropTypes.string,
 	type: PropTypes.string,
+
+	chooseGoto: PropTypes.func,
+
 	handleChangeEventColor: PropTypes.func,
+
+	handleChangeValue: PropTypes.object, // {name: String, handle: Func}
+	setHandleChangeValue: PropTypes.func,
 };
 
 ToDoInputField.defaultProps = {
@@ -24,18 +28,29 @@ ToDoInputField.defaultProps = {
 	label: "",
 	placeHolder: "",
 	type: "text",
+
+	chooseGoto: undefined,
+
 	handleChangeEventColor: null,
+
+	handleChangeValue: {},
+	setHandleChangeValue: () => {},
 };
 function ToDoInputField(props) {
 	const {
 		className,
-		handleChangeEventColor,
 		label,
 		placeHolder,
 		form,
 		field,
 		type,
+		chooseGoto,
+		handleChangeEventColor,
+		handleChangeValue,
+		setHandleChangeValue,
 	} = props;
+
+	// console.log("[activedBtn]", activedBtn);
 	const handleChange = e => {
 		const value = e.target.value;
 		if (type === "time") {
@@ -104,16 +119,49 @@ function ToDoInputField(props) {
 	return (
 		<div className={`todo-input-field ${className}`}>
 			<label className="todo-input-field__label">{label}</label>
-			<input
-				className="todo-input-field__input"
-				name={field.name}
-				onChange={handleChange}
-				onBlur={field.onBlur}
-				placeholder={placeHolder}
-				value={field.value}
-				type="text"
-				autoComplete="off"
-			/>
+			<div className="todo-input-field__container">
+				<input
+					className="todo-input-field__container__input"
+					name={field.name}
+					onChange={handleChange}
+					onBlur={field.onBlur}
+					placeholder={placeHolder}
+					value={field.value}
+					type="text"
+					autoComplete="off"
+				/>
+				{type === "date" && (
+					<div
+						className={
+							handleChangeValue.name === field.name
+								? "todo-input-field__container__btn todo-input-field__container__btn--active"
+								: "todo-input-field__container__btn"
+						}
+						onClick={() => {
+							if (field.name === handleChangeValue.name) {
+								setHandleChangeValue({});
+								return;
+							}
+							const value = {
+								name: field.name,
+								handle: form.setFieldValue,
+								handleColor: handleChangeEventColor,
+							};
+							setHandleChangeValue(value);
+
+							chooseGoto && chooseGoto();
+						}}
+						data-tip="chọn ngày trên lịch"
+					>
+						<ReactTooltip
+							type="light"
+							place="bottom"
+							backgroundColor="rgba(241, 238, 179, 0.836)"
+						/>
+						Choose
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }

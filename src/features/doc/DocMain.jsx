@@ -1,6 +1,7 @@
 import "./docMain.scss";
 
 import {Route, Switch, useRouteMatch} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
 
 import DocContentPage from "./pages/DocContentPage";
 import DocHeader from "./components/DocHeader";
@@ -9,7 +10,6 @@ import DocUpdatePage from "./pages/DocUpdatePage";
 import NotFound from "components/NotFound";
 import React from "react";
 import {docGetTypes} from "./docSlice";
-import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 
 // import DocContent from "./components/DocContent";
@@ -23,19 +23,25 @@ import {useEffect} from "react";
 function DocMain(props) {
 	const match = useRouteMatch();
 
+	const {loading, error} = useSelector(state => ({
+		loading: state.docs.types.loading,
+		error: state.docs.types.error,
+	}));
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		if (!loading || error) return;
 		const fetchDocType = async () => {
 			try {
-				const response = await dispatch(docGetTypes());
-				console.log(`[DOC GET TYPE RESPONSE]`, response);
+				await dispatch(docGetTypes());
+				// console.log(`[DOC GET TYPE RESPONSE]`, response);
 			} catch (err) {
 				console.log(`[DOC GET TYPE ERR]`, err);
 			}
 		};
 		fetchDocType();
-	}, [dispatch]);
+	}, [loading, error, dispatch]);
 	return (
 		<div className="doc-page grid wide">
 			<DocHeader />

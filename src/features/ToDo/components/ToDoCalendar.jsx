@@ -11,22 +11,45 @@ import {useState} from "react";
 
 ToDoCalendar.propTypes = {
 	className: PropTypes.string,
+	id: PropTypes.string,
 	noteList: PropTypes.array,
+
+	selectedOne: PropTypes.object,
+	selectedTwo: PropTypes.object,
+
+	selectOneClick: PropTypes.func,
+	selectTwoClick: PropTypes.func,
+
+	handleDateClick: PropTypes.func,
 };
 
 ToDoCalendar.defaultProps = {
 	className: "",
+	id: undefined,
 	noteList: [],
+
+	selectedOne: undefined,
+	selectedTwo: undefined,
+
+	selectOneClick: undefined,
+	selectTwoClick: undefined,
 };
 
 export const TodoCalendarContext = React.createContext();
 
-function ToDoCalendar(props) {
+function ToDoCalendar({
+	noteList,
+	id,
+	className,
+	selectedOne,
+	selectedTwo,
+	selectOneClick,
+	selectTwoClick,
+}) {
 	const now = new Date();
-	// PROPS
-	const {noteList, className} = props;
 
-	// STATES
+	/** useState */
+	// Data
 	const [showDate, setShowDate] = useState(now); // Showed date in calendar
 	const [activedNote, setActivedNote] = useState(null);
 
@@ -49,7 +72,7 @@ function ToDoCalendar(props) {
 		<TodoCalendarContext.Provider
 			value={{currDate: showDate, activedNote, setActivedNote}}
 		>
-			<div className={`todo-calendar ${className}`}>
+			<div className={`todo-calendar ${className}`} id={id}>
 				<TodoCalendarHeader
 					// showDate={showDateEle[viewType]}
 					className="todo-calendar__row"
@@ -77,6 +100,16 @@ function ToDoCalendar(props) {
 									currMonth={showDate.getMonth()}
 									notes={noteWithLayer}
 									dateList={showDateList.slice(0, 7)}
+									selectedOne={selectedOne}
+									selectedTwo={selectedTwo}
+									onCellClick={value => {
+										if (typeof selectOneClick === "function") {
+											selectOneClick(value);
+										}
+										if (typeof selectTwoClick === "function") {
+											selectTwoClick(value);
+										}
+									}}
 								></ToDoCalendarRow>
 							</div>
 						</div>
@@ -86,6 +119,16 @@ function ToDoCalendar(props) {
 									currMonth={showDate.getMonth()}
 									notes={noteWithLayer}
 									dateList={showDateList.slice(7, 14)}
+									selectedOne={selectedOne}
+									selectedTwo={selectedTwo}
+									onCellClick={value => {
+										if (typeof selectOneClick === "function") {
+											selectOneClick(value);
+										}
+										if (typeof selectTwoClick === "function") {
+											selectTwoClick(value);
+										}
+									}}
 								></ToDoCalendarRow>
 							</div>
 						</div>
@@ -95,6 +138,16 @@ function ToDoCalendar(props) {
 									currMonth={showDate.getMonth()}
 									notes={noteWithLayer}
 									dateList={showDateList.slice(14, 21)}
+									selectedOne={selectedOne}
+									selectedTwo={selectedTwo}
+									onCellClick={value => {
+										if (typeof selectOneClick === "function") {
+											selectOneClick(value);
+										}
+										if (typeof selectTwoClick === "function") {
+											selectTwoClick(value);
+										}
+									}}
 								></ToDoCalendarRow>
 							</div>
 						</div>
@@ -104,6 +157,16 @@ function ToDoCalendar(props) {
 									currMonth={showDate.getMonth()}
 									notes={noteWithLayer}
 									dateList={showDateList.slice(21, 28)}
+									selectedOne={selectedOne}
+									selectedTwo={selectedTwo}
+									onCellClick={value => {
+										if (typeof selectOneClick === "function") {
+											selectOneClick(value);
+										}
+										if (typeof selectTwoClick === "function") {
+											selectTwoClick(value);
+										}
+									}}
 								></ToDoCalendarRow>
 							</div>
 						</div>
@@ -113,6 +176,16 @@ function ToDoCalendar(props) {
 									currMonth={showDate.getMonth()}
 									notes={noteWithLayer}
 									dateList={showDateList.slice(28, 35)}
+									selectedOne={selectedOne}
+									selectedTwo={selectedTwo}
+									onCellClick={value => {
+										if (typeof selectOneClick === "function") {
+											selectOneClick(value);
+										}
+										if (typeof selectTwoClick === "function") {
+											selectTwoClick(value);
+										}
+									}}
 								></ToDoCalendarRow>
 							</div>
 						</div>

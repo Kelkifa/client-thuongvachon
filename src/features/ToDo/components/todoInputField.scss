@@ -1,19 +1,59 @@
+$w-btn-input: 50px;
+$c-btn: rgba(255, 166, 0, 0.247);
+$c-btn-active: rgba(173, 117, 12, 0.336);
+$bg: rgba(112, 9, 73, 0.582);
+
 .todo-input-field {
 	width: 100%;
+
 	&__label {
 		width: 100%;
 	}
-	&__input {
-		display: block;
-		float: left;
-		width: 100%;
-
-		color: rgba(255, 255, 255, 0.719);
-
-		border: none;
-		outline: none;
-
-		padding: 5px;
+	&__container {
 		background-color: rgba(112, 9, 73, 0.582);
+		// display: flex;
+		justify-content: space-between;
+
+		&__input {
+			background-color: transparent;
+
+			width: calc(100% - #{$w-btn-input});
+
+			color: rgba(255, 255, 255, 0.719);
+
+			border: none;
+			outline: none;
+
+			padding: 5px;
+
+			font-size: 16px;
+		}
+		&__input:last-child {
+			width: 100%;
+		}
+
+		&__btn {
+			display: inline-block;
+			text-align: center;
+
+			border: none;
+			outline: none;
+
+			width: 50px;
+			padding: 0.2em;
+
+			background-color: $c-btn;
+
+			border-radius: 0.3em;
+
+			font-size: 11px;
+
+			cursor: pointer;
+
+			&--active {
+				background-color: $c-btn-active;
+				color: rgba(255, 255, 255, 0.582);
+			}
+		}
 	}
 }

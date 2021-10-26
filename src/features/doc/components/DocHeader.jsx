@@ -28,6 +28,10 @@ function DocHeader(props) {
 					<div className="c-10 m-8 doc-header__list__item--load">
 						Loading <LoadIcon />
 					</div>
+				) : docTypeInfo.data.length === 0 ? (
+					<div className="c-10 m-8 doc-header__list__item">
+						Chưa có tài liệu
+					</div>
 				) : (
 					docTypeInfo.data.map((value, index) => (
 						<Link

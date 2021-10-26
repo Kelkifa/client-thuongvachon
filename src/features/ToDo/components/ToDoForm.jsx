@@ -1,12 +1,13 @@
 import "./todoForm.scss";
 
-import {FastField, Formik} from "formik";
+import {FastField, Field, Formik} from "formik";
 import {getFirstLastDay, randomNoteColor} from "./coreCalendar";
 
 import MyButton from "components/MyButton/MyButton";
 import PropTypes from "prop-types";
 import React from "react";
 import ToDoInputField from "./ToDoInputField";
+import TodoFormError from "./TodoFormError";
 import {todoCreate} from "../todoSlice";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
@@ -18,15 +19,32 @@ import {useState} from "react";
 ToDoForm.propTypes = {
 	noteList: PropTypes.array,
 	className: PropTypes.string,
+
+	calendarId: PropTypes.string,
+
+	handleChangeValue: PropTypes.object,
+	setHandleChangeValue: PropTypes.func,
 };
 
 ToDoForm.defaultProps = {
 	noteList: [],
 	className: "",
+
+	calendarId: undefined,
+
+	handleChangeValue: {},
+	setHandleChangeValue: () => {},
 };
 
-function ToDoForm(props) {
+function ToDoForm({
+	noteList,
+	className,
+	calendarId,
+	handleChangeValue,
+	setHandleChangeValue,
+}) {
 	const dispatch = useDispatch();
+
 	const initialValues = {
 		content: "",
 		from: "",
@@ -35,7 +53,6 @@ function ToDoForm(props) {
 		endTime: "",
 		color: "transparent",
 	};
-	const {noteList, className} = props;
 
 	// STATES
 	const [notifice, setNotifice] = useState({
@@ -70,7 +87,6 @@ function ToDoForm(props) {
 			setNotifice({...notifice, isProcessing: true});
 			await dispatch(todoCreate({data}));
 			setNotifice({...notifice, isProcessing: false});
-			console.log(`[submited]`, values);
 		} catch (err) {
 			console.log(err);
 		}
@@ -169,13 +185,20 @@ function ToDoForm(props) {
 								)}
 							</div>
 							<div className="row">
-								<FastField
+								<Field
 									name="from"
 									label="Bắt đầu"
 									className="todo-form__form__input c-9"
 									component={ToDoInputField}
 									placeHolder="dd/mm/yyyy"
 									type="date"
+									chooseGoto={() => {
+										if (!calendarId) return;
+
+										document.getElementById(calendarId).scrollIntoView();
+									}}
+									handleChangeValue={handleChangeValue}
+									setHandleChangeValue={setHandleChangeValue}
 									handleChangeEventColor={handleChangeEventColor}
 									validate={validateDate}
 								/>
@@ -190,20 +213,16 @@ function ToDoForm(props) {
 										return validateTime(value, "startTime");
 									}}
 								/>
-								{
-									<div className="c-12 todo-form__form__error">
-										{errors.from && touched.from && errors.from}
-										{errors.from &&
-											touched.from &&
-											errors.startTime &&
-											touched.startTime &&
-											", "}{" "}
-										{errors.startTime && touched.startTime && errors.startTime}
-									</div>
-								}
+
+								<TodoFormError
+									errorDate={errors.from}
+									touchedData={touched.from}
+									errorTime={errors.startTime}
+									touchedTime={touched.startTime}
+								/>
 							</div>
 							<div className="row">
-								<FastField
+								<Field
 									name="to"
 									label="Kết thúc"
 									className="todo-form__form__input c-9"
@@ -211,6 +230,13 @@ function ToDoForm(props) {
 									placeHolder="dd/mm/yyyy"
 									type="date"
 									validate={validateDate}
+									chooseGoto={() => {
+										if (!calendarId) return;
+
+										document.getElementById(calendarId).scrollIntoView();
+									}}
+									handleChangeValue={handleChangeValue}
+									setHandleChangeValue={setHandleChangeValue}
 								/>
 								<FastField
 									name="endTime"
@@ -224,15 +250,12 @@ function ToDoForm(props) {
 									}}
 								/>
 
-								<div className="c-12 todo-form__form__error">
-									{errors.to && touched.to && errors.to}
-									{errors.to &&
-										touched.to &&
-										errors.endTime &&
-										touched.endTime &&
-										", "}{" "}
-									{errors.endTime && touched.endTime && errors.endTime}
-								</div>
+								<TodoFormError
+									errorDate={errors.to}
+									touchedData={touched.to}
+									errorTime={errors.endTime}
+									touchedTime={touched.endTime}
+								/>
 							</div>
 							<div className="row todo-form__form__color-field">
 								<div className="c-5">Màu sự kiện</div>

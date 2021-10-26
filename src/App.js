@@ -11,6 +11,7 @@ import { Suspense, useEffect } from 'react';
 
 import Admin from 'features/admin/Admin';
 import AdminLayout from 'layouts/AdminLayout';
+import Auth from 'features/auth/Auth';
 import Develop from 'features/develop/Develop';
 import DocMain from 'features/doc/DocMain';
 import Game from 'features/game/Game';
@@ -18,6 +19,7 @@ import HomePage from 'components/Home/HomePage';
 import MainLayout from 'layouts/MainLayout';
 import NotFound from 'components/NotFound';
 import ToDoMain from 'features/ToDo/ToDoMain';
+import { authFirstAccess } from 'features/auth/authSlice';
 import { gameClientGet } from 'features/game/gameSlice';
 import { todoGet } from 'features/ToDo/todoSlice';
 import { useDispatch } from 'react-redux';
@@ -32,6 +34,7 @@ function App() {
         // const response = await dispatch(gameClientGet());
 
         await Promise.all([
+          dispatch(authFirstAccess()),
           dispatch(gameClientGet()),
           dispatch(todoGet()),
         ])
@@ -54,10 +57,10 @@ function App() {
                 <Admin />
               </AdminLayout>
             </Route>
-
             <Route path='/'>
               <MainLayout>
                 <Switch>
+                  <Route path='/auth' component={Auth} />
                   <Route path='/docs' component={DocMain} />
                   <Route path='/todo' component={ToDoMain} />
                   <Route path='/playTogether' component={Game} />

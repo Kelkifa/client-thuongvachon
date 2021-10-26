@@ -1,4 +1,4 @@
-$bc: rgba(32, 31, 31, 0.144);
+$bc: rgba(22, 22, 22, 0.192);
 .text-editor {
 	overflow: hidden;
 	// position: relative;
@@ -7,6 +7,7 @@ $bc: rgba(32, 31, 31, 0.144);
 // Container
 .sun-editor {
 	background-color: $bc;
+	border: none;
 }
 
 // Toolbar
@@ -29,4 +30,11 @@ $bc: rgba(32, 31, 31, 0.144);
 // boder-left
 .sun-editor-editable blockquote {
 	border-left-color: orange;
+}
+
+// buttom bar
+.sun-editor .se-resizing-bar {
+	// background-color: $bc;
+	// border: none;
+	display: none;
 }

@@ -5,6 +5,7 @@
 
 	.main-layout {
 		background-image: url("gameBackground.jpg");
+		// background-image: url("backgroundMobile.jpg");
 		object-fit: cover;
 		background-repeat: no-repeat;
 		background-size: 100% calc(100vw / 1.741574);
@@ -13,6 +14,12 @@
 		&__content {
 			margin-top: 70px;
 			padding-bottom: 4em;
+		}
+	}
+	@media screen and (max-width: 500px) {
+		.main-layout {
+			background-image: url("backgroundMobile.jpg");
+			background-size: cover;
 		}
 	}
 }

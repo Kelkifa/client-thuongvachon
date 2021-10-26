@@ -1,19 +1,21 @@
 import "./header.scss";
 
+import HeaderAuth from "./components/HeaderAuth";
 import HeaderPageList from "./HeaderPageList";
-import {Link} from "react-router-dom";
 import React from "react";
-
-// import {linkStyle} from "assets/styles/styles";
-
-// import {useRouteMatch} from "react-router";
+import {useLocation} from "react-router-dom";
 
 function Header(props) {
+	// useLocation
+	const location = useLocation();
+	const urlArr = location.pathname.split("/");
+
 	// Render
 	return (
 		<div className="header grid wide">
 			<div className="c-10 header__list">
 				<HeaderPageList
+					url={urlArr[1]}
 					pageList={[
 						{
 							text: "Icon",
@@ -37,11 +39,7 @@ function Header(props) {
 						},
 					]}
 				/>
-				<div className="header__list__right">
-					<Link to="/auth/login" style={{color: "unset"}}>
-						Login | Register
-					</Link>
-				</div>
+				<HeaderAuth urlArr={urlArr} />
 			</div>
 		</div>
 	);
