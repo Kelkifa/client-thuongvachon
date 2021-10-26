@@ -58,12 +58,14 @@ function HeaderPageList({pageList, url}) {
 					</div>
 				</div>
 			) : (
-				<FiMenu
-					onClick={() => {
-						setIsShow(true);
-					}}
-					className="header-page-list__list__menu-icon"
-				/>
+				<div className="header-page-list__menu-icon">
+					<FiMenu
+						onClick={() => {
+							setIsShow(true);
+						}}
+						className="header-page-list__list__menu-icon"
+					/>
+				</div>
 			)}
 		</div>
 	);

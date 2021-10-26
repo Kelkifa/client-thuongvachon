@@ -1,7 +1,13 @@
-$pd: 16px;
-$h: 53px;
+$mobileMaxSize: 500px;
+$mobile-p: 0.5em;
 
 .header-auth {
-	height: $h;
-	padding: $pd;
+	&__user-btn {
+	}
+}
+
+@media screen and (max-width: #{$mobileMaxSize}) {
+	.header-auth__user-btn {
+		padding-right: $mobile-p;
+	}
 }

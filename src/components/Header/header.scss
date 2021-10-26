@@ -3,15 +3,15 @@ $h: 53px;
 .header {
 	background-color: transparent;
 	color: white;
+	height: $h;
 
 	&__list {
 		display: flex;
 		justify-content: space-between;
-		align-items: top;
+		align-items: center;
 
 		&__right {
 			padding: $pd;
-			height: $h;
 		}
 	}
 }

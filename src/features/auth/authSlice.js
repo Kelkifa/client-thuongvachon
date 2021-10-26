@@ -36,6 +36,18 @@ const authSlice = createSlice({
         user: {}
     },
 
+    reducers: {
+        docSignOut: (state, action) => {
+            state.loading = false;
+            state.error = null;
+            state.isAuth = false;
+            state.user = {};
+
+            localStorage.removeItem(LOCALSTORAGE_TOKEN_NAME);
+            return state;
+        }
+    },
+
     extraReducers: {
         /** First access 
          *  Get user Info
@@ -127,6 +139,8 @@ const authSlice = createSlice({
 
 });
 
-const { reducer: authReducer } = authSlice;
+const { reducer: authReducer, actions } = authSlice;
+
+export const { docSignOut } = actions;
 
 export default authReducer;

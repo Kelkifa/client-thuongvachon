@@ -1,0 +1,73 @@
+$btn-pd: 10px;
+$w: 30px;
+$bg-dropdown: rgba(0, 0, 0, 0.596);
+$p: 4px 8px 4px 16px;
+$w-arrow: 8px;
+$bd-color: rgb(208, 215, 222);
+
+.user-btn {
+	position: relative;
+
+	&__btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		// padding: $btn-pd;
+		width: $w;
+		height: $w;
+
+		border-radius: 50%;
+		border: 2.5px solid rgba(202, 9, 115, 0.363);
+
+		background-color: orange;
+
+		cursor: pointer;
+	}
+
+	&__dropdown {
+		list-style: none;
+
+		position: absolute;
+		top: calc(100% + #{$w-arrow});
+		right: 0;
+
+		margin: 0;
+		padding: 0;
+		width: 180px;
+
+		color: #333;
+		font-family: BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif,
+			"Apple Color Emoji", "Segoe UI Emoji";
+
+		border-radius: 0.5em;
+
+		background-color: white;
+
+		&__item {
+			padding: $p;
+
+			cursor: pointer;
+
+			&__name {
+				font-weight: 600;
+			}
+
+			&--divider {
+				border-top: 0.994318px solid $bd-color;
+			}
+
+			&--arrow {
+				position: absolute;
+
+				top: -$w-arrow;
+				right: $w-arrow;
+
+				width: 0;
+				height: 0;
+				border-bottom: $w-arrow solid white;
+				border-right: $w-arrow solid transparent;
+				border-left: $w-arrow solid transparent;
+			}
+		}
+	}
+}

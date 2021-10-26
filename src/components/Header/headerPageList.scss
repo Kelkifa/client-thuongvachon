@@ -1,6 +1,7 @@
 $pd: 16px;
 $bc: rgba(32, 31, 31, 0.596);
 $mobileMaxSize: 500px;
+$mobile-p: 0.5em;
 // --mobileMaxSize : 500px
 // --itemNumber: 6
 .header-page-list {
@@ -8,15 +9,13 @@ $mobileMaxSize: 500px;
 	align-items: center;
 	position: relative;
 
+	&__menu-icon {
+		font-size: 22px;
+		cursor: pointer;
+	}
+
 	&__list {
 		display: flex;
-
-		&__menu-icon {
-			font-size: 24px;
-			cursor: pointer;
-			margin-left: $pd;
-			font-size: 22px;
-		}
 
 		&--mobile {
 			flex-direction: column;
@@ -36,6 +35,10 @@ $mobileMaxSize: 500px;
 
 			&--close {
 				display: none;
+			}
+
+			&:first-child {
+				padding-left: 0;
 			}
 
 			&:hover {
@@ -61,8 +64,13 @@ $mobileMaxSize: 500px;
 		}
 	}
 }
+
 @media only screen and (max-width: #{$mobileMaxSize}) {
 	.header-page-list {
+		&__menu-icon {
+			padding-left: $mobile-p;
+		}
+
 		&__list {
 			flex-direction: column;
 			background-color: $bc;
