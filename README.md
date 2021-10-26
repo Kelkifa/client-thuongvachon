@@ -13,6 +13,16 @@ Link: https://thuongvachon.web.app/
 - redux
 - gridLibrary
 
+## Server
+
+- Nodejs
+- Express
+- Mongodb
+- jwt
+- MVC model
+
+Github link: https://github.com/Kelkifa/server-node-resfulapi.git
+
 ## Folder Organization
 
 ```
