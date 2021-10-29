@@ -2,67 +2,14 @@
 
 import "./develop.scss";
 
+import ContentDropdown from "components/Dropdown/ContentDropdown";
 import React from "react";
 
 function Develop(props) {
 	return (
 		<div className="grid wide develop">
-			{/* <TextEditor /> */}
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
-			<div>text editor</div>
+			<ContentDropdown showContent="dropdown 1"> children</ContentDropdown>
+			<ContentDropdown showContent="dropdown 2"> children</ContentDropdown>
 		</div>
 	);
 }

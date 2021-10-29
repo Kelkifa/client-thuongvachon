@@ -1,8 +1,11 @@
+$c-success: #09c250;
+$c-danger: #dc3545;
+
 .notifice {
 	display: flex;
 	align-items: center;
 	gap: 0.5em;
-	padding: 2em;
+	padding: 1.5em;
 
 	&__icon {
 		font-size: 22px;

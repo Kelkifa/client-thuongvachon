@@ -21,7 +21,7 @@ function HeaderAuth({urlArr}) {
 	// useDispatch for handle sign out
 	const dispatch = useDispatch();
 
-	// Get userInfo from redux
+	// schema: {loading:Boolean, error: Boolean, isAuth: Boolean, user: Object}
 	const userInfo = useSelector(state => state.auth);
 
 	// Handle Functions
@@ -57,7 +57,11 @@ function HeaderAuth({urlArr}) {
 				</div>
 			) : (
 				<div className="header-auth__user-btn">
-					<UserBtn userInfo={userInfo} onSignOutClick={handleSignOut} />
+					<UserBtn
+						loading={userInfo.loading}
+						userData={userInfo.user}
+						onSignOutClick={handleSignOut}
+					/>
 				</div>
 			)}
 		</div>

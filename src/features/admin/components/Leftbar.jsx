@@ -2,21 +2,25 @@ import "./leftbar.scss";
 
 import {FaBook, FaGamepad, FaUserFriends} from "react-icons/fa";
 
+import AdminDropdown from "./Dropdown/AdminDropdown";
 import AdminLeftbarDropdown from "./AdminLeftbarDropdown";
 import {BsFillBarChartFill} from "react-icons/bs";
 import {Link} from "react-router-dom";
-import MDropdown from "components/Dropdown/MDropdown";
 import PropTypes from "prop-types";
 import {RiAdminFill} from "react-icons/ri";
 import {linkStyle} from "assets/styles/styles";
 
-// import {MdBorderColor} from "react-icons/md";
+// import AdminDropdown from "components/Dropdown/AdminDropdown";
 
+
+
+
+
+// import {MdBorderColor} from "react-icons/md";
 
 // import {SiInstacart} from "react-icons/si";
 
-
-// import MDropdown from "../../../components/Dropdown/MDropdown";
+// import AdminDropdown from "../../../components/Dropdown/AdminDropdown";
 
 Leftbar.propTypes = {
 	isShow: PropTypes.bool,
@@ -52,7 +56,7 @@ function Leftbar(props) {
 				</Link>
 				<li className="admin-leftbar__tabs__title">EXTRAS</li>
 				<li>
-					<MDropdown>
+					<AdminDropdown>
 						{(handleClick, isShow) => {
 							return (
 								<AdminLeftbarDropdown
@@ -68,13 +72,13 @@ function Leftbar(props) {
 								/>
 							);
 						}}
-					</MDropdown>
+					</AdminDropdown>
 				</li>
 
 				<li className="admin-leftbar__tabs__title">MANAGE</li>
 
 				<li>
-					<MDropdown>
+					<AdminDropdown>
 						{(handleClick, isShow) => {
 							return (
 								<AdminLeftbarDropdown
@@ -90,11 +94,11 @@ function Leftbar(props) {
 								/>
 							);
 						}}
-					</MDropdown>
+					</AdminDropdown>
 				</li>
 
 				<li>
-					<MDropdown>
+					<AdminDropdown>
 						{(handleClick, isShow) => {
 							return (
 								<AdminLeftbarDropdown
@@ -110,7 +114,7 @@ function Leftbar(props) {
 								/>
 							);
 						}}
-					</MDropdown>
+					</AdminDropdown>
 				</li>
 			</ul>
 		</div>

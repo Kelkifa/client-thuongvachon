@@ -2,13 +2,12 @@
 
 import randomColor from "randomcolor";
 
-/** Get First day or last day with data:currTime, type:first || last || 0 || 1 
- *  Output 
- * 0: Sunday
- * 1: Monday
- * ...
- * 6: Saturday
-*/
+/**
+ * Get first or last date of a month 
+ * @param {Date Object} date any date in a month for get first or last day, Default: new Date().
+ * @param {*} type First or Last day. Value to get first date: any, to get last date ['last', 1, true].
+ * @returns Date javascript object is last or first day
+ */
 export const getFirstLastDay = (date, type) => {
     const setDate = date ? date : new Date();
 
@@ -26,9 +25,10 @@ export const getFirstLastDay = (date, type) => {
 }
 
 
-/** Get Date List in a month
- *  Input: choose day (type Date)
- *  Output: Array of Date in a month of choosen day (type: Array)
+/**
+ * Get Dates in a month with a date in that month
+ * @param {Date javascript object} date is a date in a mounth to get all date of that month
+ * @returns  Array of Date in a month of choosen day
  */
 export const getDateList = (date) => {
     // Init

@@ -1,13 +1,23 @@
 $bg: rgba(0, 0, 0, 0.596);
+$pd-form: 0.5em;
 .auth {
-	background-color: $bg;
+	display: flex;
+	justify-content: center;
 
-	padding: 0.5em;
 	padding-bottom: 2em;
 
 	// opacity: 0.5;
 
 	&__form {
+		background-color: $bg;
+
+		border-radius: 0.6em;
+
+		padding: $pd-form;
+		padding-bottom: 1.7em;
+		width: 100%;
+		max-width: 600px;
+
 		&__header {
 			text-align: center;
 		}

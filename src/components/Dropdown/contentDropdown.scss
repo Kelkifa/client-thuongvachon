@@ -1,0 +1,24 @@
+$bg: rgba(0, 0, 0, 0.226);
+.content-dropdown {
+	&__show {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		padding: 20px;
+
+		background: linear-gradient(to bottom, $bg, transparent, $bg);
+
+		border: 2px solid rgba(20, 20, 20, 0.178);
+
+		cursor: pointer;
+
+		&__icon {
+			color: rgba(255, 255, 255, 0.61);
+		}
+	}
+
+	& ~ & {
+		margin-top: 0.7em;
+	}
+}

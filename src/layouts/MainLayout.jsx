@@ -3,15 +3,18 @@ import "./mainLayout.scss";
 import Header from "components/Header/Header";
 import React from "react";
 
+// import backgroundImg = game
+
 function MainLayout(props) {
 	const {children} = props;
 
 	// RENDER
 	return (
-		<div className="main-layout__container custom-scroll">
-			<div className="main-layout">
+		<div className="main-layout custom-scroll">
+			{/* <div className="main-layout__background"></div> */}
+			<div className="main-layout__content">
 				<Header />
-				<div className="main-layout__content">{children}</div>
+				<div className="main-layout__content__body">{children}</div>
 			</div>
 		</div>
 	);

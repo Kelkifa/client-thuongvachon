@@ -4,10 +4,14 @@ $mobile-p: 0.5em;
 .header-auth {
 	&__user-btn {
 	}
+
+	&__auth-link {
+	}
 }
 
 @media screen and (max-width: #{$mobileMaxSize}) {
-	.header-auth__user-btn {
+	.header-auth__user-btn,
+	.header-auth__auth-link {
 		padding-right: $mobile-p;
 	}
 }

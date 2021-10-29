@@ -1,11 +1,11 @@
 $text-color: rgba(238, 234, 234, 0.877);
-$pd: 0.7em;
-$mx-h: 400px;
+$pd: 0.4em;
+$mx-h: 500px;
 
 .doc-intro {
 	color: $text-color;
 
-	max-height: $mx-h;
+	// max-height: $mx-h;
 
 	padding: $pd;
 

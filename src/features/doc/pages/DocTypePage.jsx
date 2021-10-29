@@ -37,7 +37,7 @@ function DocIntro(props) {
 	};
 
 	return (
-		<div className="doc-intro custom-scroll">
+		<div className="doc-intro">
 			{isShowForm ? (
 				<DocFormCreate
 					isDataLoading={docTypeInfo.loading}

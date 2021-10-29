@@ -1,5 +1,5 @@
 $pd: 16px;
-$bc: rgba(32, 31, 31, 0.596);
+$bc: rgba(32, 31, 31, 0.733);
 $mobileMaxSize: 500px;
 $mobile-p: 0.5em;
 // --mobileMaxSize : 500px
@@ -41,7 +41,7 @@ $mobile-p: 0.5em;
 				padding-left: 0;
 			}
 
-			&:hover {
+			&:not(:first-child):hover {
 				background-color: $bc;
 
 				color: red;
@@ -56,7 +56,7 @@ $mobile-p: 0.5em;
 				}
 			}
 
-			&--active {
+			&--active:not(:first-child) {
 				background-color: $bc;
 
 				color: red;

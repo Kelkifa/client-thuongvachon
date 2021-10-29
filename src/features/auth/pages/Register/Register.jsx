@@ -4,9 +4,13 @@ import {FastField, Formik} from "formik";
 
 import AuthInputField from "features/auth/components/AuthInputField";
 import MyButton from "components/MyButton/MyButton";
+import Notifice from "components/Notifice/Notifice";
 import React from "react";
 import {authRegister} from "features/auth/authSlice";
+import {handleNotificeWithResponse} from "assets/core/core";
 import {useDispatch} from "react-redux";
+import {useHistory} from "react-router";
+import {useState} from "react";
 
 const schema = yup.object().shape({
 	fullname: yup.string().required("This field is required"),
@@ -27,7 +31,17 @@ const schema = yup.object().shape({
 });
 
 function Register(props) {
+	// useHistory to go home page if registe success
+	const history = useHistory();
+
+	// useDispatch to send register data to server
 	const dispatch = useDispatch();
+
+	// useState
+	const [notifice, setNotifice] = useState({
+		isProcessing: false,
+		error: undefined,
+	});
 
 	const initialValues = {
 		fullname: "",
@@ -39,18 +53,27 @@ function Register(props) {
 	/** Handle Functions */
 	// Submit
 	const handleSubmit = async values => {
-		try {
-			const response = await dispatch(authRegister(values));
-			console.log(response);
-		} catch (err) {
-			console.log(`[register submit err]`, err);
-		}
+		await handleNotificeWithResponse(
+			setNotifice,
+			dispatch,
+			authRegister(values),
+			() => {
+				setTimeout(() => {
+					history.push("/");
+				}, 1500);
+			}
+		);
 	};
 
 	// Render
 	return (
-		<div className="auth__login">
+		<div className="auth__form">
 			<h2 className="auth__form__header">Đăng ký</h2>
+			<Notifice.ProcessNotifice
+				text="Đăng nhập thành công"
+				notifice={notifice}
+				successText="Tạo tài khoản thành công"
+			/>
 			<Formik
 				onSubmit={handleSubmit}
 				initialValues={initialValues}
@@ -92,6 +115,7 @@ function Register(props) {
 									type="submit"
 									text="Đăng ký"
 									className="auth__form__btn"
+									disabled={notifice.isProcessing || notifice.error === false}
 								/>
 							</div>
 						</form>
