@@ -34,7 +34,6 @@ function ToDoCalendarRow(props) {
 	const {dateList, notes, currMonth, selectedOne, selectedTwo, onCellClick} =
 		props;
 
-	console.log(`[datteList]`, dateList);
 	// STATES
 	const [isActive, setIsActive] = useState(false);
 
