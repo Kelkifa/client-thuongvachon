@@ -34,11 +34,12 @@ function ToDoCalendarRow(props) {
 	const {dateList, notes, currMonth, selectedOne, selectedTwo, onCellClick} =
 		props;
 
+	console.log(`[datteList]`, dateList);
 	// STATES
 	const [isActive, setIsActive] = useState(false);
 
 	// RENDER
-	if (dateList.length !== 7) return;
+	if (dateList.length !== 7) return null;
 	const notesInRow = notes.filter(
 		note => note.from <= dateList[6] && note.to >= dateList[0]
 	);

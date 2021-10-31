@@ -31,8 +31,10 @@ export const getFirstLastDay = (date, type) => {
  * @returns  Array of Date in a month of choosen day
  */
 export const getDateList = (date) => {
+    console.log(`[getDateList]`, date);
     // Init
     const maxCurDay = getFirstLastDay(date, 'last');
+
     const year = maxCurDay.getFullYear();
     const month = maxCurDay.getMonth();
 
@@ -49,7 +51,6 @@ export const getDateList = (date) => {
         'first');
 
     // Create before date list
-    // console.log(maxBeforeDay);
     const beforeTimeArr = [];
     let changeDay = maxBeforeDay.getDay() === 6 ? -1 : maxBeforeDay.getDay();
     let changeDate = maxBeforeDay.getDate();

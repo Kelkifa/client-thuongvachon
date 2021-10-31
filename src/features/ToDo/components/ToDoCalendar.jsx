@@ -59,6 +59,7 @@ function ToDoCalendar({
 
 	// PROCESS DATE
 	const showDateList = getDateList(showDate);
+
 	const notesInMonth = noteList.filter(
 		value =>
 			value.from <= showDateList[showDateList.length - 1] &&
@@ -176,6 +177,25 @@ function ToDoCalendar({
 									currMonth={showDate.getMonth()}
 									notes={noteWithLayer}
 									dateList={showDateList.slice(28, 35)}
+									selectedOne={selectedOne}
+									selectedTwo={selectedTwo}
+									onCellClick={value => {
+										if (typeof selectOneClick === "function") {
+											selectOneClick(value);
+										}
+										if (typeof selectTwoClick === "function") {
+											selectTwoClick(value);
+										}
+									}}
+								></ToDoCalendarRow>
+							</div>
+						</div>
+						<div className="todo-calendar__row">
+							<div className="todo-calendar__row__date">
+								<ToDoCalendarRow
+									currMonth={showDate.getMonth()}
+									notes={noteWithLayer}
+									dateList={showDateList.slice(35, 42)}
 									selectedOne={selectedOne}
 									selectedTwo={selectedTwo}
 									onCellClick={value => {
