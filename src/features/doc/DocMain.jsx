@@ -3,56 +3,47 @@ import "./docMain.scss";
 import {Route, Switch, useRouteMatch} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 
-import DocContentPage from "./pages/DocContentPage";
-import DocHeader from "./components/DocHeader";
-import DocTypePage from "./pages/DocTypePage";
-import DocUpdatePage from "./pages/DocUpdatePage";
+import DocGroupPage from "./pages/DocGroupPage";
 import NotFound from "components/NotFound";
 import React from "react";
-import {docGetTypes} from "./docSlice";
+import {docGetGroups} from "./docSlice";
 import {useEffect} from "react";
 
-// import DocContent from "./components/DocContent";
-
-// import DocIntro from "./pages/DocIntro";
-
-// import DocForm from "./components/DocForm";
-
-// import DocPage from "./pages/DocPage";
+// import {useEffect} from "react";
 
 function DocMain(props) {
 	const match = useRouteMatch();
 
-	const {loading, error} = useSelector(state => ({
-		loading: state.docs.types.loading,
-		error: state.docs.types.error,
-	}));
-
 	const dispatch = useDispatch();
+	const groupInfo = useSelector(state => state.docs);
 
 	useEffect(() => {
-		if (!loading || error) return;
-		const fetchDocType = async () => {
+		const fetchGroups = async () => {
 			try {
-				await dispatch(docGetTypes());
-				// console.log(`[DOC GET TYPE RESPONSE]`, response);
-			} catch (err) {
-				console.log(`[DOC GET TYPE ERR]`, err);
-			}
+				await dispatch(docGetGroups());
+			} catch (err) {}
 		};
-		fetchDocType();
-	}, [loading, error, dispatch]);
+
+		fetchGroups();
+	}, [dispatch]);
 	return (
-		<div className="doc-page grid wide">
-			<DocHeader />
+		<div className="doc-main grid wide">
 			<Switch>
-				<Route
-					exact
-					path={`${match.url}/:typeId/update/:contentId`}
-					component={DocUpdatePage}
-				/>
-				<Route exact path={`${match.url}/:id`} component={DocContentPage} />
-				<Route exact path={`${match.url}`} component={DocTypePage} />
+				<Route exact path={`${match.url}/group/:id`}>
+					null
+				</Route>
+				<Route exact path={`${match.url}`}>
+					<DocGroupPage
+						loading={groupInfo.loading}
+						error={groupInfo.error}
+						groups={groupInfo.groups.map(value => ({
+							name: value.name,
+							_id: value._id,
+							users: value.users,
+							type: value.type,
+						}))}
+					/>
+				</Route>
 				<Route component={NotFound} />
 			</Switch>
 		</div>

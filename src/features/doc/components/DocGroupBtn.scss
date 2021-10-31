@@ -1,0 +1,65 @@
+$w: 150px;
+$h: 150px;
+
+$bg: rgba(0, 0, 0, 0.363);
+$bg-hover: rgba(29, 29, 29, 0.322);
+
+$c-name: #f7f8f7d3;
+.doc-group-btn {
+	padding: 0.3em;
+	width: $w;
+	height: $h;
+
+	overflow: hidden;
+
+	border-radius: 1.3em;
+
+	color: $c-name;
+
+	background-color: $bg;
+
+	cursor: pointer;
+
+	&__name {
+		text-align: center;
+
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		margin: 0;
+		padding: 0 0.3em;
+
+		width: 100%;
+		height: 35px;
+	}
+
+	&__member {
+		display: -webkit-box;
+		-webkit-line-clamp: 6;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		margin-top: 10px;
+
+		font-size: 12px;
+
+		&__user {
+			color: #fbfffb80;
+		}
+	}
+
+	&--add {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid $c-name;
+	}
+
+	&:hover {
+		background-color: $bg-hover;
+	}
+}

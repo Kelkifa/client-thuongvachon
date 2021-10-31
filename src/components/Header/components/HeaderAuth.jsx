@@ -21,8 +21,9 @@ function HeaderAuth({urlArr}) {
 	// useDispatch for handle sign out
 	const dispatch = useDispatch();
 
-	// schema: {loading:Boolean, error: Boolean, isAuth: Boolean, user: Object}
 	const userInfo = useSelector(state => state.auth);
+
+	// schema: {loading:Boolean, error: Boolean, isAuth: Boolean, user: Object}
 
 	// Handle Functions
 	const handleSignOut = () => {

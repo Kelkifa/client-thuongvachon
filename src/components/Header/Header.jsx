@@ -5,7 +5,19 @@ import HeaderPageList from "./HeaderPageList";
 import React from "react";
 import {useLocation} from "react-router-dom";
 
-function Header(props) {
+// import PropTypes from "prop-types";
+
+
+
+// Header.propTypes = {
+// 	userInfo: PropTypes.object,
+// };
+
+// Header.defaultProps = {
+// 	userInfo: undefined,
+// };
+
+function Header({userInfo}) {
 	// useLocation
 	const location = useLocation();
 	const urlArr = location.pathname.split("/");

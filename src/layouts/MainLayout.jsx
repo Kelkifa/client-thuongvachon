@@ -3,6 +3,8 @@ import "./mainLayout.scss";
 import Header from "components/Header/Header";
 import React from "react";
 
+// import {useSelector} from "react-redux";
+
 // import backgroundImg = game
 
 function MainLayout(props) {

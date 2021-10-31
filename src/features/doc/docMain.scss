@@ -1,7 +1,7 @@
 $bg: rgba(0, 0, 0, 0.596);
 $bg2: rgba(0, 0, 0, 0.281);
 
-.doc-page {
+.doc-main {
 	border-radius: 5px;
 	background-color: $bg;
 
@@ -10,4 +10,10 @@ $bg2: rgba(0, 0, 0, 0.281);
 	// &__content {
 	// 	border-top: 2px solid rgba(112, 111, 111, 0.247);
 	// }
+
+	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 }
