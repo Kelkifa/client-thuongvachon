@@ -7,6 +7,7 @@ import React from "react";
 import ToDoCalendarRow from "./ToDoCalendarRow";
 import ToDoCalendarSelect from "./ToDoCalendarSelect";
 import TodoCalendarHeader from "./TodoCalendarHeader";
+import {useMemo} from "react";
 import {useState} from "react";
 
 ToDoCalendar.propTypes = {
@@ -58,14 +59,26 @@ function ToDoCalendar({
 	const [currYearSelect, setCurrYearSelect] = useState(now.getFullYear());
 
 	// PROCESS DATE
-	const showDateList = getDateList(showDate);
+	// const showDateList = getDateList(showDate);
 
-	const notesInMonth = noteList.filter(
-		value =>
-			value.from <= showDateList[showDateList.length - 1] &&
-			value.to >= showDateList[0]
-	);
-	const noteWithLayer = getLayerNote(notesInMonth);
+	const showDateList = useMemo(() => {
+		return getDateList(showDate);
+	}, [showDate]);
+
+	const noteWithLayer = useMemo(() => {
+		const notesInMonth = noteList.filter(
+			value =>
+				value.from <= showDateList[showDateList.length - 1] &&
+				value.to >= showDateList[0]
+		);
+		return getLayerNote(notesInMonth);
+	}, [noteList, showDateList]);
+
+	// const notesInMonth = noteList.filter(
+	// 	value =>
+	// 		value.from <= showDateList[showDateList.length - 1] &&
+	// 		value.to >= showDateList[0]
+	// );
 
 	// HANDLE FUNCTIONS
 

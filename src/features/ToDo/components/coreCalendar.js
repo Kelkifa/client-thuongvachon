@@ -31,7 +31,6 @@ export const getFirstLastDay = (date, type) => {
  * @returns  Array of Date in a month of choosen day
  */
 export const getDateList = (date) => {
-    console.log(`[getDateList]`, date);
     // Init
     const maxCurDay = getFirstLastDay(date, 'last');
 
