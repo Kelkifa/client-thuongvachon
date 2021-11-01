@@ -1,3 +1,7 @@
+@use "./form.scss";
+
+$bg: rgba(0, 0, 0, 0.596);
+
 * {
 	box-sizing: border-box;
 }
@@ -82,4 +86,9 @@ input[type="checkbox"] {
 	right: 0;
 	bottom: 0;
 	left: 0;
+}
+.bg-page {
+	background-color: $bg;
+
+	padding: 2.5em 0.5em;
 }

@@ -7,8 +7,6 @@ import {useLocation} from "react-router-dom";
 
 // import PropTypes from "prop-types";
 
-
-
 // Header.propTypes = {
 // 	userInfo: PropTypes.object,
 // };
@@ -48,6 +46,10 @@ function Header({userInfo}) {
 						{
 							text: "Docs",
 							to: "/docs",
+						},
+						{
+							text: "Groups",
+							to: "/groups",
 						},
 					]}
 				/>

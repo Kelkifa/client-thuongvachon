@@ -1,0 +1,19 @@
+.group {
+	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		padding-bottom: 1.5em;
+		margin: 0;
+	}
+
+	&__list {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+
+		justify-content: center;
+	}
+}

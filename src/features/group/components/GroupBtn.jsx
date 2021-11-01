@@ -1,40 +1,34 @@
-import "./DocGroupBtn.scss";
+import "./GroupBtn.scss";
 
 import {ImPlus} from "react-icons/im";
 import PropTypes from "prop-types";
 import React from "react";
-import {useHistory} from "react-router";
 
-DocGroupBtn.propTypes = {
+GroupBtn.propTypes = {
 	_id: PropTypes.string,
 	name: PropTypes.string,
 	users: PropTypes.array,
 	type: PropTypes.string,
 	btnType: PropTypes.string, // $in: ['add', 'base' (default)];
+
+	onClick: PropTypes.func,
 };
 
-DocGroupBtn.defaultProps = {
+GroupBtn.defaultProps = {
 	_id: "",
 	name: "",
 	users: [],
 	type: "demo",
 	btnType: "base",
+
+	onClick: undefined,
 };
 
-const MAX_MEMBER = 6;
-
-function DocGroupBtn({_id, name, users, type, btnType}) {
-	const history = useHistory();
-
+function GroupBtn({_id, name, users, type, btnType, onClick}) {
 	// Event Handle Functions
 	const handleClick = () => {
-		if (btnType === "add") {
-			history.push(`/docs/group/create`);
-			return;
-		}
-
-		history.push(`/docs/group/${_id}`);
-		return;
+		if (!onClick) return;
+		onClick();
 	};
 
 	if (btnType === "add") {
@@ -63,4 +57,4 @@ function DocGroupBtn({_id, name, users, type, btnType}) {
 	);
 }
 
-export default DocGroupBtn;
+export default GroupBtn;

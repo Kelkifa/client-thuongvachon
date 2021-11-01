@@ -3,7 +3,7 @@ import "./docMain.scss";
 import {Route, Switch, useRouteMatch} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 
-import DocGroupPage from "./pages/DocGroupPage";
+import Group from "features/group/Group";
 import NotFound from "components/NotFound";
 import React from "react";
 import {docGetGroups} from "./docSlice";
@@ -33,7 +33,7 @@ function DocMain(props) {
 					null
 				</Route>
 				<Route exact path={`${match.url}`}>
-					<DocGroupPage
+					<Group
 						loading={groupInfo.loading}
 						error={groupInfo.error}
 						groups={groupInfo.groups.map(value => ({
