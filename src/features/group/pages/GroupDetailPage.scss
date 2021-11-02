@@ -1,0 +1,19 @@
+.group-detail {
+	&__title {
+		text-align: center;
+	}
+	&__form-add {
+		display: flex;
+		&__btn-container {
+			display: flex;
+			justify-content: flex-end;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5em;
+
+			width: 100%;
+		}
+	}
+}

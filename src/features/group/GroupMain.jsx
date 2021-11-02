@@ -2,6 +2,7 @@ import {Route, Switch, useRouteMatch} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 
 import GroupCreatePage from "./pages/GroupCreatePage";
+import GroupDetailPage from "./pages/GroupDetailPage";
 import GroupPage from "./pages/GroupPage";
 import NotFound from "components/NotFound";
 import React from "react";
@@ -32,8 +33,9 @@ function GroupMain(props) {
 	return (
 		<div className="bg-page grid wide">
 			<Switch>
-				<Route path={`${match.url}/create`} component={GroupCreatePage} />
-				<Route path={`${match.url}`}>
+				<Route exact path={`${match.url}/create`} component={GroupCreatePage} />
+				<Route exact path={`${match.url}/:id`} component={GroupDetailPage} />
+				<Route exact path={`${match.url}`}>
 					<GroupPage groups={data} />
 				</Route>
 				<Route component={NotFound} />

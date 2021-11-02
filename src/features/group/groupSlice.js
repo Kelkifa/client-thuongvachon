@@ -9,9 +9,28 @@ export const groupGetDemo = createAsyncThunk('group/groupGetDemo', async () => {
 
 export const groupGet = createAsyncThunk('group/groupGet', async () => {
     const response = await groupApi.get();
-    return response
+    return response;
 
 });
+
+/**
+ * data : { name, userId: [] }
+ */
+export const groupCreate = createAsyncThunk('group/groupCreate', async (data) => {
+    const response = await groupApi.create(data);
+    return response;
+});
+
+/**
+ * data: { users: [], groupId: String }
+ */
+export const groupAddMember = createAsyncThunk('group/groupAddMember', async (data) => {
+    const response = await groupApi.addMember(data);
+    response.groupId = data.groupId;
+    return response;
+})
+
+
 
 const groupSlice = createSlice({
     name: 'groups',
@@ -53,6 +72,30 @@ const groupSlice = createSlice({
             state.groups.error = false;
             state.groups.data = action.payload.response;
         },
+
+        /** Create */
+        [groupCreate.fulfilled]: (state, action) => {
+            if (!action.payload.success) return state;
+
+            state.groups.data.push(action.payload.response);
+            return state;
+        },
+
+        /** Add group member */
+        [groupAddMember.fulfilled]: (state, action) => {
+            if (!action.payload.success) return state;
+
+            const groupId = action.payload.groupId;
+
+            const groupIndex = state.groups.data.findIndex(group => group._id === groupId);
+            if (groupIndex === -1) return state;
+
+            console.log(`[groupId]`, groupId, groupIndex);
+            state.groups.data.splice(groupIndex, 1, action.payload.response);
+            console.log(`[new group]`, state.groups.data);
+            return state;
+
+        }
     }
 });
 

@@ -4,7 +4,7 @@ import {FastField, Formik} from "formik";
 
 import AuthInputField from "features/auth/components/AuthInputField";
 import MyButton from "components/MyButton/MyButton";
-import Notifice from "components/Notifice/Notifice";
+import {ProcessNotifice} from "components/Notifice/Notifice";
 import React from "react";
 import {authLogin} from "features/auth/authSlice";
 import {handleNotificeWithResponse} from "assets/core/core";
@@ -57,7 +57,7 @@ function Login(props) {
 	return (
 		<div className="auth__form">
 			<h2 className="auth__form__header">Đăng nhập</h2>
-			<Notifice.ProcessNotifice
+			<ProcessNotifice
 				text="Đăng nhập thành công"
 				notifice={notifice}
 				successText="Đang nhập thành công"

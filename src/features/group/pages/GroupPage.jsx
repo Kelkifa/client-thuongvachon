@@ -30,7 +30,7 @@ function GroupPage({groups}) {
 				<GroupBtn
 					btnType="add"
 					onClick={() => {
-						history.push(`groups/create`);
+						history.push(`/groups/create`);
 					}}
 				/>
 			</div>

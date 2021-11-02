@@ -18,6 +18,8 @@ export const changeNotifice = {
 }
 /**
  * Handle notifice and dispatch async action 
+ * Notifice State defind : {isProcessing, error}
+ * 
  * @param {function} setNotifice Set notifice function of state notifice
  * @param {function} dispatch dispath function of redux
  * @param {string} action action use with dispath of redux

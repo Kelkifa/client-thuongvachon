@@ -6,57 +6,47 @@ import React from "react";
 
 // import PropTypes from "prop-types";
 
-const Fail = ({text = ""}) => {
+
+// import PropTypes from "prop-types";
+
+function Fail({text = ""}) {
 	return (
 		<div className="notifice notifice__danger">
 			<FaExclamation className="notifice__icon notifice__danger__icon" /> {text}
 		</div>
 	);
-};
+}
 
-const Success = ({text = ""}) => {
+function Success({text = ""}) {
 	return (
 		<div className="notifice notifice__success">
 			<AiFillCheckCircle className="notifice__icon notifice__success__icon" />
 			{text}
 		</div>
 	);
+}
+
+export const ProcessNotifice = ({
+	notifice = {isProcessing: false, error: undefined},
+	successText = "",
+}) => {
+	const {isProcessing, error} = notifice;
+	return (
+		<>
+			{isProcessing === true || error === undefined ? null : error === false ? (
+				<Success text={successText} />
+			) : (
+				<Fail text={error} />
+			)}
+		</>
+	);
 };
 
-const Notifice = {
-	Fail({text = ""}) {
-		return (
-			<div className="notifice notifice__danger">
-				<FaExclamation className="notifice__icon notifice__danger__icon" />{" "}
-				{text}
-			</div>
-		);
-	},
-	Success({text = ""}) {
-		return (
-			<div className="notifice notifice__success">
-				<AiFillCheckCircle className="notifice__icon notifice__success__icon" />
-				{text}
-			</div>
-		);
-	},
-	// Props notifice: {isProcessing: false, error: undefined}
-	ProcessNotifice({
-		notifice = {isProcessing: false, error: undefined},
-		successText = "",
-	}) {
-		const {isProcessing, error} = notifice;
-		return (
-			<>
-				{isProcessing === true || error === undefined ? null : error ===
-				  false ? (
-					<Success text={successText} />
-				) : (
-					<Fail text={error} />
-				)}
-			</>
-		);
-	},
-};
+// ProcessNotifice.propTypes = {
+// 	notifice: PropTypes.object,
+// 	successText: PropTypes.string,
+// };
 
-export default Notifice;
+// ProcessNotifice.defaultProps = {
+// notifice:
+// }
