@@ -1,48 +1,64 @@
-import "./docMain.scss";
-
-import {Route, Switch, useRouteMatch} from "react-router";
+import {Redirect, Route, Switch, useRouteMatch} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 
-import Group from "features/group/Group";
+import DocCreatePage from "./pages/DocCreatePage";
+import DocDetailPage from "./pages/DocDetailPage";
+import DocGroupPage from "./pages/DocGroupPage";
+import DocListPage from "./pages/DocListPage";
 import NotFound from "components/NotFound";
 import React from "react";
-import {docGetGroups} from "./docSlice";
+import {groupGet} from "features/group/groupSlice";
 import {useEffect} from "react";
-
-// import {useEffect} from "react";
 
 function DocMain(props) {
 	const match = useRouteMatch();
-
 	const dispatch = useDispatch();
-	const groupInfo = useSelector(state => state.docs);
+
+	// Get groups
+	const groupInfo = useSelector(state => state.groups.groups);
+	const isGroupLoading = groupInfo.loading;
+	const isGroupError = groupInfo.error;
+	const groupData = groupInfo.data;
 
 	useEffect(() => {
+		if (!isGroupLoading && !isGroupError) return;
 		const fetchGroups = async () => {
 			try {
-				await dispatch(docGetGroups());
+				await dispatch(groupGet());
 			} catch (err) {}
 		};
 
 		fetchGroups();
-	}, [dispatch]);
+	}, [dispatch, isGroupLoading, isGroupError]);
+
+	// Render
+	if (isGroupLoading)
+		return <div className="bg-page grid wide">loading...</div>;
+	if (isGroupError) return <div className="bg-page grid wide">Loi</div>;
+
 	return (
-		<div className="doc-main grid wide">
+		<div className="bg-page grid wide">
 			<Switch>
-				<Route exact path={`${match.url}/group/:id`}>
-					null
+				<Route
+					exact
+					path={`${match.url}/groups/:groupId/doc/create`}
+					component={DocCreatePage}
+				/>
+				<Route
+					exact
+					path={`${match.url}/groups/:groupId/doc/:docId`}
+					component={DocDetailPage}
+				/>
+				<Route
+					exact
+					path={`${match.url}/groups/:groupId/doc`}
+					component={DocListPage}
+				/>
+				<Route exact path={`${match.url}/groups`}>
+					<DocGroupPage groups={groupData} />
 				</Route>
 				<Route exact path={`${match.url}`}>
-					<Group
-						loading={groupInfo.loading}
-						error={groupInfo.error}
-						groups={groupInfo.groups.map(value => ({
-							name: value.name,
-							_id: value._id,
-							users: value.users,
-							type: value.type,
-						}))}
-					/>
+					<Redirect to={`${match.url}/groups`} />
 				</Route>
 				<Route component={NotFound} />
 			</Switch>

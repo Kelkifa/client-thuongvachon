@@ -1,0 +1,27 @@
+$w: 140px;
+$h: 70px;
+$bg: rgba(0, 0, 0, 0.623);
+$bg-hover: rgba(24, 23, 23, 0.486);
+
+.doc-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	background: $bg;
+
+	border-radius: 30px;
+
+	padding: 0.3em;
+	width: $w;
+	height: $h;
+
+	cursor: pointer;
+
+	&:hover {
+		background-color: $bg-hover;
+	}
+}
+
+.doc-btn--add {
+}

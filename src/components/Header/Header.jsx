@@ -1,6 +1,7 @@
 import "./header.scss";
 
 import HeaderAuth from "./components/HeaderAuth";
+import HeaderGroupSelect from "./components/HeaderGroupSelect";
 import HeaderPageList from "./HeaderPageList";
 import React from "react";
 import {useLocation} from "react-router-dom";
@@ -53,7 +54,10 @@ function Header({userInfo}) {
 						},
 					]}
 				/>
-				<HeaderAuth urlArr={urlArr} />
+				<div className="header__list__right">
+					<HeaderGroupSelect />
+					<HeaderAuth urlArr={urlArr} />
+				</div>
 			</div>
 		</div>
 	);

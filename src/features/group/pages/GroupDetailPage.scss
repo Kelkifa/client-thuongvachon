@@ -1,4 +1,14 @@
 .group-detail {
+	&__member {
+		&__list {
+			&__item {
+				&__extension {
+					opacity: 0.6;
+				}
+			}
+		}
+	}
+
 	&__title {
 		text-align: center;
 	}

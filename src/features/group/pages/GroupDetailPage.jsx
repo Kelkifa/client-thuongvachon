@@ -5,6 +5,7 @@ import * as yup from "yup";
 import {FastField, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 
+import BackButton from "components/MyButton/BackButton";
 import MyButton from "components/MyButton/MyButton";
 import PageTextareaField from "components/Form/PageTextareaField";
 import {ProcessNotifice} from "components/Notifice/Notifice";
@@ -57,6 +58,7 @@ function GroupDetailPage(props) {
 	// Render
 	return (
 		<div className="group-detail">
+			<BackButton />
 			<h3 className="group-detail__title">{group.name}</h3>
 
 			<div className="group-detail__member">
@@ -65,7 +67,10 @@ function GroupDetailPage(props) {
 				<ul className="group-detail__member__list">
 					{group.users.map(user => (
 						<li key={user._id}>
-							{user.fullname} ({user.username}) {user._id === userId && "(you)"}
+							{user.fullname}{" "}
+							<span className="group-detail__member__list__item__extension">
+								({user.username}) {user._id === userId && "(you)"}
+							</span>
 						</li>
 					))}
 				</ul>

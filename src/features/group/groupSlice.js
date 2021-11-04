@@ -59,7 +59,7 @@ const groupSlice = createSlice({
         // Get user's group
         [groupGet.rejected]: (state, action) => {
             state.groups.loading = false;
-            state.groups.error = 'Client error';
+            state.groups.error = 'Server error';
         },
         [groupGet.fulfilled]: (state, action) => {
             state.groups.loading = false;
@@ -90,9 +90,9 @@ const groupSlice = createSlice({
             const groupIndex = state.groups.data.findIndex(group => group._id === groupId);
             if (groupIndex === -1) return state;
 
-            console.log(`[groupId]`, groupId, groupIndex);
+
             state.groups.data.splice(groupIndex, 1, action.payload.response);
-            console.log(`[new group]`, state.groups.data);
+
             return state;
 
         }

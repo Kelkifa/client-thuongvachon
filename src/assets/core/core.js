@@ -1,4 +1,8 @@
 
+export const defaulNotifice = {
+    isProcessing: false,
+    error: undefined,
+};
 /** Change notifice 
  * notifice input schema: {isProcessed: Boolean, err: String}
 */

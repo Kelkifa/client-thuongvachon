@@ -4,6 +4,7 @@ import * as yup from "yup";
 
 import {FastField, Formik} from "formik";
 
+import BackButton from "components/MyButton/BackButton";
 import MyButton from "components/MyButton/MyButton";
 import PageInputField from "components/Form/PageInputField";
 import PageTextareaField from "components/Form/PageTextareaField";
@@ -54,6 +55,7 @@ function GroupCreatePage(props) {
 
 	return (
 		<div className="mform">
+			<BackButton />
 			<h3 className="mform__title">Tạo nhóm</h3>
 			<ProcessNotifice notifice={notifice} successText="Tạo nhóm thành công" />
 			<Formik
@@ -78,7 +80,7 @@ function GroupCreatePage(props) {
 								placeholder="username1, username 2, ... "
 								component={PageTextareaField}
 							/>
-							<div className="mform__field__btn-container">
+							<div className="mform__form__btn-container">
 								<MyButton
 									text="Quay lại"
 									type="cancel"

@@ -1,3 +1,5 @@
+import "./Group.scss";
+
 import {Route, Switch, useRouteMatch} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 

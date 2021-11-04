@@ -36,7 +36,7 @@ function App() {
         // const response = await dispatch(gameClientGet());
 
         await Promise.all([
-          dispatch(groupGetDemo()),
+          // dispatch(groupGetDemo()),
           dispatch(authFirstAccess()),
           dispatch(gameClientGet()),
           dispatch(todoGet()),

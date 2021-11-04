@@ -1,0 +1,73 @@
+// $bg: rgba(255, 166, 0, 0.459);
+$c: rgb(250, 171, 25);
+$c-hide: rgb(219, 146, 11);
+$bg: rgba(19, 18, 18, 0.733);
+$bg-hover: rgba(17, 17, 17, 0.733);
+$icon-w: 16px;
+$bd-radius: 10px;
+$p: 8px 12px;
+$hide-max-height: 500px;
+.header-group-select {
+	width: 200px;
+
+	position: relative;
+
+	&__btn {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		padding: $p;
+
+		border-radius: $bd-radius;
+
+		background: $bg;
+
+		color: $c;
+
+		cursor: pointer;
+
+		&__text {
+			width: calc(100% - #{$icon-w});
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		&__icon {
+			width: $icon-w;
+		}
+
+		&--show {
+			border-end-start-radius: 0;
+			border-end-end-radius: 0;
+		}
+	}
+
+	&__hide {
+		list-style: none;
+		position: absolute;
+
+		background: $bg;
+		width: 100%;
+		max-height: $hide-max-height;
+
+		color: $c-hide;
+
+		padding: 0;
+		margin: 0;
+
+		border-end-start-radius: $bd-radius;
+		border-end-end-radius: $bd-radius;
+
+		li {
+			overflow: hidden;
+			text-overflow: hidden;
+			padding: $p;
+			cursor: pointer;
+			&:hover {
+				background-color: $bg-hover;
+				color: $c;
+			}
+		}
+	}
+}
