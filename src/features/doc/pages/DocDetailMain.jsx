@@ -1,15 +1,21 @@
 import "./DocTitlePage.scss";
 
+import {
+	Route,
+	Switch,
+	useLocation,
+	useParams,
+	useRouteMatch,
+} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
-import BackButton from "components/MyButton/BackButton";
-import DocContentDetail from "../components/DocContentDetail";
-import DocTitleList from "../components/DocTitleList";
+import DocDetailPage from "./DocDetailPage";
+import DocUpdateContent from "./DocUpdateContent";
+import DocUpdatePage from "./DocUpdatePage";
+import NotFound from "components/NotFound";
 import React from "react";
 import {docGetDetail} from "../docSlice";
 import {useEffect} from "react";
-import {useLocation} from "react-router-dom";
-import {useParams} from "react-router-dom";
 
 function useQuery() {
 	const {search} = useLocation();
@@ -17,8 +23,11 @@ function useQuery() {
 	return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-function DocTitlePage(props) {
+function DocDetailMain(props) {
+	const match = useRouteMatch();
+
 	const dispatch = useDispatch();
+
 	const query = useQuery();
 	const contentQuery = query.get("c");
 
@@ -49,18 +58,27 @@ function DocTitlePage(props) {
 	if (!groupId) return;
 	if (!doc.contents) return "loading...";
 	return (
-		<div className="doc-title-page">
-			<BackButton />
-			{!contentQuery ? (
-				<DocTitleList name={doc.name} contents={doc.contents} />
-			) : (
-				<DocContentDetail
+		<Switch>
+			<Route exact path={`${match.url}/content/:id/update`}>
+				<DocUpdateContent
+					docId={doc._id}
 					docName={doc.name}
-					content={doc.contents.find(content => content._id === contentQuery)}
+					contents={doc.contents}
 				/>
-			)}
-		</div>
+			</Route>
+			<Route exact path={`${match.url}/update`}>
+				<DocUpdatePage docId={doc._id} docName={doc.name} />
+			</Route>
+			<Route exact path={`${match.url}`}>
+				<DocDetailPage
+					contentId={contentQuery}
+					docDetail={doc}
+					docId={doc._id}
+				/>
+			</Route>
+			<Route content={NotFound} />
+		</Switch>
 	);
 }
 
-export default DocTitlePage;
+export default DocDetailMain;

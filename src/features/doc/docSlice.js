@@ -28,6 +28,20 @@ export const docGetDetail = createAsyncThunk('doc/docGetDetail', async (data) =>
     return response;
 })
 
+// data: {docId, name}
+// response : {success, message, response: new Doc}
+export const docUpdateDoc = createAsyncThunk('doc/docUpdateDoc', async (data) => {
+    const response = await docApi.updateDoc(data);
+    return response;
+});
+
+// data: {docId, contentId, title, content}
+// response : { success, message, response: new Doc}
+export const docUpdateContent = createAsyncThunk('doc/docUpdateContent', async (data) => {
+    const response = await docApi.updateContent(data);
+    return response;
+})
+
 // data: {docId, groupId}
 export const docDeleteDoc = createAsyncThunk('doc/docDeleteDoc', async (data) => {
     const { docId } = data;
@@ -121,6 +135,42 @@ const docSlice = createSlice({
 
                 state.data.splice(docIndex, 1, responseDoc);
                 return state;
+
+            } catch (err) {
+                return state;
+            }
+        },
+
+        // Update doc
+        [docUpdateDoc.fulfilled]: (state, action) => {
+            if (!action.payload.success) return state;
+            try {
+                state.data = state.data.map(doc => {
+                    if (doc._id === action.payload.response._id) {
+                        return action.payload.response;
+                    }
+
+                    return doc;
+                });
+
+                return state;
+
+            } catch (err) {
+                return state;
+            }
+        },
+
+        // Update Content
+        [docUpdateContent.fulfilled]: (state, action) => {
+            if (!action.payload.success) return state;
+
+            try {
+                state.data = state.data.map(doc => {
+                    if (doc._id === action.payload.response._id)
+                        return action.payload.response;
+
+                    return doc;
+                })
 
             } catch (err) {
                 return state;

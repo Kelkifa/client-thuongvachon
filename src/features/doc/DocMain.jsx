@@ -3,9 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 import DocCreateContentPage from "./pages/DocCreateContentPage";
 import DocCreatePage from "./pages/DocCreatePage";
+import DocDetailMain from "./pages/DocDetailMain";
 import DocListPage from "./pages/DocListPage";
-import DocTitlePage from "./pages/DocTitlePage";
-import DocUpdatePage from "./pages/DocUpdatePage";
 import NotFound from "components/NotFound";
 import React from "react";
 import {docGetDocs} from "./docSlice";
@@ -59,15 +58,10 @@ function DocMain(props) {
 				<Route exact path={`${match.url}/create`} component={DocCreatePage} />
 				<Route
 					exact
-					path={`${match.url}/:id/update`}
-					component={DocUpdatePage}
-				/>
-				<Route
-					exact
 					path={`${match.url}/:id/create`}
 					component={DocCreateContentPage}
 				/>
-				<Route exact path={`${match.url}/:id`} component={DocTitlePage} />
+				<Route path={`${match.url}/:id`} component={DocDetailMain} />
 				<Route exact path={match.url}>
 					<DocListPage
 						docInfo={docInfo}

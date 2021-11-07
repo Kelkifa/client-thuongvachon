@@ -46,7 +46,9 @@ $hide-max-height: 500px;
 
 	&__hide {
 		list-style: none;
+
 		position: absolute;
+		z-index: 10;
 
 		background: $bg;
 		width: 100%;

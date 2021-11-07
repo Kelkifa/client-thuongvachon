@@ -41,6 +41,26 @@ const docApi = {
 
     /**
      * 
+     * @param {object} data {docId, name}
+     * @returns 
+     */
+    updateDoc: (data) => {
+        const url = '/docs/updateDoc';
+        return axiosClient.patch(url, data);
+    },
+
+    /**
+     * 
+     * @param {object} data {docId, title, contentId,content}
+     * @returns 
+     */
+    updateContent: (data) => {
+        const url = '/docs/updateContent';
+        return axiosClient.patch(url, data);
+    },
+
+    /**
+     * 
      * @param {object} data {docId, groupId}
      * @returns 
      */

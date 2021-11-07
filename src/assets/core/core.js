@@ -1,5 +1,5 @@
 
-export const defaulNotifice = {
+export const defaultNotifice = {
     isProcessing: false,
     error: undefined,
 };

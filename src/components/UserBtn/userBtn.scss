@@ -30,6 +30,8 @@ $bg-load: rgba(173, 172, 172, 0.137);
 		list-style: none;
 
 		position: absolute;
+		z-index: 10;
+
 		top: calc(100% + #{$w-arrow});
 		right: 0;
 
