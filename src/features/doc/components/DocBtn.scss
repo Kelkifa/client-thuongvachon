@@ -1,11 +1,9 @@
-$w: 140px;
-$h: 70px;
 $bg: rgba(0, 0, 0, 0.623);
 $bg-hover: rgba(24, 23, 23, 0.486);
 
 $bg-load: rgba(22, 22, 22, 0.473);
 $bg-load-ligth: rgba(22, 22, 22, 0.267);
-
+$bg-fix: rgba(0, 0, 0, 0.795);
 $bg-handle: rgba(0, 0, 0, 0.323);
 $c-handle-right: rgba(223, 10, 10, 0.562);
 $c-handle-left: rgba(0, 60, 255, 0.582);
@@ -14,6 +12,8 @@ $tf-handle: 8px;
 
 .doc-btn {
 	$bd-radius: var(--borderRadius);
+	$w: var(--width);
+	$h: var(--height);
 
 	display: flex;
 	align-items: center;
@@ -110,6 +110,10 @@ $tf-handle: 8px;
 	&--load {
 		background-color: $bg-load;
 		animation: load 1s linear infinite;
+	}
+
+	&--fix-mode {
+		background-color: $bg-fix;
 	}
 }
 

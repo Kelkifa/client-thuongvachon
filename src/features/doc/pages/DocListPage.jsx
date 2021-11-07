@@ -28,9 +28,6 @@ function DocListPage({docInfo, groupType}) {
 
 	const [isFixMode, setIsFixMode] = useState(false);
 
-	if (docInfo.error) return "doc Error";
-	if (docInfo.loading) return <DocListPageLoad />;
-
 	const handleDelete = async docId => {
 		if (!docId) return {success: false, message: "Không tìm thấy tài liệu"};
 
@@ -45,6 +42,10 @@ function DocListPage({docInfo, groupType}) {
 			return {success: false, message: err};
 		}
 	};
+
+	if (docInfo.error) return "doc Error";
+	if (docInfo.loading) return <DocListPageLoad />;
+
 	return (
 		<div className="doc-list-page">
 			<div className="doc-list-page__title">
@@ -69,7 +70,7 @@ function DocListPage({docInfo, groupType}) {
 						fixMode={isFixMode}
 						// defaultFixMode={index === 0 ? true : false}
 						onFixLeftClick={() => {
-							history.push(`/docs/update/${doc._id}`);
+							history.push(`/docs/${doc._id}/update`);
 						}}
 						onFixRightClick={() => {
 							return handleDelete(doc._id);
@@ -87,6 +88,16 @@ function DocListPageLoad() {
 			<h3 className="doc-list-page__title__text">Danh sách các tài liệu</h3>
 
 			<div className="doc-list-page__list">
+				<DocBtn type="load"></DocBtn>
+				<DocBtn type="load"></DocBtn>
+				<DocBtn type="load"></DocBtn>
+				<DocBtn type="load"></DocBtn>
+				<DocBtn type="load"></DocBtn>
+				<DocBtn type="load"></DocBtn>
+				<DocBtn type="load"></DocBtn>
+				<DocBtn type="load"></DocBtn>
+				<DocBtn type="load"></DocBtn>
+				<DocBtn type="load"></DocBtn>
 				<DocBtn type="load"></DocBtn>
 				<DocBtn type="load"></DocBtn>
 				<DocBtn type="load"></DocBtn>

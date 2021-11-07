@@ -11,6 +11,8 @@ DocBtn.propTypes = {
 	type: PropTypes.string, // $in :["add", "normal (default)", "load"]
 	text: PropTypes.string,
 	borderRadius: PropTypes.string,
+	width: PropTypes.string,
+	height: PropTypes.string,
 	goToUrl: PropTypes.string,
 	fixMode: PropTypes.bool,
 	defaultFixMode: PropTypes.bool,
@@ -21,6 +23,8 @@ DocBtn.propTypes = {
 DocBtn.defaultProps = {
 	type: "normal",
 	borderRadius: "30px",
+	width: "140px",
+	height: "70px",
 	text: "", //  {_id, name}
 	goToUrl: null,
 	fixMode: false,
@@ -31,6 +35,10 @@ DocBtn.defaultProps = {
 function DocBtn({
 	type,
 	borderRadius,
+
+	width,
+	height,
+
 	text,
 	goToUrl,
 	fixMode,
@@ -43,6 +51,12 @@ function DocBtn({
 	const [isLoading, setIsLoading] = useState(false);
 
 	const history = useHistory();
+
+	const style = {
+		"--borderRadius": borderRadius,
+		"--width": width,
+		"--height": height,
+	};
 
 	// Handle Click
 	const handleClick = () => {
@@ -68,44 +82,44 @@ function DocBtn({
 		}
 	};
 
-	if (type === "load") return <div className="doc-btn doc-btn--load"></div>;
-	if (type === "add")
-		return (
-			<div
-				className="doc-btn"
-				onClick={handleClick}
-				style={{"--borderRadius": borderRadius}}
-			>
-				<ImPlus />
-			</div>
-		);
+	// Render
+
+	if (type === "load")
+		return <div className="doc-btn doc-btn--load" style={style}></div>;
+
 	return (
 		<div
-			className="doc-btn"
+			className={`doc-btn ${fixMode ? "doc-btn--fix-mode" : ""}`}
 			onClick={handleClick}
-			style={{"--borderRadius": borderRadius}}
+			style={style}
 		>
-			{text}
-			{fixMode && !isLoading && toggle && (
-				<div className="doc-btn__handle">
-					<div
-						className="doc-btn__handle__item doc-btn__handle__item--left"
-						onClick={onFixLeftClick}
-					>
-						<span>UPDATE</span>
-					</div>
-					<div
-						className="doc-btn__handle__item doc-btn__handle__item--right"
-						onClick={handleRightFixClick}
-					>
-						<span>DELETE</span>
-					</div>
-				</div>
-			)}
-			{isLoading && (
-				<div className="doc-btn__load">
-					<LoadIcon />
-				</div>
+			{type === "add" ? (
+				<ImPlus />
+			) : (
+				<>
+					{text}
+					{fixMode && !isLoading && toggle && (
+						<div className="doc-btn__handle">
+							<div
+								className="doc-btn__handle__item doc-btn__handle__item--left"
+								onClick={onFixLeftClick}
+							>
+								<span>UPDATE</span>
+							</div>
+							<div
+								className="doc-btn__handle__item doc-btn__handle__item--right"
+								onClick={handleRightFixClick}
+							>
+								<span>DELETE</span>
+							</div>
+						</div>
+					)}
+					{isLoading && (
+						<div className="doc-btn__load">
+							<LoadIcon />
+						</div>
+					)}
+				</>
 			)}
 		</div>
 	);

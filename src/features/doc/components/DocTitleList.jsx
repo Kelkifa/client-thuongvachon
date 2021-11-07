@@ -1,12 +1,12 @@
 import "../pages/DocListPage.scss";
 
+import {useDispatch, useSelector} from "react-redux";
 import {useHistory, useParams} from "react-router";
 
 import DocBtn from "./DocBtn";
 import PropTypes from "prop-types";
 import React from "react";
 import {docDeleteContent} from "../docSlice";
-import {useDispatch} from "react-redux";
 import {useState} from "react";
 
 DocTitleList.propTypes = {
@@ -26,6 +26,8 @@ function DocTitleList({name, contents}) {
 
 	const params = useParams();
 	const docId = params.id;
+
+	const groupType = useSelector(state => state.groups.selectedGroup.type);
 
 	const [isFixMode, setIsFixMode] = useState(false);
 
@@ -48,22 +50,26 @@ function DocTitleList({name, contents}) {
 			<div className="doc-list-page__title">
 				<h2 className="doc-title-page__title">{name}</h2>
 
-				<div
-					className="doc-list-page__title__handle"
-					onClick={() => {
-						setIsFixMode(!isFixMode);
-					}}
-				>
-					{isFixMode ? "Chọn" : "Sửa"}
-				</div>
+				{groupType !== "demo" && (
+					<div
+						className="doc-list-page__title__handle"
+						onClick={() => {
+							setIsFixMode(!isFixMode);
+						}}
+					>
+						{isFixMode ? "Chọn" : "Sửa"}
+					</div>
+				)}
 			</div>
 
 			<div className="doc-title-page__list">
-				<DocBtn
-					type="add"
-					goToUrl={`${window.location.pathname}/create`}
-					borderRadius="0.5em"
-				/>
+				{groupType !== "demo" && (
+					<DocBtn
+						type="add"
+						goToUrl={`${window.location.pathname}/create`}
+						borderRadius="0.5em"
+					/>
+				)}
 				{contents.map(content => (
 					<DocBtn
 						key={content._id}

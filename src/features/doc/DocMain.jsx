@@ -5,6 +5,7 @@ import DocCreateContentPage from "./pages/DocCreateContentPage";
 import DocCreatePage from "./pages/DocCreatePage";
 import DocListPage from "./pages/DocListPage";
 import DocTitlePage from "./pages/DocTitlePage";
+import DocUpdatePage from "./pages/DocUpdatePage";
 import NotFound from "components/NotFound";
 import React from "react";
 import {docGetDocs} from "./docSlice";
@@ -56,6 +57,11 @@ function DocMain(props) {
 		<div className="bg-page grid wide">
 			<Switch>
 				<Route exact path={`${match.url}/create`} component={DocCreatePage} />
+				<Route
+					exact
+					path={`${match.url}/:id/update`}
+					component={DocUpdatePage}
+				/>
 				<Route
 					exact
 					path={`${match.url}/:id/create`}
