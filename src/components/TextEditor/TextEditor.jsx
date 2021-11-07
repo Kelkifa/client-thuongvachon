@@ -65,7 +65,7 @@ function TextEditor({
 	setDefaultStyle,
 	setOptions,
 	hideToolbar,
-	disable,
+	disabled,
 	onChange,
 	onBlur,
 }) {
@@ -89,7 +89,7 @@ function TextEditor({
 				setContents={setContents}
 				setDefaultStyle={setDefaultStyle}
 				hideToolbar={hideToolbar}
-				disable={disable}
+				disable={disabled}
 				setOptions={setOptions}
 				onBlur={handleBlur}
 				onChange={handleChange}

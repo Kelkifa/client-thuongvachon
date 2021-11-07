@@ -2,6 +2,8 @@ import groupApi from "api/groupApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
+const LOCALSTORAGE_SELECTED_GROUP_ID = 'group';
+
 export const groupGetDemo = createAsyncThunk('group/groupGetDemo', async () => {
     const response = await groupApi.getDemo();
     return response;
@@ -35,49 +37,89 @@ export const groupAddMember = createAsyncThunk('group/groupAddMember', async (da
 const groupSlice = createSlice({
     name: 'groups',
     initialState: {
-        groups: { loading: true, error: null, data: [] },
-        selectedGroup: { loading: true, error: null, data: {} }
+        loading: true,
+        error: null,
+        groups: [],
+        selectedGroup: {},
+    },
+    reducers: {
+        groupChoose: (state, action) => {
+            state.selectedGroup = action.payload;
+            localStorage.setItem(LOCALSTORAGE_SELECTED_GROUP_ID, action.payload._id);
+        },
     },
     extraReducers: {
         // Get demo group for first request
         [groupGetDemo.rejected]: (state, action) => {
-            state.selectedGroup.loading = false;
-            state.selectedGroup.error = 'Client error';
+            state.loading = false;
+            state.error = 'Client error';
         },
         [groupGetDemo.fulfilled]: (state, action) => {
-            state.selectedGroup.loading = false;
+            state.loading = false;
 
             if (!action.payload.success) {
-                state.selectedGroup.error = action.payload.message;
+                state.error = action.payload.message;
                 return;
             }
 
-            state.selectedGroup.error = false;
+            state.error = false;
             state.selectedGroup.data = action.payload.response;
         },
 
         // Get user's group
         [groupGet.rejected]: (state, action) => {
-            state.groups.loading = false;
-            state.groups.error = 'Server error';
+            state.loading = false;
+            state.error = 'Server error';
         },
         [groupGet.fulfilled]: (state, action) => {
-            state.groups.loading = false;
+            state.loading = false;
 
-            if (!action.payload.success) {
-                state.groups.error = action.payload.message;
-                return;
+            try {
+
+                if (!action.payload.success) {
+                    state.error = action.payload.message;
+                    return;
+                }
+
+                state.error = false;
+                state.groups = action.payload.response;
+
+                const selectedGroupId = localStorage.getItem(LOCALSTORAGE_SELECTED_GROUP_ID);
+
+                // Find demo group
+                const foundDemoGroup = action.payload.response.find(group => group.type === 'demo');
+
+                // There is no selected group in localstorage
+                if (!selectedGroupId) {
+                    if (!foundDemoGroup) return state;
+                    state.selectedGroup = foundDemoGroup;
+                    localStorage.setItem(LOCALSTORAGE_SELECTED_GROUP_ID, foundDemoGroup._id);
+                    return state;
+
+                }
+
+                const foundGroup = action.payload.response.find(group => group._id === selectedGroupId);
+                if (!foundGroup) {
+                    if (!foundDemoGroup) return state;
+                    state.selectedGroup = foundDemoGroup;
+                    return state
+                };
+
+                state.selectedGroup = foundGroup;
+                return state;
+
+            } catch (err) {
+                state.error = "Client error";
+                return state;
             }
 
-            state.groups.error = false;
-            state.groups.data = action.payload.response;
         },
 
         /** Create */
         [groupCreate.fulfilled]: (state, action) => {
             if (!action.payload.success) return state;
 
-            state.groups.data.push(action.payload.response);
+            state.groups.push(action.payload.response);
             return state;
         },
 
@@ -87,11 +129,11 @@ const groupSlice = createSlice({
 
             const groupId = action.payload.groupId;
 
-            const groupIndex = state.groups.data.findIndex(group => group._id === groupId);
+            const groupIndex = state.groups.findIndex(group => group._id === groupId);
             if (groupIndex === -1) return state;
 
 
-            state.groups.data.splice(groupIndex, 1, action.payload.response);
+            state.groups.splice(groupIndex, 1, action.payload.response);
 
             return state;
 
@@ -99,6 +141,8 @@ const groupSlice = createSlice({
     }
 });
 
-const { reducer: groupReducer } = groupSlice;
+const { reducer: groupReducer, actions } = groupSlice;
+
+export const { groupChoose } = actions;
 
 export default groupReducer;

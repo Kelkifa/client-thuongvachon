@@ -3,25 +3,124 @@ $h: 70px;
 $bg: rgba(0, 0, 0, 0.623);
 $bg-hover: rgba(24, 23, 23, 0.486);
 
+$bg-load: rgba(22, 22, 22, 0.473);
+$bg-load-ligth: rgba(22, 22, 22, 0.267);
+
+$bg-handle: rgba(0, 0, 0, 0.323);
+$c-handle-right: rgba(223, 10, 10, 0.562);
+$c-handle-left: rgba(0, 60, 255, 0.582);
+
+$tf-handle: 8px;
+
 .doc-btn {
+	$bd-radius: var(--borderRadius);
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
+	text-align: center;
+
+	position: relative;
+
 	background: $bg;
 
-	border-radius: 30px;
+	border-radius: $bd-radius;
 
 	padding: 0.3em;
 	width: $w;
 	height: $h;
 
+	overflow: hidden;
+	text-overflow: ellipsis;
+
 	cursor: pointer;
+
+	&__load {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		border-radius: $bd-radius;
+		position: absolute;
+
+		background: $bg;
+		width: 100%;
+		height: 100%;
+	}
+
+	&__handle {
+		display: flex;
+
+		background-color: $bg;
+
+		position: absolute;
+
+		width: 100%;
+		height: 100%;
+
+		border-radius: $bd-radius;
+
+		&__item {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			font-size: 13px;
+
+			width: 100%;
+			background-color: $bg-handle;
+
+			&--left {
+				border-start-start-radius: $bd-radius;
+				border-end-start-radius: $bd-radius;
+
+				span {
+					transform: translateY(-$tf-handle) translateX($tf-handle);
+				}
+
+				&:hover {
+					background-color: $c-handle-left;
+				}
+			}
+
+			&--right {
+				border-start-end-radius: $bd-radius;
+				border-end-end-radius: $bd-radius;
+
+				span {
+					transform: translateY(-$tf-handle) translateX(-$tf-handle);
+				}
+
+				&:hover {
+					background-color: $c-handle-right;
+				}
+			}
+
+			&:hover {
+				// background-color: $bg-hover;
+			}
+		}
+	}
 
 	&:hover {
 		background-color: $bg-hover;
 	}
+
+	&--load {
+		background-color: $bg-load;
+		animation: load 1s linear infinite;
+	}
 }
 
-.doc-btn--add {
+@keyframes load {
+	0% {
+		background-color: $bg-load;
+	}
+	50% {
+		background-color: $bg-load-ligth;
+	}
+	100% {
+		background-color: $bg-load;
+	}
 }

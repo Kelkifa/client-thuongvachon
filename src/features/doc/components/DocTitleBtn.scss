@@ -1,2 +1,30 @@
+$w: 180px;
+$h: 50px;
+$bg: rgba(0, 0, 0, 0.623);
+$bg-hover: rgba(22, 22, 22, 0.548);
+
+$bg-load: rgba(22, 22, 22, 0.473);
+$bg-load-ligth: rgba(22, 22, 22, 0.267);
+
+$bd-radius: 0.5em;
+
 .doc-title-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: $w;
+	height: $h;
+
+	border-radius: $bd-radius;
+
+	background-color: $bg;
+	color: #ccc;
+
+	cursor: pointer;
+
+	&:hover {
+		background-color: $bg-hover;
+		color: white;
+	}
 }

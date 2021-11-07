@@ -22,7 +22,6 @@ import NotFound from 'components/NotFound';
 import ToDoMain from 'features/ToDo/ToDoMain';
 import { authFirstAccess } from 'features/auth/authSlice';
 import { gameClientGet } from 'features/game/gameSlice';
-import { groupGetDemo } from 'features/group/groupSlice';
 import { todoGet } from 'features/ToDo/todoSlice';
 import { useDispatch } from 'react-redux';
 

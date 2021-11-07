@@ -29,9 +29,9 @@ function GroupDetailPage(props) {
 		error: undefined,
 	});
 
-	const userId = useSelector(state => state.auth.user._id);
+	const userId = useSelector(state => state.auth.user._id); // Check this is you
 	const group = useSelector(state =>
-		state.groups.groups.data.find(group => group._id === groupId)
+		state.groups.groups.find(group => group._id === groupId)
 	);
 
 	if (!group) return <div>Không tìm thấy nhóm</div>;

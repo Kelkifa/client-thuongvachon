@@ -1,5 +1,9 @@
 $c-input: rgba(112, 9, 73, 0.582);
 $max-w: 500px;
+
+$bg-load: rgba(22, 22, 22, 0.473);
+$bg-load-ligth: rgba(22, 22, 22, 0.267);
+
 .mform {
 	&__title {
 		display: flex;
@@ -59,5 +63,63 @@ $max-w: 500px;
 			justify-content: flex-end;
 			gap: 0.5em;
 		}
+	}
+}
+
+.mform--loading {
+	&__title {
+		width: 100%;
+		height: 60px;
+		background-color: $bg-load;
+	}
+	&__field {
+		&__label {
+			width: 100%;
+			height: 30px;
+
+			margin-bottom: 10px;
+			background-color: $bg-load;
+		}
+		&__input {
+			width: 100%;
+			height: 40px;
+			background-color: $bg-load;
+			// background-color: red;
+		}
+
+		&__input--big {
+			width: 100%;
+			height: 100px;
+			background-color: $bg-load;
+		}
+	}
+	&__btn-container {
+		display: flex;
+		justify-content: flex-end;
+		align-items: flex-end;
+
+		margin-top: 10px;
+
+		&__btn {
+			border-radius: 5px;
+			width: 90px;
+			height: 40px;
+			background-color: $bg-load;
+		}
+	}
+	&__animation {
+		animation: load 1s linear infinite;
+	}
+}
+
+@keyframes load {
+	0% {
+		background-color: $bg-load;
+	}
+	50% {
+		background-color: $bg-load-ligth;
+	}
+	100% {
+		background-color: $bg-load;
 	}
 }

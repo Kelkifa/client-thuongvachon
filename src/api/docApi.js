@@ -12,7 +12,7 @@ const docApi = {
 
     /**
      * 
-     * @param {*} data {name, title, content, groupId}
+     * @param {object} data {name, title, content, groupId}
      * @returns 
      */
     createDoc: (data) => {
@@ -20,6 +20,14 @@ const docApi = {
         return axiosClient.post(url, data);
     },
 
+    /**
+     * 
+     * @param {object} data {groupId, docId, title, content}
+     */
+    createContent: (data) => {
+        const url = '/docs/createContent';
+        return axiosClient.post(url, data);
+    },
 
     /**
      * Get doc detail
@@ -29,6 +37,26 @@ const docApi = {
     getDetail: (data) => {
         const url = '/docs/getDetail';
         return axiosClient.post(url, data);
+    },
+
+    /**
+     * 
+     * @param {object} data {docId, groupId}
+     * @returns 
+     */
+    deleteDoc: (data) => {
+        const url = '/docs/deleteDoc';
+        return axiosClient.patch(url, data)
+    },
+
+    /**
+     * 
+     * @param {object} data {docId, contentId}
+     */
+    deleteContent: (data) => {
+        const url = '/docs/deleteContent';
+
+        return axiosClient.patch(url, data)
     }
 }
 

@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
 import {FastField, Formik} from "formik";
+import {useDispatch, useSelector} from "react-redux";
 
 import BackButton from "components/MyButton/BackButton";
 import MyButton from "components/MyButton/MyButton";
@@ -10,8 +11,6 @@ import {ProcessNotifice} from "components/Notifice/Notifice";
 import React from "react";
 import {docCreate} from "../docSlice";
 import {handleNotificeWithResponse} from "assets/core/core";
-import {useDispatch} from "react-redux";
-import {useParams} from "react-router";
 import {useState} from "react";
 
 const schema = yup.object().shape({
@@ -23,8 +22,7 @@ const schema = yup.object().shape({
 function DocCreatePage(props) {
 	const dispatch = useDispatch();
 
-	const params = useParams();
-	const {groupId} = params;
+	const groupId = useSelector(state => state.groups.selectedGroup._id);
 
 	const initialValues = {
 		name: "",
@@ -46,6 +44,7 @@ function DocCreatePage(props) {
 		);
 	};
 
+	if (!groupId) return null;
 	return (
 		<div className="mform doc-create-page">
 			<BackButton />

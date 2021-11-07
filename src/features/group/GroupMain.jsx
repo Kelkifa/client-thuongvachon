@@ -15,8 +15,8 @@ function GroupMain(props) {
 	const match = useRouteMatch();
 
 	const dispatch = useDispatch();
-	const groupInfo = useSelector(state => state.groups.groups);
-	const {loading, error, data} = groupInfo;
+	const groupInfo = useSelector(state => state.groups);
+	const {loading, error, groups} = groupInfo;
 
 	useEffect(() => {
 		if (!loading && !error) return;
@@ -38,7 +38,7 @@ function GroupMain(props) {
 				<Route exact path={`${match.url}/create`} component={GroupCreatePage} />
 				<Route exact path={`${match.url}/:id`} component={GroupDetailPage} />
 				<Route exact path={`${match.url}`}>
-					<GroupPage groups={data} />
+					<GroupPage groups={groups} />
 				</Route>
 				<Route component={NotFound} />
 			</Switch>

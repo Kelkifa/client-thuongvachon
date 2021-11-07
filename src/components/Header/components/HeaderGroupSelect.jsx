@@ -1,32 +1,47 @@
 import "./HeaderGroupSelect.scss";
 
+import {groupChoose, groupGet} from "features/group/groupSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 import {AiOutlineDown} from "react-icons/ai";
-import PropTypes from "prop-types";
 import React from "react";
-import {groupGet} from "features/group/groupSlice";
 import {useEffect} from "react";
+import {useHistory} from "react-router-dom";
 import {useState} from "react";
 
-HeaderGroupSelect.propTypes = {};
+// import PropTypes from "prop-types";
+
+// HeaderGroupSelect.propTypes = {};
 
 function HeaderGroupSelect(props) {
 	const dispatch = useDispatch();
 	const [isShow, setIsShow] = useState(false);
 
+	const history = useHistory();
+
 	const authLoading = useSelector(state => state.auth.loading);
 
-	const groupInfo = useSelector(state => state.groups.groups);
+	const groupInfo = useSelector(state => state.groups);
 
 	useEffect(() => {
 		const fetchGroup = async () => {
 			await dispatch(groupGet());
 		};
 		fetchGroup();
-	}, [authLoading]);
+	}, [dispatch, authLoading]);
 
 	if (authLoading) return "loading ...";
+	if (groupInfo.error) return "error";
+	if (groupInfo.loading) return "group loading ...";
+
+	const handleClick = group => {
+		dispatch(groupChoose(group));
+		// Handle path
+		const gotoPath = window.location.pathname.split("/")[1];
+		history.push(`/${gotoPath}`);
+
+		setIsShow(false);
+	};
 
 	return (
 		<div className="header-group-select">
@@ -38,7 +53,9 @@ function HeaderGroupSelect(props) {
 					setIsShow(!isShow);
 				}}
 			>
-				<div className="header-group-select__btn__text">Group name</div>
+				<div className="header-group-select__btn__text">
+					{groupInfo.selectedGroup.name}
+				</div>
 				<div className="header-group-select__btn__icon">
 					{!isShow && <AiOutlineDown />}
 				</div>
@@ -46,19 +63,16 @@ function HeaderGroupSelect(props) {
 
 			{isShow && (
 				<ul className="header-group-select__hide custom-scroll">
-					<li>asdasds</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
-					<li>asdasdlj askdj l</li>
+					{groupInfo.groups.map(group => (
+						<li
+							key={group._id}
+							onClick={() => {
+								handleClick(group);
+							}}
+						>
+							{group.name}
+						</li>
+					))}
 				</ul>
 			)}
 		</div>
