@@ -10,6 +10,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 
 import DocDetailPage from "./DocDetailPage";
+import {DocListPageLoad} from "./DocListPage";
 import DocUpdateContent from "./DocUpdateContent";
 import DocUpdatePage from "./DocUpdatePage";
 import NotFound from "components/NotFound";
@@ -56,7 +57,7 @@ function DocDetailMain(props) {
 	}, [dispatch, doc.contents, docId, groupId, docLoading, docError]);
 
 	if (!groupId) return;
-	if (!doc.contents) return "loading...";
+	if (!doc.contents) return <DocListPageLoad title="Đang tải nội dung ..." />;
 	return (
 		<Switch>
 			<Route exact path={`${match.url}/content/:id/update`}>

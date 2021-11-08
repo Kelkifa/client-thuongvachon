@@ -5,6 +5,7 @@ import DocCreateContentPage from "./pages/DocCreateContentPage";
 import DocCreatePage from "./pages/DocCreatePage";
 import DocDetailMain from "./pages/DocDetailMain";
 import DocListPage from "./pages/DocListPage";
+import GifLoading from "components/Notifice/LoadComponents/GifLoading";
 import NotFound from "components/NotFound";
 import React from "react";
 import {docGetDocs} from "./docSlice";
@@ -48,7 +49,12 @@ function DocMain(props) {
 	if (groupInfo.error)
 		return <div className="bg-page grid wide">{groupInfo.error}</div>;
 	if (groupInfo.loading)
-		return <div className="bg-page grid wide">Loading</div>;
+		return (
+			<div className="bg-page grid wide">
+				<GifLoading />
+			</div>
+		);
+
 	if (!groupInfo.selectedGroup._id)
 		return <div className="bg-page grid wide">Chưa chọn group</div>;
 

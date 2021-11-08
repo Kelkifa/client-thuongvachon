@@ -3,8 +3,8 @@ import { todoApi } from "api/todoApi";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 
-export const todoGet = createAsyncThunk('todo/todoGet', async () => {
-    const response = await todoApi.get();
+export const todoGet = createAsyncThunk('todo/todoGet', async (data) => {
+    const response = await todoApi.get(data);
     return response;
 })
 export const todoCreate = createAsyncThunk('todo/todoCreate', async (data) => {

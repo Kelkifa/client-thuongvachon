@@ -13,6 +13,7 @@ import React from "react";
 import {docCreateContent} from "../docSlice";
 import {handleNotificeWithResponse} from "assets/core/core";
 import {useParams} from "react-router";
+import {useRef} from "react";
 import {useState} from "react";
 
 const schema = yup.object().shape({
@@ -21,6 +22,8 @@ const schema = yup.object().shape({
 });
 
 function DocCreateContentPage(props) {
+	const formTitleRef = useRef();
+
 	const dispatch = useDispatch();
 	const params = useParams();
 	const docId = params.id;
@@ -55,6 +58,8 @@ function DocCreateContentPage(props) {
 			docCreateContent({...values, groupId, docId}),
 			undefined
 		);
+
+		formTitleRef.current.scrollIntoView();
 	};
 
 	if (!groupId) return null;
@@ -69,7 +74,9 @@ function DocCreateContentPage(props) {
 				<FormLoading />
 			) : (
 				<>
-					<h3 className="mform__title">Tạo nội dung cho {docName}</h3>
+					<h3 className="mform__title" ref={formTitleRef}>
+						Tạo nội dung cho {docName}
+					</h3>
 					<ProcessNotifice successText="Tạo thành công" notifice={notifice} />
 
 					<Formik

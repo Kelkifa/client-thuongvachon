@@ -1,11 +1,12 @@
 import "./todoListNote.scss";
 
+import {useDispatch, useSelector} from "react-redux";
+
 import {AiTwotoneDelete} from "react-icons/ai";
 import {MdSystemUpdateAlt} from "react-icons/md";
 import PropTypes from "prop-types";
 import React from "react";
 import {todoDelete} from "features/ToDo/todoSlice";
-import {useDispatch} from "react-redux";
 import {useState} from "react";
 
 TodoListNote.propTypes = {
@@ -24,6 +25,8 @@ function TodoListNote(props) {
 	// STATES
 	const [isActive, setActive] = useState(false);
 
+	const groupId = useSelector(state => state.groups.selectedGroup._id);
+
 	// RENDER
 	if (!note) return null;
 
@@ -39,7 +42,7 @@ function TodoListNote(props) {
 		const data = note._id;
 		console.log(`[data]`, data);
 		try {
-			const response = await dispatch(todoDelete({data}));
+			const response = await dispatch(todoDelete({data, groupId}));
 			console.log(`[response]`, response);
 		} catch (err) {
 			console.log(err);

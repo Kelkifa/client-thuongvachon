@@ -1,9 +1,15 @@
 import axiosClient from './axiosClient';
 
 export const todoApi = {
-    get: () => {
+
+    /**
+     * 
+     * @param {object} data {groupId }
+     * @returns 
+     */
+    get: (data) => {
         const url = '/todos/get';
-        return axiosClient.get(url);
+        return axiosClient.post(url, data);
     },
 
     add: (data) => {

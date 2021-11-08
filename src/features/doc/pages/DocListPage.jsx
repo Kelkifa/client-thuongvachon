@@ -44,7 +44,8 @@ function DocListPage({docInfo, groupType}) {
 	};
 
 	if (docInfo.error) return "doc Error";
-	if (docInfo.loading) return <DocListPageLoad />;
+	if (docInfo.loading)
+		return <DocListPageLoad title="Danh sách các tài liệu" />;
 
 	return (
 		<div className="doc-list-page">
@@ -82,10 +83,10 @@ function DocListPage({docInfo, groupType}) {
 	);
 }
 
-function DocListPageLoad() {
+export const DocListPageLoad = ({title, borderRadius}) => {
 	return (
 		<div className="doc-list-page">
-			<h3 className="doc-list-page__title__text">Danh sách các tài liệu</h3>
+			<h2 className="doc-list-page__title__text">{title}</h2>
 
 			<div className="doc-list-page__list">
 				<DocBtn type="load"></DocBtn>
@@ -104,5 +105,5 @@ function DocListPageLoad() {
 			</div>
 		</div>
 	);
-}
+};
 export default DocListPage;

@@ -11,6 +11,7 @@ import {ProcessNotifice} from "components/Notifice/Notifice";
 import React from "react";
 import {docCreate} from "../docSlice";
 import {handleNotificeWithResponse} from "assets/core/core";
+import {useRef} from "react";
 import {useState} from "react";
 
 const schema = yup.object().shape({
@@ -20,6 +21,8 @@ const schema = yup.object().shape({
 });
 
 function DocCreatePage(props) {
+	const formTitleRef = useRef();
+
 	const dispatch = useDispatch();
 
 	const groupId = useSelector(state => state.groups.selectedGroup._id);
@@ -42,13 +45,16 @@ function DocCreatePage(props) {
 			docCreate({...values, groupId}),
 			undefined
 		);
+		formTitleRef.current.scrollIntoView();
 	};
 
 	if (!groupId) return null;
 	return (
 		<div className="mform doc-create-page">
 			<BackButton />
-			<h3 className="mform__title">Tạo tài liệu</h3>
+			<h3 className="mform__title" ref={formTitleRef}>
+				Tạo tài liệu
+			</h3>
 			<ProcessNotifice successText="Tạo thành công" notifice={notifice} />
 
 			<Formik

@@ -14,6 +14,7 @@ import {groupCreate} from "../groupSlice";
 import {handleNotificeWithResponse} from "assets/core/core";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
+import {useRef} from "react";
 import {useState} from "react";
 
 const schema = yup.object().shape({
@@ -22,6 +23,8 @@ const schema = yup.object().shape({
 });
 
 function GroupCreatePage(props) {
+	const groupTitleRef = useRef();
+
 	const history = useHistory();
 
 	const dispatch = useDispatch();
@@ -51,12 +54,16 @@ function GroupCreatePage(props) {
 		} catch (err) {
 			console.log(`[Client err]`, err);
 		}
+
+		groupTitleRef.current.scrollIntoView();
 	};
 
 	return (
 		<div className="mform">
 			<BackButton />
-			<h3 className="mform__title">Tạo nhóm</h3>
+			<h3 className="mform__title" ref={groupTitleRef}>
+				Tạo nhóm
+			</h3>
 			<ProcessNotifice notifice={notifice} successText="Tạo nhóm thành công" />
 			<Formik
 				initialValues={initialValues}

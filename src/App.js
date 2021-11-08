@@ -22,7 +22,6 @@ import NotFound from 'components/NotFound';
 import ToDoMain from 'features/ToDo/ToDoMain';
 import { authFirstAccess } from 'features/auth/authSlice';
 import { gameClientGet } from 'features/game/gameSlice';
-import { todoGet } from 'features/ToDo/todoSlice';
 import { useDispatch } from 'react-redux';
 
 function App() {
@@ -38,7 +37,6 @@ function App() {
           // dispatch(groupGetDemo()),
           dispatch(authFirstAccess()),
           dispatch(gameClientGet()),
-          dispatch(todoGet()),
         ])
       } catch (err) {
         console.log(err);

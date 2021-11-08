@@ -2,6 +2,7 @@ import "./todoForm.scss";
 
 import {FastField, Field, Formik} from "formik";
 import {getFirstLastDay, randomNoteColor} from "./coreCalendar";
+import {useDispatch, useSelector} from "react-redux";
 
 import MyButton from "components/MyButton/MyButton";
 import PropTypes from "prop-types";
@@ -9,7 +10,6 @@ import React from "react";
 import ToDoInputField from "./ToDoInputField";
 import TodoFormError from "./TodoFormError";
 import {todoCreate} from "../todoSlice";
-import {useDispatch} from "react-redux";
 import {useState} from "react";
 
 // import LoadIcon from "components/LoadIcon";
@@ -44,6 +44,8 @@ function ToDoForm({
 	setHandleChangeValue,
 }) {
 	const dispatch = useDispatch();
+
+	const groupId = useSelector(state => state.groups.selectedGroup._id);
 
 	const initialValues = {
 		content: "",
@@ -85,7 +87,7 @@ function ToDoForm({
 		};
 		try {
 			setNotifice({...notifice, isProcessing: true});
-			await dispatch(todoCreate({data}));
+			await dispatch(todoCreate({data, groupId}));
 			setNotifice({...notifice, isProcessing: false});
 		} catch (err) {
 			console.log(err);
