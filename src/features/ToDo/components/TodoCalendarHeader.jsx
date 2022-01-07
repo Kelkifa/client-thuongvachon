@@ -20,6 +20,8 @@ TodoCalendarHeader.propTypes = {
 	showDate: PropTypes.object,
 	setShowDate: PropTypes.func,
 
+	setShowYearAndMonth: PropTypes.func,
+
 	currYearSelect: PropTypes.number,
 	setCurrYearSelect: PropTypes.func,
 };
@@ -32,6 +34,7 @@ TodoCalendarHeader.defaultProps = {
 
 	showDate: new Date(),
 	setShowDate: () => {},
+	setShowYearAndMonth: () => {},
 
 	currYearSelect: new Date().getFullYear(),
 	setCurrYearSelect: () => {},
@@ -48,6 +51,7 @@ function TodoCalendarHeader(props) {
 
 		currYearSelect,
 		setCurrYearSelect,
+		setShowYearAndMonth,
 	} = props;
 
 	const year = showDate.getFullYear();
@@ -74,6 +78,10 @@ function TodoCalendarHeader(props) {
 				date
 			);
 			setShowDate(newDate);
+			setShowYearAndMonth({
+				year: newDate.getFullYear(),
+				month: newDate.getMonth(),
+			});
 			setCurrYearSelect(newDate.getFullYear());
 			return;
 		}
@@ -97,6 +105,10 @@ function TodoCalendarHeader(props) {
 				date
 			);
 			setShowDate(newDate);
+			setShowYearAndMonth({
+				year: newDate.getFullYear(),
+				month: newDate.getMonth(),
+			});
 			if (newDate.getFullYear() !== currYearSelect)
 				setCurrYearSelect(newDate.getFullYear());
 			return;

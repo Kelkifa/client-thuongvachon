@@ -1,0 +1,171 @@
+$fontSize: 20px;
+$iconFontSize: 35px;
+
+$titleHeigth: 60px;
+
+.todo-list {
+	display: block;
+	padding: 10px;
+
+	height: 100%;
+
+	&__toolbar {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+
+		&__back-btn {
+			grid-column: 1;
+			font-size: 24px;
+
+			cursor: pointer;
+		}
+		&__btn {
+			grid-column: 2;
+			justify-self: end;
+			background-color: transparent;
+			border: none;
+
+			color: rgba(255, 255, 255, 0.61);
+			font-size: 14px;
+
+			cursor: pointer;
+
+			&:hover {
+				color: white;
+			}
+		}
+	}
+
+	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 30px;
+		height: $titleHeigth;
+		margin: 0;
+	}
+	&__text {
+		font-size: 18px;
+	}
+
+	&__body {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		height: calc(100% - #{$titleHeigth});
+		$addHeight: 50px;
+
+		&__add {
+			display: flex;
+			align-items: center;
+			font-size: $fontSize;
+
+			height: $addHeight;
+			cursor: pointer;
+
+			color: rgba(255, 255, 255, 0.726);
+			&__icon {
+				font-size: $iconFontSize;
+			}
+
+			&__text {
+				padding: 0 10px;
+				font-weight: bold;
+			}
+		}
+
+		&__notes {
+			height: calc(100% - #{$addHeight});
+			list-style: none;
+			margin: 0;
+			padding: 0;
+
+			&__item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				padding: 6px 0;
+
+				&__left {
+					display: flex;
+					align-items: center;
+
+					&__cir {
+						color: rgba(0, 0, 0, 0.404);
+						font-size: $iconFontSize;
+						border-radius: 1px solid black;
+						cursor: pointer;
+						flex-shrink: 0;
+
+						&--tick {
+							color: rgba(0, 128, 0, 0.726);
+
+							&:hover {
+								color: rgba(47, 177, 47, 0.726);
+							}
+						}
+					}
+					&__content {
+						font-size: $fontSize;
+
+						color: rgba(255, 255, 255, 0.781);
+
+						padding: 0 10px;
+					}
+				}
+				&__right {
+					margin-right: 10px;
+
+					&__icon {
+						display: none;
+						color: rgba(241, 237, 237, 0.685);
+						font-size: 24px;
+						cursor: pointer;
+					}
+				}
+
+				&:hover {
+					background-color: rgba(255, 255, 255, 0.24);
+				}
+				&:hover &__right__icon {
+					display: inline;
+				}
+			}
+
+			// &--todo {
+			// 	display: flex;
+			// 	align-items: center;
+
+			// 	padding: 6px 0;
+
+			// 	&__cir {
+			// 		color: rgba(0, 0, 0, 0.404);
+			// 		font-size: $iconFontSize;
+			// 		border-radius: 1px solid black;
+			// 		cursor: pointer;
+
+			// 		&--tick {
+			// 			color: rgba(0, 128, 0, 0.726);
+
+			// 			&:hover {
+			// 				color: rgba(47, 177, 47, 0.726);
+			// 			}
+			// 		}
+			// 	}
+			// 	&__content {
+			// 		font-size: $fontSize;
+
+			// 		color: rgba(255, 255, 255, 0.781);
+
+			// 		padding: 0 10px;
+			// 	}
+
+			// 	&:hover {
+			// 		background-color: rgba(255, 255, 255, 0.24);
+			// 	}
+			// }
+		}
+	}
+}

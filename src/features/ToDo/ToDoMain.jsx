@@ -18,19 +18,19 @@ function ToDoMain(props) {
 		return {loading, error, selectedGroup};
 	});
 
-	useEffect(() => {
-		if (!selectedGroup._id) return;
-		if (loading || error) return;
-		const fetchTodo = async () => {
-			try {
-				await dispatch(todoGet({groupId: selectedGroup._id}));
-			} catch (err) {
-				console.log(`[todo get err]`, err);
-			}
-		};
+	// useEffect(() => {
+	// 	if (!selectedGroup._id) return;
+	// 	if (loading || error) return;
+	// 	const fetchTodo = async () => {
+	// 		try {
+	// 			await dispatch(todoGet({groupId: selectedGroup._id}));
+	// 		} catch (err) {
+	// 			console.log(`[todo get err]`, err);
+	// 		}
+	// 	};
 
-		fetchTodo();
-	}, [dispatch, loading, error, selectedGroup._id]);
+	// 	fetchTodo();
+	// }, [dispatch, loading, error, selectedGroup._id]);
 
 	if (error) return "Tải nhóm thất bại";
 	if (loading) return <GifLoading />;

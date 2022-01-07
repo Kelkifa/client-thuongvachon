@@ -5,19 +5,19 @@ import PropTypes from "prop-types";
 import React from "react";
 import TodoListNote from "./TodoListNote";
 
-TodoList.propTypes = {
+TodoList2.propTypes = {
 	isLoading: PropTypes.bool,
 	noteList: PropTypes.array,
 	className: PropTypes.string,
 };
 
-TodoList.defaultProps = {
+TodoList2.defaultProps = {
 	isLoading: true,
 	noteList: [],
 	className: "",
 };
 
-function TodoList(props) {
+function TodoList2(props) {
 	const {isLoading, noteList, className} = props;
 	return (
 		<div className={`todo-list ${className}`}>
@@ -35,4 +35,4 @@ function TodoList(props) {
 	);
 }
 
-export default TodoList;
+export default TodoList2;

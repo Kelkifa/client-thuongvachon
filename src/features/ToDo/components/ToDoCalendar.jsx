@@ -15,12 +15,16 @@ ToDoCalendar.propTypes = {
 	id: PropTypes.string,
 	noteList: PropTypes.array,
 
+	selectedNote: PropTypes.object,
+	setSelectedNote: PropTypes.func,
+
+	setShowYearAndMonth: PropTypes.func,
+
 	selectedOne: PropTypes.object,
 	selectedTwo: PropTypes.object,
 
 	selectOneClick: PropTypes.func,
 	selectTwoClick: PropTypes.func,
-
 	handleDateClick: PropTypes.func,
 };
 
@@ -28,6 +32,11 @@ ToDoCalendar.defaultProps = {
 	className: "",
 	id: undefined,
 	noteList: [],
+
+	selectedNote: {},
+	setSelectedNote: () => {},
+
+	setShowYearAndMonth: () => {},
 
 	selectedOne: undefined,
 	selectedTwo: undefined,
@@ -42,17 +51,20 @@ function ToDoCalendar({
 	noteList,
 	id,
 	className,
+	selectedNote,
+	setSelectedNote,
 	selectedOne,
 	selectedTwo,
 	selectOneClick,
 	selectTwoClick,
+	setShowYearAndMonth,
 }) {
 	const now = new Date();
 
 	/** useState */
 	// Data
 	const [showDate, setShowDate] = useState(now); // Showed date in calendar
-	const [activedNote, setActivedNote] = useState(null);
+	// const [activedNote, setActivedNote] = useState({});
 
 	const [viewType, setViewType] = useState(0); // Values in (0, 1, 2, 3);
 
@@ -66,12 +78,21 @@ function ToDoCalendar({
 	}, [showDate]);
 
 	const noteWithLayer = useMemo(() => {
-		const notesInMonth = noteList.filter(
-			value =>
-				value.from <= showDateList[showDateList.length - 1] &&
-				value.to >= showDateList[0]
-		);
-		return getLayerNote(notesInMonth);
+		// const notesInMonth = noteList.filter(
+		// 	// value =>
+		// 	// 	value.from <= showDateList[showDateList.length - 1] &&
+		// 	// 	value.to >= showDateList[0]
+		// 	note => {
+		// 		if (
+		// 			note.to < showDateList[0] ||
+		// 			note.from > showDateList[showDateList.length - 1]
+		// 		)
+		// 			return false;
+		// 		return true;
+		// 	}
+		// );
+
+		return getLayerNote(noteList);
 	}, [noteList, showDateList]);
 
 	// const notesInMonth = noteList.filter(
@@ -80,11 +101,40 @@ function ToDoCalendar({
 	// 		value.to >= showDateList[0]
 	// );
 
+	const renderRowList = [];
+	for (let i = 0; i < 6; i++) {
+		renderRowList.push(
+			<div className="todo-calendar__row" key={i}>
+				<div className="todo-calendar__row__date">
+					<ToDoCalendarRow
+						currMonth={showDate.getMonth()}
+						notes={noteWithLayer}
+						dateList={showDateList.slice(i * 7, i * 7 + 7)}
+						selectedOne={selectedOne}
+						selectedTwo={selectedTwo}
+						onCellClick={value => {
+							if (typeof selectOneClick === "function") {
+								selectOneClick(value);
+							}
+							if (typeof selectTwoClick === "function") {
+								selectTwoClick(value);
+							}
+						}}
+					></ToDoCalendarRow>
+				</div>
+			</div>
+		);
+	}
+
 	// HANDLE FUNCTIONS
 
 	return (
 		<TodoCalendarContext.Provider
-			value={{currDate: showDate, activedNote, setActivedNote}}
+			value={{
+				currDate: showDate,
+				selectedNote,
+				setSelectedNote,
+			}}
 		>
 			<div className={`todo-calendar ${className}`} id={id}>
 				<TodoCalendarHeader
@@ -96,6 +146,7 @@ function ToDoCalendar({
 					setShowDate={setShowDate}
 					currYearSelect={currYearSelect}
 					setCurrYearSelect={setCurrYearSelect}
+					setShowYearAndMonth={setShowYearAndMonth}
 				/>
 				{viewType === 0 && (
 					<>
@@ -108,120 +159,8 @@ function ToDoCalendar({
 							<li>FRI</li>
 							<li>SAT</li>
 						</ul>
-						<div className="todo-calendar__row">
-							<div className="todo-calendar__row__date">
-								<ToDoCalendarRow
-									currMonth={showDate.getMonth()}
-									notes={noteWithLayer}
-									dateList={showDateList.slice(0, 7)}
-									selectedOne={selectedOne}
-									selectedTwo={selectedTwo}
-									onCellClick={value => {
-										if (typeof selectOneClick === "function") {
-											selectOneClick(value);
-										}
-										if (typeof selectTwoClick === "function") {
-											selectTwoClick(value);
-										}
-									}}
-								></ToDoCalendarRow>
-							</div>
-						</div>
-						<div className="todo-calendar__row">
-							<div className="todo-calendar__row__date">
-								<ToDoCalendarRow
-									currMonth={showDate.getMonth()}
-									notes={noteWithLayer}
-									dateList={showDateList.slice(7, 14)}
-									selectedOne={selectedOne}
-									selectedTwo={selectedTwo}
-									onCellClick={value => {
-										if (typeof selectOneClick === "function") {
-											selectOneClick(value);
-										}
-										if (typeof selectTwoClick === "function") {
-											selectTwoClick(value);
-										}
-									}}
-								></ToDoCalendarRow>
-							</div>
-						</div>
-						<div className="todo-calendar__row">
-							<div className="todo-calendar__row__date">
-								<ToDoCalendarRow
-									currMonth={showDate.getMonth()}
-									notes={noteWithLayer}
-									dateList={showDateList.slice(14, 21)}
-									selectedOne={selectedOne}
-									selectedTwo={selectedTwo}
-									onCellClick={value => {
-										if (typeof selectOneClick === "function") {
-											selectOneClick(value);
-										}
-										if (typeof selectTwoClick === "function") {
-											selectTwoClick(value);
-										}
-									}}
-								></ToDoCalendarRow>
-							</div>
-						</div>
-						<div className="todo-calendar__row">
-							<div className="todo-calendar__row__date">
-								<ToDoCalendarRow
-									currMonth={showDate.getMonth()}
-									notes={noteWithLayer}
-									dateList={showDateList.slice(21, 28)}
-									selectedOne={selectedOne}
-									selectedTwo={selectedTwo}
-									onCellClick={value => {
-										if (typeof selectOneClick === "function") {
-											selectOneClick(value);
-										}
-										if (typeof selectTwoClick === "function") {
-											selectTwoClick(value);
-										}
-									}}
-								></ToDoCalendarRow>
-							</div>
-						</div>
-						<div className="todo-calendar__row">
-							<div className="todo-calendar__row__date">
-								<ToDoCalendarRow
-									currMonth={showDate.getMonth()}
-									notes={noteWithLayer}
-									dateList={showDateList.slice(28, 35)}
-									selectedOne={selectedOne}
-									selectedTwo={selectedTwo}
-									onCellClick={value => {
-										if (typeof selectOneClick === "function") {
-											selectOneClick(value);
-										}
-										if (typeof selectTwoClick === "function") {
-											selectTwoClick(value);
-										}
-									}}
-								></ToDoCalendarRow>
-							</div>
-						</div>
-						<div className="todo-calendar__row">
-							<div className="todo-calendar__row__date">
-								<ToDoCalendarRow
-									currMonth={showDate.getMonth()}
-									notes={noteWithLayer}
-									dateList={showDateList.slice(35, 42)}
-									selectedOne={selectedOne}
-									selectedTwo={selectedTwo}
-									onCellClick={value => {
-										if (typeof selectOneClick === "function") {
-											selectOneClick(value);
-										}
-										if (typeof selectTwoClick === "function") {
-											selectTwoClick(value);
-										}
-									}}
-								></ToDoCalendarRow>
-							</div>
-						</div>
+						{/* ROWS */}
+						{renderRowList}
 					</>
 				)}
 

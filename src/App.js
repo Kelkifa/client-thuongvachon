@@ -8,6 +8,7 @@ import {
   Switch
 } from "react-router-dom";
 import { Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Admin from 'features/admin/Admin';
 import AdminLayout from 'layouts/AdminLayout';
@@ -22,11 +23,12 @@ import NotFound from 'components/NotFound';
 import ToDoMain from 'features/ToDo/ToDoMain';
 import { authFirstAccess } from 'features/auth/authSlice';
 import { gameClientGet } from 'features/game/gameSlice';
-import { useDispatch } from 'react-redux';
+import { groupGet } from 'features/group/groupSlice';
 
 function App() {
   const dispatch = useDispatch();
 
+  const isAuth = useSelector(state => state.auth.isAuth);
   useEffect(() => {
     const firstFetchData = async () => {
       if (!dispatch) return;
@@ -45,6 +47,19 @@ function App() {
 
     firstFetchData();
   }, [dispatch])
+
+  useEffect(() => {
+    const fetchGetGroup = async () => {
+      try {
+        await dispatch(groupGet());
+      } catch (err) {
+        console.log(err);
+
+      }
+    }
+
+    fetchGetGroup();
+  }, [isAuth, dispatch])
 
   // Render
   return (

@@ -1,14 +1,17 @@
 import "./toDo.scss";
 
+import {setSelectedNote, todoGet} from "../todoSlice";
+import {useDispatch, useSelector} from "react-redux";
+
 import React from "react";
 import ToDoCalendar from "../components/ToDoCalendar";
 import ToDoForm from "../components/ToDoForm";
-import TodoList from "../components/TodoList";
-import {useSelector} from "react-redux";
+import TodoList from "../components/TodoList/TodoList";
+import {useEffect} from "react";
 import {useState} from "react";
 
 ToDo.propTypes = {};
-
+const now = new Date();
 function ToDo(props) {
 	/** useState
 	 *  Schema: {
@@ -17,22 +20,46 @@ function ToDo(props) {
 	 *      handleColor: {type: Func(value, error, setFieldValue), desc: func to change event color}
 	 *  }
 	 */
+	const dispatch = useDispatch();
+
 	const [handleChangeValue, setHandleChangeValue] = useState({});
+
+	const [showYearAndMonth, setShowYearAndMonth] = useState({
+		year: now.getFullYear(),
+		month: now.getMonth(),
+	});
 
 	const [selectedOne, setSelectedOne] = useState();
 	const [selectedTwo, setSelectedTwo] = useState();
+
+	// const [selectedNote, setSelectedNote] = useState({});
+	const selectedNote = useSelector(state => state.todos.user.selectedNote);
+
+	const handleSetSelectedNote = note => {
+		dispatch(setSelectedNote(note));
+	};
+
+	const groupId = useSelector(state => state.groups.selectedGroup._id);
 
 	const todoInfo = useSelector(state => state.todos.user);
 
 	const noteList = todoInfo.data.map(value => ({
 		_id: value._id,
-		content: value.content,
-		from: new Date(value.from.year, value.from.month - 1, value.from.date),
-		to: new Date(value.to.year, value.to.month - 1, value.to.date),
-		startTime: value.startTime,
-		endTime: value.endTime,
+		content: value.title,
+		from: new Date(value.from),
+		to: new Date(value.to),
 		color: value.color,
+		todoList: value.todoList,
 	}));
+
+	// useEffect
+	useEffect(() => {
+		const fetchNoteList = async () => {
+			await dispatch(todoGet({groupId, ...showYearAndMonth}));
+		};
+
+		fetchNoteList();
+	}, [showYearAndMonth, dispatch, groupId]);
 
 	// on Date in Calendar Click
 	const handleDateClick = date => {
@@ -69,6 +96,9 @@ function ToDo(props) {
 								className="todo__calendar"
 								id={calendarId}
 								noteList={noteList}
+								setShowYearAndMonth={setShowYearAndMonth}
+								selectedNote={selectedNote}
+								setSelectedNote={handleSetSelectedNote}
 								selectedDate={handleChangeValue}
 								selectedOne={handleChangeValue.name ? selectedOne : undefined}
 								selectedTwo={handleChangeValue.name ? selectedTwo : undefined}
@@ -109,11 +139,15 @@ function ToDo(props) {
 						</div>
 					</div>
 				</div>
-				<div className="c-6 m-12 todo__list custom-scroll">
-					<TodoList
+				<div className="c-6 m-12 todo__list">
+					{/* <TodoList
 						className="todo__list__component custom-scroll"
 						isLoading={todoInfo.loading}
 						noteList={noteList}
+					/> */}
+					<TodoList
+						selectedNote={selectedNote}
+						setSelectedNote={handleSetSelectedNote}
 					/>
 				</div>
 			</div>

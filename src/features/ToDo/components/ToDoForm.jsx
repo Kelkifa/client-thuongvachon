@@ -69,22 +69,32 @@ function ToDoForm({
 
 		const [endDay, endMonth, endYear] = values.to.split("/");
 
+		const startTime = values.startTime.split(":");
+		const endTime = values.endTime.split(":");
+		// {
+		// 	date: parseInt(endDay),
+		// 	month: parseInt(endMonth),
+		// 	year: parseInt(endYear),
+		// }
 		const data = {
-			to: {
-				date: parseInt(endDay),
-				month: parseInt(endMonth),
-				year: parseInt(endYear),
-			},
-			from: {
-				date: parseInt(startDay),
-				month: parseInt(startMonth),
-				year: parseInt(startYear),
-			},
-			startTime: values.startTime.split(":"),
-			endTime: values.endTime.split(":"),
-			content: values.content,
+			from: new Date(
+				startYear,
+				startMonth - 1,
+				startDay,
+				startTime[0],
+				startTime[1]
+			).toISOString(),
+			to: new Date(
+				endYear,
+				endMonth - 1,
+				endDay,
+				endTime[0],
+				endTime[1]
+			).toISOString(),
+			title: values.content,
 			color: values.color,
 		};
+		console.log(data);
 		try {
 			setNotifice({...notifice, isProcessing: true});
 			await dispatch(todoCreate({data, groupId}));

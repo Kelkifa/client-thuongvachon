@@ -3,6 +3,7 @@ import "./todoCalendarLayer.scss";
 import CalendarNote from "./CalendarNote";
 import PropTypes from "prop-types";
 import React from "react";
+import clsx from "clsx";
 import {useState} from "react";
 
 ToDoCalendarLayer.propTypes = {
@@ -31,7 +32,7 @@ function ToDoCalendarLayer(props) {
 	// };
 	return (
 		<div
-			className={`calendar-layer ${isActive ? "calendar-layer--active" : ""}`}
+			className={clsx("calendar-layer", {"calendar-layer--active": isActive})}
 			onClick={() => {
 				setIsActive(!isActive);
 			}}

@@ -1,0 +1,29 @@
+.todo-manage {
+	padding-top: 17px;
+
+	&__tab {
+		padding: 0;
+		margin: 0;
+
+		list-style: none;
+
+		display: grid;
+		grid-template-columns: 3fr 3fr 2fr;
+
+		&__item {
+			text-align: center;
+
+			padding: 7px 0;
+
+			border: 1.5px solid rgba(0, 0, 0, 0.37);
+			border-bottom: none;
+			border-top: none;
+			background-color: rgba(0, 0, 0, 0.445);
+
+			cursor: pointer;
+			&--selected {
+				background-color: transparent;
+			}
+		}
+	}
+}
