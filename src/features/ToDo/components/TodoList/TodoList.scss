@@ -7,7 +7,7 @@ $titleHeigth: 60px;
 	display: block;
 	padding: 10px;
 
-	height: 100%;
+	height: 650px;
 
 	&__toolbar {
 		display: grid;
@@ -76,7 +76,7 @@ $titleHeigth: 60px;
 		}
 
 		&__notes {
-			height: calc(100% - #{$addHeight});
+			max-height: 500px;
 			list-style: none;
 			margin: 0;
 			padding: 0;
@@ -86,7 +86,7 @@ $titleHeigth: 60px;
 				justify-content: space-between;
 				align-items: center;
 
-				padding: 6px 0;
+				padding: 10px 0;
 
 				&__left {
 					display: flex;

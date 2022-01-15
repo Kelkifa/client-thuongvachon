@@ -7,6 +7,7 @@ Table.propTypes = {
 	// children: PropTypes.element,
 	rowHighlight: PropTypes.string,
 	rowHover: PropTypes.string,
+	maxHeight: PropTypes.string,
 };
 
 Table.defaultProps = {
@@ -14,18 +15,22 @@ Table.defaultProps = {
 	children: null,
 	rowHighlight: "#f2f2f2",
 	rowHover: "rgba(175, 205, 236, 0.603)",
+	maxHeight: undefined,
 };
 
-function Table(props) {
+export default function Table(props) {
 	// PROPS
-	const {headerList, children, rowHighlight, rowHover} = props;
+	const {headerList, children, rowHighlight, rowHover, maxHeight} = props;
 
 	// RENDER
 	return (
-		<div className="custom-scroll">
+		<div className="custom-scroll" style={maxHeight ? {maxHeight} : {}}>
 			<table
 				className="component-table"
-				style={{"--rowHighlight": rowHighlight, "--rowHover": rowHover}}
+				style={{
+					"--rowHighlight": rowHighlight,
+					"--rowHover": rowHover,
+				}}
 			>
 				<thead>
 					<tr>
@@ -40,5 +45,3 @@ function Table(props) {
 		</div>
 	);
 }
-
-export default Table;

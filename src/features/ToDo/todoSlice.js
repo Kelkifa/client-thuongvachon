@@ -12,6 +12,13 @@ export const todoCreate = createAsyncThunk('todo/todoCreate', async (data) => {
     return response;
 })
 
+// Get passed notes
+// data: {groupId}
+export const getPassedNotes = createAsyncThunk('todo/getPassedNotes', async (data) => {
+    const response = await todoApi.getPassedNotes(data);
+    return response;
+})
+
 // data : {groupId, todoName, todoId}
 export const todoAdd = createAsyncThunk('todo/todoAdd', async (data) => {
     const response = await todoApi.addTodo(data);
@@ -36,10 +43,25 @@ export const todoDelete = createAsyncThunk('todo/todoDelete', async (data) => {
     return response;
 });
 
+// data: {groupId, noteList}
+export const todoDeleteMulti = createAsyncThunk('todo/todoDeleteMulti', async (data) => {
+    const response = await todoApi.deleteMulti(data);
+    return response;
+});
+
 // Delete a todo
 // data: {groupId, todoId, noteId}
 export const todoDeleteTodo = createAsyncThunk('todo/todoDeleteTodo', async (data) => {
     const response = await todoApi.deleteTodo(data);
+    response.noteId = data.noteId;
+    response.todoId = data.todoId;
+    return response;
+})
+
+// Search a todo in group
+// data: {groupId, search}
+export const todoSearch = createAsyncThunk('todo/todoSearch', async (data) => {
+    const response = await todoApi.search(data);
     return response;
 })
 
@@ -99,35 +121,12 @@ const todoSlice = createSlice({
 
         // ADD TODO
         [todoAdd.pending]: (state, action) => {
-            // const payload = action.meta.arg;
 
-            // const todoIndex = state.user.data.findIndex(todo => todo._id === payload.todoId);
-            // if (todoIndex === -1) return state;
-
-            // state.user.data[todoIndex].todoList.push({ todo: payload.todoName, state: false });
-            // if (state.user.selectedNote._id !== payload.todoId) return state;
-            // state.user.selectedNote.todoList.push({ todo: payload.todoName, state: false });
-            // return state;
         },
         [todoAdd.rejected]: (state, action) => {
 
         },
         [todoAdd.fulfilled]: (state, action) => {
-            // const todoIndex = state.user.data.findIndex(todo => todo._id === action.payload.todoId);
-            // if (todoIndex === -1) return state;
-
-            // if (!action.payload.success) {
-            //     state.user.data = state.user.data.filter(todo => state.user.data[todoIndex]._id !== todo._id);
-            //     return state
-            // };
-
-
-            // state.user.data[todoIndex] = action.payload.response;
-            // if (state.user.selectedNote._id !== action.payload.response._id) return state;
-
-            // state.user.selectedNote.todoList = action.payload.response.todoList;
-            // return state;
-
             if (!action.payload.success) return state;
 
             const noteIndex = state.user.data.findIndex(note =>
@@ -198,6 +197,30 @@ const todoSlice = createSlice({
             return state;
         },
 
+        // DELETE MULTI
+        [todoDeleteMulti.pending]: (state, action) => {
+
+            const { noteList } = action.meta.arg;
+
+            state.user.data = state.user.data.map((note, index) => {
+                return { ...note, loading: noteList[index] === note._id ? true : false }
+            })
+            return state;
+
+        },
+        [todoDeleteMulti.fulfilled]: (state, action) => {
+            const { noteList } = action.meta.arg;
+            if (!action.payload.success) {
+                state.user.data = state.user.data.map((note, index) => {
+                    return { ...note, loading: undefined }
+                })
+                return state;
+            };
+
+            state.user.data = state.user.data.filter((note, index) => note._id !== noteList[index]);
+            return state;
+        },
+
         // DELETE TODO
         [todoDeleteTodo.pending]: (state, action) => {
             const payload = action.meta.arg;
@@ -206,7 +229,29 @@ const todoSlice = createSlice({
 
             state.user.selectedNote.todoList = state.user.selectedNote.todoList.filter(todo => todo._id !== payload.todoId);
             return state;
-        }
+        },
+        [todoDeleteTodo.fulfilled]: (state, action) => {
+            if (!action.payload.success) return state;
+
+            const { todoId, noteId } = action.payload.response;
+
+            const todoIndex = state.user.data.findIndex(note => note._id === noteId);
+
+            if (todoIndex === -1) return state;
+
+            state.user.data[todoIndex].todoList = state.user.data[todoIndex].todoList.filter(todo => todo._id !== todo.id);
+            return state;
+
+        },
+
+
+        // SEARCH
+        [todoSearch.pending]: (state, action) => {
+
+        },
+        [todoSearch.fulfilled]: (state, action) => {
+
+        },
     }
 })
 

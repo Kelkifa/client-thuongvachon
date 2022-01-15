@@ -94,7 +94,6 @@ function ToDoForm({
 			title: values.content,
 			color: values.color,
 		};
-		console.log(data);
 		try {
 			setNotifice({...notifice, isProcessing: true});
 			await dispatch(todoCreate({data, groupId}));
