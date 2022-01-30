@@ -1,14 +1,13 @@
 import "./TodoManage.scss";
 
-import {todoDelete, todoDeleteMulti} from "features/ToDo/todoSlice";
 import {useDispatch, useSelector} from "react-redux";
 
-import MultiCheckboxForm from "components/Form/MultiCheckboxForm";
-import PropTypes from "prop-types";
 import React from "react";
-import Table from "components/Table/Table";
+import TodoManageSearchbar from "./TodoManageSearchbar";
+import TodoManageTable from "./TodoManageTable";
 import clsx from "clsx";
 import {todoApi} from "api/todoApi";
+import {todoDeleteMulti} from "features/ToDo/todoSlice";
 import {useEffect} from "react";
 import {useState} from "react";
 
@@ -26,6 +25,7 @@ function setStateByResponse(isLoading, response) {
 
 /* MAIN COMPONENT */
 export default function TodoManage(props) {
+	const dispatch = useDispatch();
 	const [selectedTab, setSelectedTab] = useState(0); // 0: Hiện tại, 1: Đã qua, 2: Tìm kiếm
 
 	const currNoteList = useSelector(state => {
@@ -34,12 +34,19 @@ export default function TodoManage(props) {
 	});
 
 	const [noteInfo, setNoteInfo] = useState(currNoteList);
-	console.log(noteInfo);
 
 	const groupId = useSelector(state => state.groups.selectedGroup._id);
 
-	const onSearchClick = async search => {
+	useEffect(() => {
+		if (selectedTab !== 0) return;
+		setNoteInfo(currNoteList);
+	}, [currNoteList, selectedTab]);
+
+	/** HANDLE FUNCTIONS */
+	// Search
+	const handleSearchClick = async search => {
 		try {
+			setNoteInfo(setStateByResponse(true));
 			const response = await todoApi.search({groupId, search});
 			setNoteInfo(setStateByResponse(false, response));
 		} catch (err) {
@@ -47,16 +54,83 @@ export default function TodoManage(props) {
 		}
 	};
 
+	// delete notes
+	const handleDelete = async noteList => {
+		try {
+			// Add field loading
+			setNoteInfo({
+				...noteInfo,
+				data: noteInfo.data.map((note, index) => ({
+					...note,
+					loading: note._id === noteList[index] ? true : false,
+				})),
+			});
+
+			const response = await dispatch(todoDeleteMulti({groupId, noteList}));
+
+			if (response.payload.success) {
+				setNoteInfo({
+					...noteInfo,
+					data: noteInfo.data.filter(
+						(note, index) => note._id !== noteList[index]
+					),
+				});
+				return;
+			}
+			setNoteInfo({
+				...noteInfo,
+				data: noteInfo.data.map((note, index) => ({
+					...note,
+					loading: note._id === noteList[index] ? false : true,
+				})),
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	// Change Tab
+	const handleTabChange = async tab => {
+		setSelectedTab(tab);
+		if (tab === 2) {
+			setNoteInfo({loading: false, error: null, data: []});
+			return;
+		}
+		setNoteInfo(setStateByResponse(true));
+		if (tab === 0) {
+			setNoteInfo(currNoteList);
+			return;
+		}
+		if (tab === 1) {
+			setNoteInfo(setStateByResponse(true));
+			try {
+				const response = await todoApi.getPassedNotes({groupId});
+				setNoteInfo(setStateByResponse(false, response));
+			} catch (err) {
+				console.log(err);
+				return;
+			}
+		}
+	};
+
+	/** RENDER */
 	return (
 		<div className="todo-manage">
-			<Tab selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-			{selectedTab < 2 && <TodoManageTable selectedTab={selectedTab} />}
+			<Tab selectedTab={selectedTab} onTabClick={handleTabChange} />
+			{selectedTab === 2 && (
+				<TodoManageSearchbar onSearchClick={handleSearchClick} />
+			)}
+			<TodoManageTable
+				selectedTab={selectedTab}
+				noteInfo={noteInfo}
+				handleNotesDelete={handleDelete}
+			/>
 		</div>
 	);
 }
 
 // Tab
-function Tab({selectedTab, setSelectedTab}) {
+function Tab({selectedTab, onTabClick}) {
 	return (
 		<ul className="todo-manage__tab">
 			<li
@@ -67,7 +141,7 @@ function Tab({selectedTab, setSelectedTab}) {
 					"todo-manage__tab__item"
 				)}
 				onClick={() => {
-					setSelectedTab(0);
+					onTabClick(0);
 				}}
 			>
 				Ghi Chú Hiện Tại
@@ -80,7 +154,7 @@ function Tab({selectedTab, setSelectedTab}) {
 					"todo-manage__tab__item"
 				)}
 				onClick={() => {
-					setSelectedTab(1);
+					onTabClick(1);
 				}}
 			>
 				Ghi Chú Đã Qua
@@ -93,237 +167,11 @@ function Tab({selectedTab, setSelectedTab}) {
 					"todo-manage__tab__item"
 				)}
 				onClick={() => {
-					setSelectedTab(2);
+					onTabClick(2);
 				}}
 			>
 				Tìm Kiếm
 			</li>
 		</ul>
-	);
-}
-
-// TODO LIST TABLE
-function TodoManageTable({selectedTab}) {
-	const dispatch = useDispatch();
-
-	const groupId = useSelector(state => state.groups.selectedGroup._id);
-	const currNoteList = useSelector(state => state.todos.user.data);
-
-	const [passedNoteList, setPassedNoteList] = useState([]);
-
-	useEffect(() => {
-		if (selectedTab !== 1) return;
-		const fetchPassedNoteList = async () => {
-			try {
-				const response = await todoApi.getPassedNotes({groupId});
-				// console.log(response);
-				if (response.success) {
-					setPassedNoteList(response.response);
-				}
-			} catch (err) {
-				console.log(err);
-			}
-		};
-		fetchPassedNoteList();
-	}, [selectedTab, groupId]);
-
-	const handleDelete = async (noteId, index) => {
-		console.log(index);
-		if (!noteId) return;
-		try {
-			if (selectedTab === 1) {
-				const copyPassedNoteList = [...passedNoteList];
-				copyPassedNoteList[index].loading = true;
-				setPassedNoteList(copyPassedNoteList);
-			}
-			const response = await dispatch(todoDelete({data: noteId, groupId}));
-			if (selectedTab === 1) {
-				const copyPassedNoteList = [...passedNoteList];
-				if (response.payload.success) {
-					copyPassedNoteList.splice(index, 1);
-					setPassedNoteList(copyPassedNoteList);
-					return;
-				}
-				copyPassedNoteList[index].loading = false;
-				setPassedNoteList(copyPassedNoteList);
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	};
-	const handleDeleteMulti = async checkedNoteList => {
-		console.log(checkedNoteList);
-		try {
-			if (checkedNoteList.lenght) return;
-
-			// Pending
-			if (selectedTab === 1) {
-				setPassedNoteList(
-					passedNoteList.map((note, index) => ({
-						...note,
-						loading: note._id === checkedNoteList[index] ? true : false,
-					}))
-				);
-			}
-			const response = await dispatch(
-				todoDeleteMulti({groupId, noteList: checkedNoteList})
-			);
-			if (selectedTab === 1) {
-				if (response.payload.success) {
-					setPassedNoteList(
-						passedNoteList.filter(
-							(note, index) => note._id !== checkedNoteList[index]
-						)
-					);
-					return;
-				}
-
-				setPassedNoteList(
-					passedNoteList.map(note => ({...note, loading: false}))
-				);
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
-	const tableHeader = ["", "Tên", "Từ", "Đến", "Option"];
-
-	const TableBody = ({noteList, multiCheckboxProps}) => {
-		const {handleChange, checkedData} = multiCheckboxProps;
-
-		return (
-			<>
-				{noteList.length === 0 && (
-					<tr>
-						<td style={{textAlign: "center"}} colSpan={tableHeader.length}>
-							Không có ghi chú nào
-						</td>
-					</tr>
-				)}
-				{noteList.map((note, index) => (
-					<tr
-						key={note._id}
-						style={{backgroundColor: note.color}}
-						className={clsx(
-							{
-								"todo-manage__table__item--loading": note.loading,
-							},
-							"todo-manage__table__item"
-						)}
-					>
-						<td style={{verticalAlign: "middle"}}>
-							<input
-								type="checkbox"
-								checked={checkedData[index] ? true : false}
-								disabled={note.loading}
-								onChange={e => {
-									handleChange(e.target.checked, index);
-								}}
-							/>
-						</td>
-						<td>{note.title}</td>
-						<td>{note.from}</td>
-						<td>{note.to}</td>
-						<td>
-							<div
-								className={clsx({
-									"todo-manage__table__item__option-btn--disabled":
-										note.loading,
-									"todo-manage__table__item__option-btn": !note.loading,
-								})}
-								onClick={() => {
-									if (note.loading) return;
-									handleDelete(note._id, index);
-								}}
-							>
-								Xóa
-							</div>
-							<div
-								className={clsx({
-									"todo-manage__table__item__option-btn--disabled":
-										note.loading,
-									"todo-manage__table__item__option-btn": !note.loading,
-								})}
-							>
-								Sửa
-							</div>
-						</td>
-					</tr>
-				))}
-			</>
-		);
-	};
-
-	return (
-		<div className="todo-manage__table">
-			<h3 className="todo-manage__table__title">Danh Sách các sự kiện</h3>
-
-			<MultiCheckboxForm
-				dataList={
-					selectedTab === 0
-						? currNoteList.map(note => note._id)
-						: passedNoteList.map(note => note._id)
-				}
-			>
-				{multiCheckboxProps => {
-					const {handleCheckedAll, checkedData} = multiCheckboxProps;
-
-					return (
-						<>
-							<div className="todo-manage__table__control">
-								{/* Control */}
-								<div className="todo-manage__table__control__left">
-									<input
-										type="checkbox"
-										onChange={e => {
-											handleCheckedAll(e.target.checked);
-										}}
-										checked={
-											checkedData.findIndex(value => value === undefined) === -1
-												? true
-												: false
-										}
-									/>{" "}
-									Chọn tất cả
-								</div>
-								<div
-									className="todo-manage__table__control__right"
-									onClick={() => {
-										handleDeleteMulti(checkedData);
-									}}
-								>
-									Xóa (
-									{checkedData.reduce((preValue, value) => {
-										return value !== undefined ? preValue + 1 : preValue;
-									}, 0)}
-									)
-								</div>
-							</div>
-							<Table
-								headerList={tableHeader}
-								rowHighlight="rgba(0, 0, 0, 0.274)"
-								rowHover="rgba(0, 0, 0, 0.474)"
-								maxHeight="470px"
-							>
-								{selectedTab === 0 && (
-									<TableBody
-										noteList={currNoteList}
-										multiCheckboxProps={multiCheckboxProps}
-									/>
-								)}
-
-								{selectedTab === 1 && (
-									<TableBody
-										noteList={passedNoteList}
-										multiCheckboxProps={multiCheckboxProps}
-									/>
-								)}
-							</Table>
-						</>
-					);
-				}}
-			</MultiCheckboxForm>
-		</div>
 	);
 }

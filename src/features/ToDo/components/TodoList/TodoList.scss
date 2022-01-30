@@ -76,7 +76,7 @@ $titleHeigth: 60px;
 		}
 
 		&__notes {
-			max-height: 500px;
+			max-height: 460px;
 			list-style: none;
 			margin: 0;
 			padding: 0;
@@ -123,49 +123,27 @@ $titleHeigth: 60px;
 						color: rgba(241, 237, 237, 0.685);
 						font-size: 24px;
 						cursor: pointer;
+
+						&--error {
+							display: inline;
+							color: rgba(255, 0, 0, 0.822);
+
+							cursor: default;
+						}
 					}
 				}
 
-				&:hover {
+				&:not(.todo-list__body__notes__item--loading):hover {
 					background-color: rgba(255, 255, 255, 0.24);
 				}
 				&:hover &__right__icon {
 					display: inline;
 				}
+
+				&--loading {
+					opacity: 0.5;
+				}
 			}
-
-			// &--todo {
-			// 	display: flex;
-			// 	align-items: center;
-
-			// 	padding: 6px 0;
-
-			// 	&__cir {
-			// 		color: rgba(0, 0, 0, 0.404);
-			// 		font-size: $iconFontSize;
-			// 		border-radius: 1px solid black;
-			// 		cursor: pointer;
-
-			// 		&--tick {
-			// 			color: rgba(0, 128, 0, 0.726);
-
-			// 			&:hover {
-			// 				color: rgba(47, 177, 47, 0.726);
-			// 			}
-			// 		}
-			// 	}
-			// 	&__content {
-			// 		font-size: $fontSize;
-
-			// 		color: rgba(255, 255, 255, 0.781);
-
-			// 		padding: 0 10px;
-			// 	}
-
-			// 	&:hover {
-			// 		background-color: rgba(255, 255, 255, 0.24);
-			// 	}
-			// }
 		}
 	}
 }

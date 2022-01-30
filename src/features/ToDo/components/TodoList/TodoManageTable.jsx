@@ -1,87 +1,48 @@
-const {useDispatch} = require("react-redux");
+import MultiCheckboxForm from "components/Form/MultiCheckboxForm";
+import PropTypes from "prop-types";
+import Table from "components/Table/Table";
+import clsx from "clsx";
 
-function TodoManageTable({selectedTab, noteInfo}) {
+TodoManageTable.protoTypes = {
+	noteInfo: PropTypes.object,
+	handleNotesDelete: PropTypes.func,
+};
+TodoManageTable.defaultProps = {
+	noteInfo: {loading: false, error: "Client lỗi", data: []},
+	handleNotesDelete: () => {},
+};
+
+export default function TodoManageTable({noteInfo, handleNotesDelete}) {
 	const tableHeader = ["", "Tên", "Từ", "Đến", "Option"];
 
-	const TableBody = ({noteList, multiCheckboxProps}) => {
-		const {handleChange, checkedData} = multiCheckboxProps;
+	// FUNCTION HANDLE
+	const NotificeRow = ({loading, error}) => {
+		if (loading || error)
+			return (
+				<tr>
+					<td colSpan={tableHeader.length} style={{textAlign: "center"}}>
+						{loading ? "Đang tải ..." : error}
+					</td>
+				</tr>
+			);
 
 		return (
-			<>
-				{noteList.length === 0 && (
-					<tr>
-						<td style={{textAlign: "center"}} colSpan={tableHeader.length}>
-							Không có ghi chú nào
-						</td>
-					</tr>
-				)}
-				{noteList.map((note, index) => (
-					<tr
-						key={note._id}
-						style={{backgroundColor: note.color}}
-						className={clsx(
-							{
-								"todo-manage__table__item--loading": note.loading,
-							},
-							"todo-manage__table__item"
-						)}
-					>
-						<td style={{verticalAlign: "middle"}}>
-							<input
-								type="checkbox"
-								checked={checkedData[index] ? true : false}
-								disabled={note.loading}
-								onChange={e => {
-									handleChange(e.target.checked, index);
-								}}
-							/>
-						</td>
-						<td>{note.title}</td>
-						<td>{note.from}</td>
-						<td>{note.to}</td>
-						<td>
-							<div
-								className={clsx({
-									"todo-manage__table__item__option-btn--disabled":
-										note.loading,
-									"todo-manage__table__item__option-btn": !note.loading,
-								})}
-								onClick={() => {
-									if (note.loading) return;
-									handleDelete(note._id, index);
-								}}
-							>
-								Xóa
-							</div>
-							<div
-								className={clsx({
-									"todo-manage__table__item__option-btn--disabled":
-										note.loading,
-									"todo-manage__table__item__option-btn": !note.loading,
-								})}
-							>
-								Sửa
-							</div>
-						</td>
-					</tr>
-				))}
-			</>
+			<tr>
+				<td colSpan={tableHeader.length} style={{textAlign: "center"}}>
+					Bạn không có ghi chú nào
+				</td>
+			</tr>
 		);
 	};
-
+	// TABLE BODY
 	return (
 		<div className="todo-manage__table">
 			<h3 className="todo-manage__table__title">Danh Sách các sự kiện</h3>
 
-			<MultiCheckboxForm
-				dataList={
-					selectedTab === 0
-						? currNoteList.map(note => note._id)
-						: passedNoteList.map(note => note._id)
-				}
-			>
+			<MultiCheckboxForm dataList={noteInfo.data.map(note => note._id)}>
 				{multiCheckboxProps => {
-					const {handleCheckedAll, checkedData} = multiCheckboxProps;
+					const {handleCheckedAll, checkedData, handleChange} =
+						multiCheckboxProps;
 
 					return (
 						<>
@@ -94,7 +55,8 @@ function TodoManageTable({selectedTab, noteInfo}) {
 											handleCheckedAll(e.target.checked);
 										}}
 										checked={
-											checkedData.findIndex(value => value === undefined) === -1
+											checkedData.findIndex(value => value === undefined) ===
+												-1 && checkedData.length !== 0
 												? true
 												: false
 										}
@@ -104,7 +66,7 @@ function TodoManageTable({selectedTab, noteInfo}) {
 								<div
 									className="todo-manage__table__control__right"
 									onClick={() => {
-										handleDeleteMulti(checkedData);
+										handleNotesDelete(checkedData);
 									}}
 								>
 									Xóa (
@@ -120,19 +82,50 @@ function TodoManageTable({selectedTab, noteInfo}) {
 								rowHover="rgba(0, 0, 0, 0.474)"
 								maxHeight="470px"
 							>
-								{selectedTab === 0 && (
-									<TableBody
-										noteList={currNoteList}
-										multiCheckboxProps={multiCheckboxProps}
-									/>
-								)}
-
-								{selectedTab === 1 && (
-									<TableBody
-										noteList={passedNoteList}
-										multiCheckboxProps={multiCheckboxProps}
-									/>
-								)}
+								{(noteInfo.loading ||
+									noteInfo.error ||
+									noteInfo.data.length === 0) && <NotificeRow {...noteInfo} />}
+								{noteInfo.data.map((note, index) => (
+									<tr
+										key={note._id}
+										style={{backgroundColor: note.color}}
+										className={clsx(
+											{
+												"todo-manage__table__item--loading": note.loading,
+											},
+											"todo-manage__table__item"
+										)}
+									>
+										<td style={{verticalAlign: "middle"}}>
+											<input
+												type="checkbox"
+												checked={checkedData[index] ? true : false}
+												disabled={note.loading}
+												onChange={e => {
+													handleChange(e.target.checked, index);
+												}}
+											/>
+										</td>
+										<td>{note.title}</td>
+										<td>{note.from}</td>
+										<td>{note.to}</td>
+										<td style={{verticalAlign: "middle"}}>
+											<div
+												className={clsx({
+													"todo-manage__table__item__option-btn--disabled":
+														note.loading,
+													"todo-manage__table__item__option-btn": !note.loading,
+												})}
+												onClick={() => {
+													if (note.loading) return;
+													handleNotesDelete([note._id]);
+												}}
+											>
+												Xóa
+											</div>
+										</td>
+									</tr>
+								))}
 							</Table>
 						</>
 					);

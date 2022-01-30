@@ -2,10 +2,10 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 // require('dotenv').config();
-// const productURL = 'https://thuongvachon.herokuapp.com/api';
-const devURL = 'http://localhost:8080/api';
+const productURL = 'https://thuongvachon.herokuapp.com/api';
+// const devURL = 'http://localhost:8080/api';
 const axiosClient = axios.create({
-    baseURL: devURL,
+    baseURL: productURL,
     headers: {
         'content-type': 'application/json',
     },
@@ -15,15 +15,6 @@ const axiosClient = axios.create({
 
 // APi Resquest
 axiosClient.interceptors.request.use(async config => {
-
-    // const currentUser = firebase.auth().currentUser;
-
-    // if (currentUser) {
-    //     const token = await currentUser.getIdToken();
-    //     config.headers.Authorization = `Bearer ${token}`;
-    // }
-
-    // return config;
 
     const token = localStorage.getItem('token');
     if (token) {

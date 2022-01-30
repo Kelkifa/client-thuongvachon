@@ -4,6 +4,7 @@ import {BsCircleFill, BsPlusCircle} from "react-icons/bs";
 import {todoChangeState, todoDeleteTodo} from "features/ToDo/todoSlice";
 import {useDispatch, useSelector} from "react-redux";
 
+import {BiError} from "react-icons/bi";
 import {FaCheckCircle} from "react-icons/fa";
 import {IoIosArrowBack} from "react-icons/io";
 import PropTypes from "prop-types";
@@ -11,6 +12,7 @@ import React from "react";
 import {TiDelete} from "react-icons/ti";
 import TodoListFormAdd from "./TodoListFormAdd";
 import TodoManage from "./TodoManage";
+import clsx from "clsx";
 import {useState} from "react";
 
 TodoList.propTypes = {
@@ -50,13 +52,10 @@ export default function TodoList({selectedNote, setSelectedNote}) {
 				<TodoManage />
 			) : (
 				// Todo List
-				<>
-					<h3 className="todo-list__title">Danh Sách Công việc</h3>
-					<TodoListBody
-						selectedNote={selectedNote}
-						setSelectedNote={setSelectedNote}
-					/>
-				</>
+				<TodoListBody
+					selectedNote={selectedNote}
+					setSelectedNote={setSelectedNote}
+				/>
 			)}
 		</div>
 	);
@@ -92,64 +91,78 @@ function TodoListBody({selectedNote, setSelectedNote}) {
 	if (!selectedNote._id)
 		return (
 			<div className="todo-list__text">
+				<h3 className="todo-list__title">Danh Sách Công việc</h3>
 				Nhấn vô 1 ghi chú trên lịch để xem danh sách các công việc
 			</div>
 		);
 
 	return (
-		<ul className="todo-list__body">
-			<li
-				className="todo-list__body__add"
-				onClick={() => {
-					setIsShowAddForm(!isShowAddForm);
-				}}
-			>
-				<BsPlusCircle className="todo-list__body__add__icon" />
-				<p className="todo-list__body__add__text">Thêm công việc</p>
-			</li>
-
-			{isShowAddForm && (
-				<li>
-					<TodoListFormAdd
-						todoId={selectedNote._id}
-						setSelectedNote={setSelectedNote}
-					/>
+		<>
+			<h3 className="todo-list__title">Danh Sách Công việc</h3>
+			<ul className="todo-list__body">
+				<li
+					className="todo-list__body__add"
+					onClick={() => {
+						setIsShowAddForm(!isShowAddForm);
+					}}
+				>
+					<BsPlusCircle className="todo-list__body__add__icon" />
+					<p className="todo-list__body__add__text">Thêm công việc</p>
 				</li>
-			)}
-			<ul className="todo-list__body__notes custom-scroll">
-				{selectedNote.todoList.map((value, index) => (
-					<li className="todo-list__body__notes__item" key={index}>
-						<div className="todo-list__body__notes__item__left">
-							{value.state ? (
-								<FaCheckCircle
-									className="todo-list__body__notes__item__left__cir todo-list__body__notes__item__left__cir--tick"
-									onClick={() => {
-										handleChangeState(false, value._id);
-									}}
-								/>
-							) : (
-								<BsCircleFill
-									className="todo-list__body__notes__item__left__cir"
-									onClick={() => {
-										handleChangeState(true, value._id);
-									}}
-								/>
-							)}
-							<div className="todo-list__body__notes__item__left__content">
-								{value.todo}
-							</div>
-						</div>
-						<div className="todo-list__body__notes__item__right">
-							<TiDelete
-								className="todo-list__body__notes__item__right__icon"
-								onClick={() => {
-									handleDelte(value._id);
-								}}
-							/>
-						</div>
+
+				{isShowAddForm && (
+					<li>
+						<TodoListFormAdd
+							todoId={selectedNote._id}
+							setSelectedNote={setSelectedNote}
+						/>
 					</li>
-				))}
+				)}
+				<ul className="todo-list__body__notes custom-scroll">
+					{selectedNote.todoList.map((value, index) => (
+						<li
+							className={clsx("todo-list__body__notes__item", {
+								"todo-list__body__notes__item--loading": value.loading,
+							})}
+							key={index}
+						>
+							<div className="todo-list__body__notes__item__left">
+								{value.state ? (
+									<FaCheckCircle
+										className="todo-list__body__notes__item__left__cir todo-list__body__notes__item__left__cir--tick"
+										onClick={() => {
+											!value.loading && handleChangeState(false, value._id);
+										}}
+									/>
+								) : (
+									<BsCircleFill
+										className="todo-list__body__notes__item__left__cir"
+										onClick={() => {
+											!value.loading && handleChangeState(true, value._id);
+										}}
+									/>
+								)}
+								<div className="todo-list__body__notes__item__left__content">
+									{value.todo}
+								</div>
+							</div>
+							<div className="todo-list__body__notes__item__right">
+								{!value.loading && !value.error && (
+									<TiDelete
+										className="todo-list__body__notes__item__right__icon"
+										onClick={() => {
+											handleDelte(value._id);
+										}}
+									/>
+								)}
+								{value.error && (
+									<BiError className="todo-list__body__notes__item__right__icon todo-list__body__notes__item__right__icon--error" />
+								)}
+							</div>
+						</li>
+					))}
+				</ul>
 			</ul>
-		</ul>
+		</>
 	);
 }

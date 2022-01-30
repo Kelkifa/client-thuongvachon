@@ -78,28 +78,8 @@ function ToDoCalendar({
 	}, [showDate]);
 
 	const noteWithLayer = useMemo(() => {
-		// const notesInMonth = noteList.filter(
-		// 	// value =>
-		// 	// 	value.from <= showDateList[showDateList.length - 1] &&
-		// 	// 	value.to >= showDateList[0]
-		// 	note => {
-		// 		if (
-		// 			note.to < showDateList[0] ||
-		// 			note.from > showDateList[showDateList.length - 1]
-		// 		)
-		// 			return false;
-		// 		return true;
-		// 	}
-		// );
-
 		return getLayerNote(noteList);
-	}, [noteList, showDateList]);
-
-	// const notesInMonth = noteList.filter(
-	// 	value =>
-	// 		value.from <= showDateList[showDateList.length - 1] &&
-	// 		value.to >= showDateList[0]
-	// );
+	}, [noteList]);
 
 	const renderRowList = [];
 	for (let i = 0; i < 6; i++) {

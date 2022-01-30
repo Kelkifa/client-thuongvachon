@@ -89,7 +89,8 @@ const todoSlice = createSlice({
     extraReducers: {
         // GET
         [todoGet.pending]: (state, action) => {
-            state.user.loading = true;
+            state.user = { loading: true, error: null, data: [] }
+            return state;
         },
         [todoGet.rejected]: (state, action) => {
             state.user.loading = false;
@@ -121,13 +122,31 @@ const todoSlice = createSlice({
 
         // ADD TODO
         [todoAdd.pending]: (state, action) => {
+            const payload = action.meta.arg;
+
+            // if (state.user.selectedNote._id === payload.noteId)
+            state.user.selectedNote.todoList.push({ todo: payload.todoName, state: false, loading: true })
+
+            return state;
 
         },
         [todoAdd.rejected]: (state, action) => {
 
         },
         [todoAdd.fulfilled]: (state, action) => {
-            if (!action.payload.success) return state;
+            console.log(action);
+            if (!action.payload.success) {
+                const payload = action.meta.arg;
+                if (state.user.selectedNote._id === payload.todoId) {
+                    const foundTodoIndex = state.user.selectedNote.todoList.findIndex(todo => todo.todo === payload.todoName && todo.loading === true);
+                    if (foundTodoIndex === -1) return state;
+
+                    state.user.selectedNote.todoList[foundTodoIndex].error = action.payload.message ? true : action.payload.message
+
+                }
+                return state
+            }
+
 
             const noteIndex = state.user.data.findIndex(note =>
                 note._id === action.payload.response._id
@@ -233,7 +252,7 @@ const todoSlice = createSlice({
         [todoDeleteTodo.fulfilled]: (state, action) => {
             if (!action.payload.success) return state;
 
-            const { todoId, noteId } = action.payload.response;
+            const { noteId } = action.payload.response;
 
             const todoIndex = state.user.data.findIndex(note => note._id === noteId);
 

@@ -27,6 +27,59 @@
 		}
 	}
 
+	&__searchbar {
+		display: flex;
+
+		margin-top: 10px;
+		height: 40px;
+
+		$btn-width: 40px;
+		&__input {
+			display: flex;
+
+			height: 100%;
+			width: calc(100% - #{$btn-width});
+			padding: 0 10px;
+
+			font-size: 16px;
+
+			background-color: rgba(0, 0, 0, 0.432);
+			border: none;
+			outline: none;
+			color: rgba(255, 255, 255, 0.733);
+		}
+		&__btn {
+			width: $btn-width;
+			height: 100%;
+
+			outline: none;
+			border: none;
+			// background-color: #ad11718c;
+			background: radial-gradient(
+				circle at center,
+				rgba(255, 255, 255, 0.623) 0,
+				#c01f82b0 30%,
+				rgba(0, 0, 0, 0.384) 100%
+			);
+
+			border-radius: 0 1.4em 1.4em 0;
+
+			color: white;
+			font-size: 18px;
+
+			cursor: pointer;
+
+			&:hover {
+				background: radial-gradient(
+					circle at center,
+					rgba(255, 255, 255, 0.849) 0,
+					#da2594c7 30%,
+					rgba(0, 0, 0, 0.39) 100%
+				);
+			}
+		}
+	}
+
 	&__table {
 		color: rgba(255, 255, 255, 0.733);
 

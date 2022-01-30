@@ -1,9 +1,10 @@
+import "./TodoListFormAdd.scss";
+
 import * as yup from "yup";
 
 import {useDispatch, useSelector} from "react-redux";
 
 import {Formik} from "formik";
-import PropTypes from "prop-types";
 import React from "react";
 import {todoAdd} from "features/ToDo/todoSlice";
 
@@ -23,10 +24,9 @@ function TodoListFormAdd({todoId}) {
 	const handleSubmit = async (values, {resetForm}) => {
 		if (!todoId) return;
 		try {
-			const response = await dispatch(
-				todoAdd({todoName: values.name, groupId, todoId})
-			);
-			if (response.payload.success) resetForm();
+			resetForm();
+			await dispatch(todoAdd({todoName: values.name, groupId, todoId}));
+			// if (response.payload.success) resetForm();
 		} catch (err) {
 			console.log(err);
 		}
@@ -38,16 +38,9 @@ function TodoListFormAdd({todoId}) {
 			onSubmit={handleSubmit}
 		>
 			{formikProps => {
-				const {
-					handleSubmit,
-					handleChange,
-					handleBlur,
-					errors,
-					touched,
-					values,
-				} = formikProps;
+				const {handleSubmit, handleChange, handleBlur, values} = formikProps;
 				return (
-					<form onSubmit={handleSubmit}>
+					<form onSubmit={handleSubmit} className="todo-list__form-add">
 						<input
 							type="text"
 							name="name"

@@ -1,0 +1,36 @@
+.fast-fingers {
+	background-color: rgba(0, 0, 0, 0.596);
+
+	&__text {
+		font-size: 20px;
+		overflow: hidden;
+
+		--lineHeight: 26.67px;
+		max-height: calc(var(--lineHeight) * var(--line));
+
+		text-align: justify;
+
+		span {
+			display: inline;
+			height: var(--lineHeight);
+		}
+		// background-color: orange;
+		.text--true {
+			color: green;
+		}
+		.text--false {
+			color: red;
+		}
+		.text--focus {
+			background-color: rgba(202, 9, 115, 0.527);
+			// background-color: rgba(18, 212, 18, 0.432);
+		}
+		.text--fail-focus {
+			background-color: rgba(255, 0, 0, 0.651);
+		}
+	}
+
+	&__input {
+		width: 100%;
+	}
+}
