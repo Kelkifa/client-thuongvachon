@@ -40,7 +40,7 @@ export default function TodoManage(props) {
 	useEffect(() => {
 		if (selectedTab !== 0) return;
 		setNoteInfo(currNoteList);
-	}, [currNoteList, selectedTab]);
+	}, [currNoteList, selectedTab, groupId]);
 
 	/** HANDLE FUNCTIONS */
 	// Search

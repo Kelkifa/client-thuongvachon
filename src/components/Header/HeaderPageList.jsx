@@ -21,7 +21,8 @@ const MOBILE_SIZE = 650;
 function HeaderPageList({pageList, url}) {
 	// useState
 	const [isShow, setIsShow] = useState(
-		window.innerWidth < MOBILE_SIZE ? false : true
+		// window.innerWidth < MOBILE_SIZE ? false : true
+		false
 	);
 
 	return (

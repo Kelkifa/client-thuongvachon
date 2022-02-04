@@ -3,13 +3,16 @@ $iconFontSize: 35px;
 
 $titleHeigth: 60px;
 
+$toolbar-height: 18px;
+
 .todo-list {
 	display: block;
 	padding: 10px;
 
-	height: 650px;
+	height: calc(var(--calendar-h) + 357px);
 
 	&__toolbar {
+		height: $toolbar-height;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 
@@ -53,7 +56,8 @@ $titleHeigth: 60px;
 		margin: 0;
 		padding: 0;
 
-		height: calc(100% - #{$titleHeigth});
+		height: calc(100% - #{$toolbar-height} - #{$titleHeigth});
+
 		$addHeight: 50px;
 
 		&__add {
@@ -76,7 +80,7 @@ $titleHeigth: 60px;
 		}
 
 		&__notes {
-			max-height: 460px;
+			max-height: calc(100% - 90px);
 			list-style: none;
 			margin: 0;
 			padding: 0;

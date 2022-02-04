@@ -2,17 +2,18 @@ import "./toDo.scss";
 
 import {setSelectedNote, todoGet} from "../todoSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useRef, useState} from "react";
 
 import React from "react";
 import ToDoCalendar from "../components/ToDoCalendar";
 import ToDoForm from "../components/ToDoForm";
 import TodoList from "../components/TodoList/TodoList";
-import {useEffect} from "react";
-import {useState} from "react";
 
 ToDo.propTypes = {};
 const now = new Date();
 function ToDo(props) {
+	const calendarRef = useRef();
+
 	/** useState
 	 *  Schema: {
 	 *		name: {type: String, desc: name of field form}
@@ -93,6 +94,7 @@ function ToDo(props) {
 					<div className="row rg-30">
 						<div className="c-12">
 							<ToDoCalendar
+								ref={calendarRef}
 								className="todo__calendar"
 								id={calendarId}
 								noteList={noteList}
@@ -120,7 +122,6 @@ function ToDo(props) {
 								}
 							></ToDoCalendar>
 						</div>
-
 						<div className="c-12">
 							<ToDoForm
 								noteList={noteList}
@@ -140,12 +141,8 @@ function ToDo(props) {
 					</div>
 				</div>
 				<div className="c-6 m-12 todo__list">
-					{/* <TodoList
-						className="todo__list__component custom-scroll"
-						isLoading={todoInfo.loading}
-						noteList={noteList}
-					/> */}
 					<TodoList
+						ref={calendarRef}
 						selectedNote={selectedNote}
 						setSelectedNote={handleSetSelectedNote}
 					/>
