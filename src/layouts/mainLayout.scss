@@ -18,7 +18,8 @@ $bg-color: #7d68fb;
 
 	background-repeat: no-repeat;
 	background-image: url("gameBackground.jpg");
-	background-size: 100% auto;
+	background-size: cover;
+	background-position: top;
 
 	// aspect-ratio: 1034 / 565.83;
 
@@ -52,11 +53,11 @@ $bg-color: #7d68fb;
 	}
 }
 @media screen and (max-width: $mobile-width) {
-	.main-layout {
-		background-image: url("backgroundMobile.jpg");
-		background-size: cover;
-		// aspect-ratio: 1619 / 2880;
+	// .main-layout {
+	// 	background-image: url("backgroundMobile.jpg");
+	// 	background-size: cover;
+	// 	// aspect-ratio: 1619 / 2880;
 
-		width: 100%;
-	}
+	// 	width: 100%;
+	// }
 }

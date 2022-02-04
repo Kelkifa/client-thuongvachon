@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import React from "react";
 import {VscChromeClose} from "react-icons/vsc";
+import clsx from "clsx";
 import {useState} from "react";
 
 HeaderPageList.propTypes = {
@@ -17,13 +18,9 @@ HeaderPageList.defaultProps = {
 	url: null,
 };
 
-const MOBILE_SIZE = 650;
 function HeaderPageList({pageList, url}) {
 	// useState
-	const [isShow, setIsShow] = useState(
-		// window.innerWidth < MOBILE_SIZE ? false : true
-		false
-	);
+	const [isShow, setIsShow] = useState(false);
 
 	return (
 		<div
@@ -31,34 +28,47 @@ function HeaderPageList({pageList, url}) {
 			// Number item in header + close  --itemNumber is a css variable
 			style={{"--itemNumber": pageList.length + 2}}
 		>
-			{isShow ? (
-				<div className="header-page-list__list">
+			{isShow && (
+				<div className="header-page-list__mobile">
 					{pageList.map(value => (
 						<Link
-							onClick={() => {
-								if (window.innerWidth <= MOBILE_SIZE) setIsShow(false);
-							}}
 							key={value.text}
 							to={value.to}
-							className={`header-page-list__list__item ${
-								"/" + url === value.to
-									? "header-page-list__list__item--active"
-									: ""
-							}`}
+							className="header-page-list__mobile__item"
+							style={{height: `${100 / (pageList.length + 1)}%`}}
+							onClick={() => {
+								setIsShow(false);
+							}}
 						>
 							{value.text}
 						</Link>
 					))}
 					<div
-						className="header-page-list__list__item header-page-list__list__item--close"
 						onClick={() => {
 							setIsShow(false);
 						}}
+						className="header-page-list__mobile__item"
 					>
 						<VscChromeClose style={{color: "white", textdecoration: "none"}} />
 					</div>
 				</div>
-			) : (
+			)}
+
+			<div className="header-page-list__pc">
+				{pageList.map((page, index) => (
+					<Link
+						key={index}
+						to={page.to}
+						className={clsx("header-page-list__pc__item", {
+							"header-page-list__pc__item--active": "/" + url === page.to,
+						})}
+					>
+						{page.text}
+					</Link>
+				))}
+			</div>
+
+			{!isShow && (
 				<div className="header-page-list__menu-icon">
 					<FiMenu
 						onClick={() => {
