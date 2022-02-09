@@ -11,11 +11,11 @@ MultiCheckboxForm.defaultProps = {
 };
 
 function MultiCheckboxForm({dataList, children}) {
-	const enptyDataArr = dataList.map(value => undefined);
+	const enptyDataArr = dataList.map(value => null);
 	const [checkedData, setCheckedData] = useState(enptyDataArr);
 
 	useEffect(() => {
-		setCheckedData(dataList.map(value => undefined));
+		setCheckedData(dataList.map(value => null));
 	}, [dataList]);
 
 	/**
@@ -25,7 +25,7 @@ function MultiCheckboxForm({dataList, children}) {
 	 */
 	const handleChange = (value, index) => {
 		const copyCheckedData = [...checkedData];
-		copyCheckedData[index] = value ? dataList[index] : undefined;
+		copyCheckedData[index] = value ? dataList[index] : null;
 		setCheckedData(copyCheckedData);
 	};
 

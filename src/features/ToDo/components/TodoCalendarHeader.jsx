@@ -7,8 +7,10 @@ import {
 	FiChevronsRight,
 } from "react-icons/fi";
 
+import {AiOutlineLoading3Quarters} from "react-icons/ai";
 import PropTypes from "prop-types";
 import React from "react";
+import clsx from "clsx";
 import {roundedDown} from "./coreCalendar";
 
 TodoCalendarHeader.propTypes = {
@@ -19,6 +21,8 @@ TodoCalendarHeader.propTypes = {
 
 	showDate: PropTypes.object,
 	setShowDate: PropTypes.func,
+
+	isLoading: PropTypes.bool,
 
 	setShowYearAndMonth: PropTypes.func,
 
@@ -32,6 +36,8 @@ TodoCalendarHeader.defaultProps = {
 	viewType: 0,
 	setViewType: () => {},
 
+	isLoading: true,
+
 	showDate: new Date(),
 	setShowDate: () => {},
 	setShowYearAndMonth: () => {},
@@ -42,6 +48,7 @@ TodoCalendarHeader.defaultProps = {
 function TodoCalendarHeader(props) {
 	const {
 		className,
+		isLoading,
 
 		viewType,
 		setViewType,
@@ -147,6 +154,11 @@ function TodoCalendarHeader(props) {
 				className="todo-calendar__header__date"
 			>
 				{showDateEle}
+				{isLoading ? (
+					<AiOutlineLoading3Quarters className="todo-calendar__header__date__loading" />
+				) : (
+					<>&nbsp;&nbsp;</>
+				)}
 			</div>
 			<div
 				className="todo-calendar__header__btn"

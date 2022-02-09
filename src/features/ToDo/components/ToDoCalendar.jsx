@@ -1,7 +1,7 @@
 import "./ToDoCalendar.scss";
 
 import {getDateList, getLayerNote} from "features/ToDo/components/coreCalendar";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 import PropTypes from "prop-types";
 import React from "react";
@@ -17,6 +17,7 @@ const ToDoCalendar = React.forwardRef(
 			noteList,
 			id,
 			className,
+			isLoading,
 			selectedNote,
 			setSelectedNote,
 			selectedOne,
@@ -74,6 +75,12 @@ const ToDoCalendar = React.forwardRef(
 			);
 		}
 
+		useEffect(() => {
+			setShowYearAndMonth({
+				year: showDate.getFullYear(),
+				month: showDate.getMonth(),
+			});
+		}, [showDate, setShowYearAndMonth]);
 		// HANDLE FUNCTIONS
 
 		return (
@@ -90,6 +97,7 @@ const ToDoCalendar = React.forwardRef(
 						className="todo-calendar__row"
 						viewType={viewType}
 						setViewType={setViewType}
+						isLoading={isLoading}
 						showDate={showDate}
 						setShowDate={setShowDate}
 						currYearSelect={currYearSelect}

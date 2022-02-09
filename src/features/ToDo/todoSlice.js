@@ -221,20 +221,41 @@ const todoSlice = createSlice({
 
             const { noteList } = action.meta.arg;
 
+            if (noteList.length === 1 && state.user.data.length > 1) {
+                state.user.data = state.user.data.map((note, index) => {
+                    return { ...note, loading: noteList[0] === note._id ? true : false }
+                })
+                return state;
+            }
+
             state.user.data = state.user.data.map((note, index) => {
                 return { ...note, loading: noteList[index] === note._id ? true : false }
             })
             return state;
-
         },
         [todoDeleteMulti.fulfilled]: (state, action) => {
             const { noteList } = action.meta.arg;
             if (!action.payload.success) {
+
+                if (noteList.length === 1 && state.user.data.length > 1) {
+                    state.user.data = state.user.data.map((note, index) => {
+                        return { ...note, loading: noteList[0] === note._id ? undefined : note.loading }
+                    })
+
+                    return state;
+                }
+
                 state.user.data = state.user.data.map((note, index) => {
                     return { ...note, loading: undefined }
                 })
                 return state;
             };
+
+            if (noteList.length === 1 && state.user.data.length > 1) {
+                state.user.data = state.user.data.filter((note, index) => note._id !== noteList[0])
+
+                return state;
+            }
 
             state.user.data = state.user.data.filter((note, index) => note._id !== noteList[index]);
             return state;

@@ -12,3 +12,12 @@ $bg-load-ligth: rgba(22, 22, 22, 0.267);
 		background-color: $bg-load;
 	}
 }
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

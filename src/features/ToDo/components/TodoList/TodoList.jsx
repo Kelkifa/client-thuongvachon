@@ -1,7 +1,7 @@
 import "./TodoList.scss";
 
 import {BsCircleFill, BsPlusCircle} from "react-icons/bs";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {todoChangeState, todoDeleteTodo} from "features/ToDo/todoSlice";
 import {useDispatch, useSelector} from "react-redux";
 

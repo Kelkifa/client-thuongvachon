@@ -40,7 +40,7 @@ export default function TodoManage(props) {
 	useEffect(() => {
 		if (selectedTab !== 0) return;
 		setNoteInfo(currNoteList);
-	}, [currNoteList, selectedTab, groupId]);
+	}, [selectedTab, groupId, currNoteList.data]);
 
 	/** HANDLE FUNCTIONS */
 	// Search
@@ -56,6 +56,7 @@ export default function TodoManage(props) {
 
 	// delete notes
 	const handleDelete = async noteList => {
+		// console.log(noteList);
 		try {
 			// Add field loading
 			setNoteInfo({

@@ -1,4 +1,5 @@
 import "./toDo.scss";
+import "assets/scss/components/animations.scss";
 
 import {setSelectedNote, todoGet} from "../todoSlice";
 import {useDispatch, useSelector} from "react-redux";
@@ -97,6 +98,7 @@ function ToDo(props) {
 								ref={calendarRef}
 								className="todo__calendar"
 								id={calendarId}
+								isLoading={todoInfo.loading}
 								noteList={noteList}
 								setShowYearAndMonth={setShowYearAndMonth}
 								selectedNote={selectedNote}
