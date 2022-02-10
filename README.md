@@ -50,6 +50,6 @@ src
 |__ index.js
 ```
 
-## Autho
+## About Author
 
-email: huanweb455@gmail.com
+email: plh455@gmail.com
