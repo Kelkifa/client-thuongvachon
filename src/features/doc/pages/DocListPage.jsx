@@ -62,7 +62,8 @@ function DocListPage({docInfo, groupType}) {
 			</div>
 
 			<div className="doc-list-page__list">
-				{groupType !== "demo" && <DocBtn type="add" goToUrl="docs/create" />}
+				{/* {groupType !== "demo" && <DocBtn type="add" goToUrl="docs/create" />} */}
+				<DocBtn type="add" goToUrl="docs/create" />
 				{docInfo.data.map((doc, index) => (
 					<DocBtn
 						key={doc._id}

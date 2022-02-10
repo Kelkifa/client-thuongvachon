@@ -10,7 +10,6 @@ import {
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
 import PropTypes from "prop-types";
 import React from "react";
-import clsx from "clsx";
 import {roundedDown} from "./coreCalendar";
 
 TodoCalendarHeader.propTypes = {
