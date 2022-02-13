@@ -32,11 +32,11 @@ const headerItemList = [
 		to: "/todo",
 	},
 	{
-		text: "Docs",
+		text: "Doc",
 		to: "/docs",
 	},
 	{
-		text: "Groups",
+		text: "Group",
 		to: "/groups",
 	},
 ];

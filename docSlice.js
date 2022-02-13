@@ -181,3 +181,5 @@ const docSlice = createSlice({
 const { reducer: docReducer } = docSlice;
 
 export default docReducer;
+
+
