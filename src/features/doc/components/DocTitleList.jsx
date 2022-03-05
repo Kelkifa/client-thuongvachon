@@ -1,11 +1,10 @@
 import "../pages/DocListPage.scss";
 
-import {useDispatch, useSelector} from "react-redux";
-
 import DocBtn from "./DocBtn";
 import PropTypes from "prop-types";
 import React from "react";
 import {docDeleteContent} from "../docSlice";
+import {useDispatch} from "react-redux";
 import {useHistory} from "react-router";
 import {useState} from "react";
 
@@ -26,7 +25,7 @@ function DocTitleList({docId, name, contents}) {
 
 	const history = useHistory();
 
-	const groupType = useSelector(state => state.groups.selectedGroup.type);
+	// const groupType = useSelector(state => state.groups.selectedGroup.type);
 
 	const [isFixMode, setIsFixMode] = useState(false);
 

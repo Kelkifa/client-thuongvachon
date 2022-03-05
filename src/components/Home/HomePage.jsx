@@ -7,9 +7,9 @@ function HomePage(props) {
 		<div className="home-page grid wide">
 			<h2 className="home-page__title">Tổng Quan</h2>
 			<div>
-				Website giúp người dùng tạo nhóm để chia sẻ các tài liệu hoặc danh sách
-				công việc cần làm để cho các thành viên trong nhóm có thêm xem hoặc
-				thêm, xóa, sửa, ...
+				Website giúp người dùng giúp người dùng tạo nhóm để chia sẻ các tài liệu
+				hoặc danh sách công việc cần làm giúp các thành viên trong nhóm có thể
+				xem hoặc thao tác (thêm, xóa, sửa, ... )
 			</div>
 
 			<h3>Group</h3>

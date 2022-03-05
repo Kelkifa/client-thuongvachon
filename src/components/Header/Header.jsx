@@ -4,7 +4,6 @@ import HeaderAuth from "./components/HeaderAuth";
 import HeaderGroupSelect from "./components/HeaderGroupSelect";
 import HeaderPageList from "./HeaderPageList";
 import React from "react";
-import {useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 

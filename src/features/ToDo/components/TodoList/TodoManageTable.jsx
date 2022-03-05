@@ -44,6 +44,8 @@ export default function TodoManageTable({noteInfo, handleNotesDelete}) {
 					const {handleCheckedAll, checkedData, handleChange} =
 						multiCheckboxProps;
 
+					console.log(checkedData);
+
 					return (
 						<>
 							<div className="todo-manage__table__control">
@@ -55,8 +57,9 @@ export default function TodoManageTable({noteInfo, handleNotesDelete}) {
 											handleCheckedAll(e.target.checked);
 										}}
 										checked={
-											checkedData.findIndex(value => value === undefined) ===
-												-1 && checkedData.length !== 0
+											checkedData.findIndex(
+												value => value === null || value === undefined
+											) === -1 && checkedData.length !== 0
 												? true
 												: false
 										}
@@ -71,7 +74,7 @@ export default function TodoManageTable({noteInfo, handleNotesDelete}) {
 								>
 									Xóa (
 									{checkedData.reduce((preValue, value) => {
-										return value !== undefined ? preValue + 1 : preValue;
+										return value !== null ? preValue + 1 : preValue;
 									}, 0)}
 									)
 								</div>

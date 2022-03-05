@@ -94,6 +94,10 @@ function ToDoForm({
 			title: values.content,
 			color: values.color,
 		};
+		if (data.from > data.to) {
+			alert("Thời gian bắt đầu phải nhở hơn thời gian kết thúc");
+			return;
+		}
 		try {
 			setNotifice({...notifice, isProcessing: true});
 			await dispatch(todoCreate({data, groupId}));

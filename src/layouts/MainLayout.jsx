@@ -1,5 +1,6 @@
 import "./mainLayout.scss";
 
+import Footer from "components/footer";
 import Header from "components/Header/Header";
 import React from "react";
 
@@ -13,11 +14,11 @@ function MainLayout(props) {
 	// RENDER
 	return (
 		<div className="main-layout custom-scroll">
-			{/* <div className="main-layout__background"></div> */}
-			<div className="main-layout__content">
+			<div className="main-layout__container">
 				<Header />
-				<div className="main-layout__content__body">{children}</div>
+				<div className="main-layout__body">{children}</div>
 			</div>
+			<Footer />
 		</div>
 	);
 }
